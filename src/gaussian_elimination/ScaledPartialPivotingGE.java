@@ -29,17 +29,33 @@ public class ScaledPartialPivotingGE {
 //		ge.printSolution(x);
 		
 		
+		// test case 2
+		Double[] row1 = {0., 9., 2., 2.};
+		Double[] row2 = {7., 0., 6., 0.};
+		Double[] row3 = {1., 6., 4., 6.};
+		Double[][] matrix = {row1, row2, row3};
+		
 		ScaledPartialPivotingGE ge = null;
 		try {
-			ge = new ScaledPartialPivotingGE(3, 3, 0., 4.);
+			ge = new ScaledPartialPivotingGE(matrix);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		ge.printMatrix(matrix);
 		Number[] x = ge.solve();
-		System.out.println("-------");
-		ge.printMatrix(ge.matrix);
-		System.out.println("-------");
 		ge.printSolution(x);
+		
+		// random values
+//		ScaledPartialPivotingGE ge = null;
+//		try {
+//			ge = new ScaledPartialPivotingGE(3, 4, 0., 10.);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		Number[] x = ge.solve();
+//		System.out.println("-------");
+//		ge.printSolution(x);
 	}
 	
 	
@@ -80,6 +96,7 @@ public class ScaledPartialPivotingGE {
 	}
 	
 	public Number[] solve() {	
+		
 		// the indices of the rows in the matrix
 		Integer[] indexVector = new Integer[matrix.length];
 		for (int i = 0; i < matrix.length; i++) {
@@ -94,7 +111,7 @@ public class ScaledPartialPivotingGE {
 		}
 		
 		// iterate over all rows using this as the column index
-		for (int columnIndex = 0; columnIndex < matrix.length; columnIndex++) {
+		for (int columnIndex = 0; columnIndex < matrix.length - 1; columnIndex++) {
 			printMatrix(matrix);
 			Double[] ratios = new Double[matrix.length - columnIndex];
 
@@ -107,23 +124,35 @@ public class ScaledPartialPivotingGE {
 			}
 			
 			// swap pivot & maxValues values towards front; this is not done during the last iteration
-			if (columnIndex != matrix[0].length - 2) {
-				int largestValueIndex = getMaxValueIndex(ratios);
+			if (columnIndex != matrix.length - 1) {
+				int largestValueIndex = indexVector[getMaxValueIndex(ratios)];
 				swap(scaleVector, columnIndex, largestValueIndex);
 				swap(indexVector, columnIndex, largestValueIndex);
 			}
 			
 			Double[] pivotRow = matrix[indexVector[columnIndex]];
+			// pivotRow is matrix[indexVector[columnIndex]]
+			// one of the nonPivotRow = matrix[indexVector[i]]
 			
-			// multiply all rows except pivot to make coefficients of the column 0
+			// multiply all rows except pivot to make leading coefficients of the column 0
 			for (int i = columnIndex + 1; i < matrix.length; i++) {
-				Double multiplier = matrix[indexVector[i]][columnIndex] / pivotRow[columnIndex];
-				subtract(multiplier, matrix[indexVector[columnIndex]], matrix[indexVector[i]]);
+				Double leadingCoefficient = matrix[indexVector[i]][columnIndex];
+				Double pivotLeadingCoefficient = pivotRow[columnIndex];
+				
+				Double multiplier = leadingCoefficient / pivotLeadingCoefficient;
+				// arg3 = arg1 * arg2 - arg3;
+				subtract(multiplier, pivotRow, matrix[indexVector[i]]);
 			}
 			
 		}
 		printMatrix(matrix);
-		Double[] x = backSubstitute(indexVector);
+		Double[] x = null;
+		try {
+			x = backSubstitute(indexVector);
+		} catch (Exception e) {
+			// it's possible there are no solutions
+			e.printStackTrace();
+		}
 		return x;
 	}
 	
@@ -134,7 +163,7 @@ public class ScaledPartialPivotingGE {
 	private int getMaxValueIndex(Double[] vector) {
 		Double maxValue = Math.abs(vector[0]);
 		int indexOfMaxValue = 0;
-		for (int i = 0; i < vector.length; i++) {
+		for (int i = 1; i < vector.length; i++) {
 			Double thisElement = Math.abs(vector[i]); 
 			if (thisElement > maxValue) {
 				maxValue = thisElement;
@@ -167,30 +196,35 @@ public class ScaledPartialPivotingGE {
 	
 	/**
 	 * Attempts to solve a matrix with back substitution.
-	 * @param indices Indicates the order of each row that was used as a pivot in the elimination method 
+	 * @param indexVector Indicates the order of each row that was used as a pivot in the elimination method 
 	 * @return The vector x
 	 */
-	private Double[] backSubstitute(Integer[] indices) {
+	private Double[] backSubstitute(Integer[] indexVector) throws Exception {
+		boolean infiniteSolutions = false;
+		boolean[] freeVariables = new boolean[matrix[0].length - 1];
 		Double[] x = new Double[matrix[0].length - 1];
 		
-		for (int rowIndex = indices.length - 1; rowIndex >= 0; rowIndex--) {
-			Double[] row = matrix[indices[rowIndex]];
+		// iterate through each row in the matrix
+		for (int rowIndex = indexVector.length - 1; rowIndex >= 0; rowIndex--) {
+			Double[] row = matrix[indexVector[rowIndex]];
 			Double rowSum = row[row.length - 1];
 			Double divisor = null;
 			Integer indexOfXToSolveFor = null;
-			// iterate over each column in the row
+			
+			// iterate over each column in the row except the last
 			for (int columnIndex = 0; columnIndex < row.length - 1; columnIndex++) {
 				Double coefficient = row[columnIndex];
-				if (coefficient == 0.0) {
+				if (coefficient.equals(0.0) || coefficient.equals(-0.0)) {
 					continue;
 				} else {
 					if (x[columnIndex] == null) {
-						// solve for this x
-						divisor = coefficient;
-						if (indexOfXToSolveFor != null) {
-							// something is not right
-						} else {
+						if (divisor == null) {
+							// solve for this x
+							divisor = coefficient;
 							indexOfXToSolveFor = columnIndex;
+						} else {
+							// multiple values of x need to be "solved" for; thus there are infinitely many solutions
+							throw new Exception("The matrix contains infinite solutions.");
 						}
 					} else {
 						// already found this x
@@ -199,7 +233,11 @@ public class ScaledPartialPivotingGE {
 				}
 			}
 			// end of iterating over columns of the row
-			x[indexOfXToSolveFor] = rowSum / divisor;
+			if (divisor == null) {
+				throw new Exception("The matrix has no solution as 0.0 != constant");
+			} else {
+				x[indexOfXToSolveFor] = rowSum / divisor;
+			}
 		}
 		return x;
 	}
@@ -231,6 +269,9 @@ public class ScaledPartialPivotingGE {
 	}
 	
 	public void printSolution(Object[] vector) {
+//		if (vector == null) {
+//			System.out.println("The matrix has no solution");
+//		}
 		for (Integer i = 0; i < vector.length; i++) {
 			String xNumber = Integer.toString(i + 1);
 			System.out.println("x" + xNumber + " = " + vector[i]);
