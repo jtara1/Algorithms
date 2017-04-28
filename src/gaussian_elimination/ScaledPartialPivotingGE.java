@@ -9,53 +9,8 @@ public class ScaledPartialPivotingGE {
 //	private Double[] x = null;
 	
 	public static void main(String[] args) {
-		// basic test case
-//		Double[] row1 = {2.0, 4., 5.};
-//		Double[] row2 = {-1., 2., 3.};
-//		Double[][] matrix = {row1, row2};
-//		
-//		ScaledPartialPivotingGE ge = null;
-//		try {
-//			ge = new ScaledPartialPivotingGE(matrix);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		ge.printMatrix(matrix);
-//		Number[] x = ge.solve();
-//		System.out.println("-------");
-//		ge.printMatrix(matrix);
-//		System.out.println("-------");
-//		ge.printSolution(x);
-		
-		
-		// test case 2
-		Double[] row1 = {0., 9., 2., 2.};
-		Double[] row2 = {7., 0., 6., 0.};
-		Double[] row3 = {1., 6., 4., 6.};
-		Double[][] matrix = {row1, row2, row3};
-		
-		ScaledPartialPivotingGE ge = null;
-		try {
-			ge = new ScaledPartialPivotingGE(matrix);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		ge.printMatrix(matrix);
-		Number[] x = ge.solve();
-		ge.printSolution(x);
-		
-		// random values
-//		ScaledPartialPivotingGE ge = null;
-//		try {
-//			ge = new ScaledPartialPivotingGE(3, 4, 0., 10.);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		Number[] x = ge.solve();
-//		System.out.println("-------");
-//		ge.printSolution(x);
+		UnitTest ut = new UnitTest();
+		ut.testCase3();
 	}
 	
 	
@@ -125,7 +80,7 @@ public class ScaledPartialPivotingGE {
 			
 			// swap pivot & maxValues values towards front; this is not done during the last iteration
 			if (columnIndex != matrix.length - 1) {
-				int largestValueIndex = indexVector[getMaxValueIndex(ratios)];
+				int largestValueIndex = indexVector[getMaxValueIndex(ratios) + columnIndex];
 				swap(scaleVector, columnIndex, largestValueIndex);
 				swap(indexVector, columnIndex, largestValueIndex);
 			}
@@ -274,7 +229,7 @@ public class ScaledPartialPivotingGE {
 //		}
 		for (Integer i = 0; i < vector.length; i++) {
 			String xNumber = Integer.toString(i + 1);
-			System.out.println("x" + xNumber + " = " + vector[i]);
+			System.out.println("x" + xNumber + " = " + vector[i] == null ? "free variable" : vector[i]);
 		}
 	}
 	
