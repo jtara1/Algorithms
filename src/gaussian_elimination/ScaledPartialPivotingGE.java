@@ -4,6 +4,12 @@ import java.lang.Math;
 import java.util.Random;
 import java.lang.Exception;
 
+/**
+ * Solve a system of linear equations using the 
+ * Scaled Partial Pivoting with Gaussian Elimination method
+ * @author James T
+ *
+ */
 public class ScaledPartialPivotingGE {
 	private Double[][] matrix = null;
 //	private Double[] x = null;
@@ -51,6 +57,7 @@ public class ScaledPartialPivotingGE {
 	}
 	
 	public Number[] solve() {	
+		printMatrix(matrix);
 		
 		// the indices of the rows in the matrix
 		Integer[] indexVector = new Integer[matrix.length];
@@ -67,7 +74,7 @@ public class ScaledPartialPivotingGE {
 		
 		// iterate over all rows using this as the column index
 		for (int columnIndex = 0; columnIndex < matrix.length - 1; columnIndex++) {
-			printMatrix(matrix);
+//			printMatrix(matrix);
 			Double[] ratios = new Double[matrix.length - columnIndex];
 
 			// calculate ratios
@@ -98,9 +105,10 @@ public class ScaledPartialPivotingGE {
 				// arg3 = arg1 * arg2 - arg3;
 				subtract(multiplier, pivotRow, matrix[indexVector[i]]);
 			}
+			printMatrix(matrix);
 			
 		}
-		printMatrix(matrix);
+//		printMatrix(matrix);
 		Double[] x = null;
 		try {
 			x = backSubstitute(indexVector);
@@ -155,7 +163,6 @@ public class ScaledPartialPivotingGE {
 	 * @return The vector x
 	 */
 	private Double[] backSubstitute(Integer[] indexVector) throws Exception {
-		boolean[] freeVariables = new boolean[matrix[0].length - 1];
 		Double[] x = new Double[matrix[0].length - 1];
 		
 		// iterate through each row in the matrix
@@ -169,7 +176,7 @@ public class ScaledPartialPivotingGE {
 			for (int columnIndex = 0; columnIndex < row.length - 1; columnIndex++) {
 				Double coefficient = row[columnIndex];
 				// if the coefficient is 0.0 with some possible floating point error
-				if (coefficient > -9E-15 && coefficient < 9E-15) {
+				if (coefficient > -9E-13 && coefficient < 9E-13) {
 					continue;
 				} else {
 					if (x[columnIndex] == null) {
@@ -188,8 +195,12 @@ public class ScaledPartialPivotingGE {
 				}
 			}
 			// end of iterating over columns of the row
-			if (divisor == null) {
+			if (divisor == null && !(rowSum > -9E-13 && rowSum < 9E-13)) {
+				// avoids attempting to divide by null
 				throw new Exception("The matrix has no solution as 0.0 != constant");
+			} else if (divisor == null) {
+				// the entire row is zero
+				continue;
 			} else {
 				x[indexOfXToSolveFor] = rowSum / divisor;
 			}
@@ -223,13 +234,14 @@ public class ScaledPartialPivotingGE {
 		System.out.println();
 	}
 	
+	/**
+	 * Prints each element in arg vector with "xi = " to indicate which value is it
+	 * @param vector
+	 */
 	public void printSolution(Object[] vector) {
-//		if (vector == null) {
-//			System.out.println("The matrix has no solution");
-//		}
 		for (Integer i = 0; i < vector.length; i++) {
 			String xNumber = Integer.toString(i + 1);
-			System.out.println("x" + xNumber + " = " + vector[i] == null ? "free variable" : vector[i]);
+			System.out.println("x" + xNumber + " = " + (vector[i] == null ? "free variable" : vector[i]));
 		}
 	}
 	

@@ -2,7 +2,7 @@ package gaussian_elimination;
 
 /**
  * Includes a number of test cases to check the functionality of ScaledPartialPivotingGE
- * @author j
+ * @author James T
  *
  */
 public class UnitTest {
@@ -10,7 +10,7 @@ public class UnitTest {
 		UnitTest ut = new UnitTest();
 //		ut.testCase1();
 //		ut.testCase2();
-		ut.testRandomValues(5, 6);
+		ut.testRandomValues(100, 101);
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class UnitTest {
 		// random values
 		ScaledPartialPivotingGE ge = null;
 		try {
-			ge = new ScaledPartialPivotingGE(rows, columns, 0., 10.);
+			ge = new ScaledPartialPivotingGE(rows, columns, -100., 100.);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
