@@ -10,7 +10,7 @@ public class ScaledPartialPivotingGE {
 	
 	public static void main(String[] args) {
 		UnitTest ut = new UnitTest();
-		ut.testCase3();
+		ut.testCase4();
 	}
 	
 	
@@ -80,7 +80,7 @@ public class ScaledPartialPivotingGE {
 			
 			// swap pivot & maxValues values towards front; this is not done during the last iteration
 			if (columnIndex != matrix.length - 1) {
-				int largestValueIndex = indexVector[getMaxValueIndex(ratios) + columnIndex];
+				int largestValueIndex = getMaxValueIndex(ratios) + columnIndex;
 				swap(scaleVector, columnIndex, largestValueIndex);
 				swap(indexVector, columnIndex, largestValueIndex);
 			}
