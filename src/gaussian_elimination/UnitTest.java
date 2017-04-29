@@ -10,7 +10,7 @@ public class UnitTest {
 		UnitTest ut = new UnitTest();
 //		ut.testCase1();
 //		ut.testCase2();
-		ut.testRandomValues(3, 4);
+		ut.testRandomValues(5, 6);
 	}
 	
 	/**
@@ -87,6 +87,30 @@ public class UnitTest {
 		Double[] row2 = {9., 7., 3., 2.};
 		Double[] row3 = {7., 7., 9., 5.};
 		Double[][] matrix = {row1, row2, row3};
+		
+		ScaledPartialPivotingGE ge = null;
+		try {
+			ge = new ScaledPartialPivotingGE(matrix);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ge.printMatrix(matrix);
+		Number[] x = ge.solve();
+		ge.printSolution(x);
+	}
+	
+	/**
+	 * 5 x 6
+	 */
+	public void testCase5() {
+		Double[] row1 = {4., 4., 9., 6., 5., 1.};
+		Double[] row2 = {4., 8., 2., 2., 3., 6.};
+		Double[] row3 = {3., 1., 6., 0., 3., 7.};
+		Double[] row4 = {7., 9., 0., 2., 8., 4.};
+		Double[] row5 = {2., 2., 5., 3., 0., 4.};
+		
+		Double[][] matrix = {row1, row2, row3, row4, row5};
 		
 		ScaledPartialPivotingGE ge = null;
 		try {

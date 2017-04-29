@@ -10,7 +10,7 @@ public class ScaledPartialPivotingGE {
 	
 	public static void main(String[] args) {
 		UnitTest ut = new UnitTest();
-		ut.testCase4();
+		ut.testCase5();
 	}
 	
 	
@@ -155,7 +155,6 @@ public class ScaledPartialPivotingGE {
 	 * @return The vector x
 	 */
 	private Double[] backSubstitute(Integer[] indexVector) throws Exception {
-		boolean infiniteSolutions = false;
 		boolean[] freeVariables = new boolean[matrix[0].length - 1];
 		Double[] x = new Double[matrix[0].length - 1];
 		
@@ -169,7 +168,8 @@ public class ScaledPartialPivotingGE {
 			// iterate over each column in the row except the last
 			for (int columnIndex = 0; columnIndex < row.length - 1; columnIndex++) {
 				Double coefficient = row[columnIndex];
-				if (coefficient.equals(0.0) || coefficient.equals(-0.0)) {
+				// if the coefficient is 0.0 with some possible floating point error
+				if (coefficient > -9E-15 && coefficient < 9E-15) {
 					continue;
 				} else {
 					if (x[columnIndex] == null) {
