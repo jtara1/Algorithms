@@ -8,8 +8,8 @@ package gaussian_elimination;
 public class UnitTest {
 	public static void main(String[] args) {
 		UnitTest ut = new UnitTest();
-//		ut.testCase1();
-//		ut.testCase2();
+		ut.testCase1();
+		ut.testCase2();
 		ut.testRandomValues(100, 101);
 	}
 	

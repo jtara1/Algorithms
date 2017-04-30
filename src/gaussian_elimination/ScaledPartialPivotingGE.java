@@ -12,19 +12,24 @@ import java.lang.Exception;
  */
 public class ScaledPartialPivotingGE {
 	private Double[][] matrix = null;
-//	private Double[] x = null;
 	
-	public static void main(String[] args) {
-		UnitTest ut = new UnitTest();
-		ut.testCase5();
-	}
-	
-	
+	/**
+	 * Constructor that'll create a matrix with random values.
+	 * @param rows number of rows for the matrix
+	 * @param columns number of columns for the matrix
+	 * @param rangeStart inclusive beginning for generating random values
+	 * @param rangeEnd inclusive end for generating random values
+	 */
 	public ScaledPartialPivotingGE(int rows, int columns, Double rangeStart, Double rangeEnd) {
 		// create matrix of size rows x columns with random values
 		matrix = getRandomMatrix(rows, columns, rangeStart, rangeEnd);
 	}
 	
+	/**
+	 * 
+	 * @param matrix
+	 * @throws Exception rows should not be > columns
+	 */
 	public ScaledPartialPivotingGE(Double[][] matrix) throws Exception {
 		if (matrix.length >= matrix[0].length - 1)
 			this.matrix = matrix;
@@ -32,6 +37,14 @@ public class ScaledPartialPivotingGE {
 			throw new Exception("invalid matrix size; requirements: m >= n - 1 for a m x n matrix");
 	}
 	
+	/**
+	 * Generate matrix with random values.
+	 * @param rows number of rows for the matrix
+	 * @param columns number of columns for the matrix
+	 * @param valueRangeBegin inclusive beginning for generating random values
+	 * @param valueRangeEnd inclusive end for generating random values
+	 * @return
+	 */
 	public static Double[][] getRandomMatrix(int rows, int columns, Double valueRangeBegin, Double valueRangeEnd) {
 		Random random = new Random();
 		
@@ -56,6 +69,11 @@ public class ScaledPartialPivotingGE {
 		return matrix;
 	}
 	
+	/**
+	 * Solves a matrix by using scaled partial pivoting with Gaussian Elimination
+	 * then back substitution
+	 * @return the x vector containing the value of each x
+	 */
 	public Number[] solve() {	
 		printMatrix(matrix);
 		
@@ -102,7 +120,7 @@ public class ScaledPartialPivotingGE {
 				Double pivotLeadingCoefficient = pivotRow[columnIndex];
 				
 				Double multiplier = leadingCoefficient / pivotLeadingCoefficient;
-				// arg3 = arg1 * arg2 - arg3;
+				// arg3 -= arg1 * arg2;
 				subtract(multiplier, pivotRow, matrix[indexVector[i]]);
 			}
 			printMatrix(matrix);
@@ -113,13 +131,14 @@ public class ScaledPartialPivotingGE {
 		try {
 			x = backSubstitute(indexVector);
 		} catch (Exception e) {
-			// it's possible there are no solutions
+			// it's possible there are no solutions or infinite solutions
 			e.printStackTrace();
 		}
 		return x;
 	}
 	
 	/**
+	 * Worst time complexity: O(n)
 	 * @param vector
 	 * @return index of the largest value in the array
 	 */
@@ -149,11 +168,11 @@ public class ScaledPartialPivotingGE {
 	}
 	
 	/**
-	 * Mutates vector2 such that vector2 = multiplier * vector1 - vector2
+	 * Mutates vector2 such that vector2 = vector2 - multiplier * vector1
 	 */
 	private void subtract(Double multiplier, Double[] vector1, Double[] vector2) {
 		for (int i = 0; i < vector2.length; i++) {
-			vector2[i] = vector1[i] * multiplier - vector2[i]; 
+			vector2[i] -= vector1[i] * multiplier; 
 		}
 	}
 	
@@ -245,6 +264,10 @@ public class ScaledPartialPivotingGE {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return {@link #matrix}
+	 */
 	public Double[][] getMatrix() {
 		return matrix;
 	}

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Command line driven user interface to do operations with the binary search tree with integers as the data
+ * Command line driven user interface to do operations with a system of linear equations
  * @author James T
  *
  */
@@ -27,9 +27,6 @@ public class UserInterface {
 	 * Begin running the UI
 	 */
 	public void start() {
-//		System.out.print("Enter the number of equations (n): ");
-//		int rows = scanner.nextInt();
-
 		try {
 			menu();
 		} catch (Exception e) {
@@ -38,6 +35,10 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Menu of the UI
+	 * @throws Exception matrix could possibly have infinite solutions or no solution
+	 */
 	public void menu() throws Exception {
 		while (true) {
 			System.out.println(menuOptions);
@@ -61,9 +62,11 @@ public class UserInterface {
 				return;
 			case 3:
 				// generate coefficients as random values
+				long start = System.nanoTime();
 				ge = getNumberOfEquations();
 				x = ge.solve();
 				ge.printSolution(x);
+				System.out.printf("Seconds passed: %.2f\n", (System.nanoTime() - start) / 1000000000.);
 				return;
 			default:
 				System.out.println("Invalid input entered.");
@@ -72,6 +75,9 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * @return each row entered by user in a list until row == ""
+	 */
 	public List<String> getRowsFromCommandLine() {
 		List<String> rowsAsStrings = new ArrayList<String>();
 		System.out.println("Enter the coefficients for each row: ");
@@ -88,6 +94,9 @@ public class UserInterface {
 		return rowsAsStrings;
 	}
 	
+	/**
+	 * @return list of each row read from the fileName given via command line
+	 */
 	public List<String> getRowsFromFile() {
 		System.out.println("Enter the file name: ");
 		
@@ -100,6 +109,11 @@ public class UserInterface {
 		return null;
 	}
 	
+	/**
+	 * Parse a list of strings to store in a matrix as Doube[][]
+	 * @param rowsAsStrings What's being parsed
+	 * @return matrix parsed from the list
+	 */
 	public Double[][] listToMatrix(List<String> rowsAsStrings) {
 		Double[][] matrix = new Double[rowsAsStrings.size()][];
 		int rowIndex = 0;
@@ -118,7 +132,6 @@ public class UserInterface {
 			matrix[rowIndex] = row;
 			rowIndex++;
 		}
-		
 		return matrix;
 	}
 	
