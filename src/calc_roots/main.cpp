@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <ctgmath>
 #include "bisection.h"
 #include "calculate_roots.h"
 
@@ -22,8 +21,8 @@ double functionA(double x) {
 
 int main() {
 	double guesses[] = {0., 0.5};
-	CalculateRoots bisection = Bisection(functionA, guesses);
-	bisection.calculateRoots();
-	
+	CalculateRoots::functionOfX f = &functionA;
+	Bisection bisection = Bisection(f, guesses);
+
 	return 0;
 }

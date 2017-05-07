@@ -1,22 +1,24 @@
 #include <iostream>
 #include <iomanip>
 #include "bisection.h"
+//#include "calculate_roots.h"
 
 using namespace std;
 
-Bisection::Bisection(double (*f)(double), double *guesses) 
-: CalculateRoots(f, guesses) {
-	
+Bisection::Bisection(CalculateRoots::functionOfX f, double *guesses)
+: CalculateRoots::CalculateRoots(f, guesses) {
+    printIterationHeader();
+	calculateApproximation();
 }
 
 void Bisection::calculateApproximation() {
 	previousApproximation = approximation;
 	approximation = (x1 + x2) / 2;
-	
+
 	// root found
 	if (setupNextIteration())
 		return;
-		
+
 	printIteration();
 	iterations++;
 	// recursive call
@@ -24,7 +26,7 @@ void Bisection::calculateApproximation() {
 }
 
 bool Bisection::setupNextIteration() {
-	float signOfProduct = (*functionOfX)(x1) * (*functionOfX)(approximation);
+	float signOfProduct = f(x1) * f(approximation);
 	if (signOfProduct < 0)
 		x2 = approximation;
 	else if (signOfProduct > 0)
@@ -37,12 +39,12 @@ bool Bisection::setupNextIteration() {
 
 void Bisection::printIteration() {
 	cout << setw(10) << setprecision(3)
-		<< iterations << x1 << x2 << approximation << (*functionOfX)(x1) 
-		<< functionOfX(x2) << functionOfX(approximation);
+		<< iterations << x1 << x2 << approximation << f(x1)
+		<< f(x2) << f(approximation);
 	if (iterations == 0)
 		cout << endl;
 	else
-		cout << calculateRelativeError() << endl;
+		cout << CalculateRoots::calculateRelativeError() << endl;
 }
 
 void Bisection::printIterationHeader() {

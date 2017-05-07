@@ -22,7 +22,7 @@ class Bisection : public CalculateRoots {
 		void printIteration() override;
 		
 	public:
-		Bisection(double (*f)(double), double *);
+		Bisection(CalculateRoots::functionOfX, double *);
 };
 
 #endif

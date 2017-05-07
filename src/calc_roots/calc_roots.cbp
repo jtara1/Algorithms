@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="calc_roots" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/calc_roots" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/calc_roots" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="bisection.cpp" />
+		<Unit filename="bisection.h" />
+		<Unit filename="calculate_roots.cpp" />
+		<Unit filename="calculate_roots.h" />
+		<Unit filename="false_position.cpp" />
+		<Unit filename="false_position.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="newton_raphson.cpp" />
+		<Unit filename="newton_raphson.h" />
+		<Unit filename="secant.cpp" />
+		<Unit filename="secant.h" />
+		<Unit filename="secant_modified.cpp" />
+		<Unit filename="secant_modified.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
