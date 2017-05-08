@@ -1,5 +1,7 @@
 #include <cmath>
 #include <vector>
+#include <iostream>
+#include <iomanip>
 #include "calculate_roots.h"
 
 using namespace std;
@@ -10,21 +12,30 @@ CalculateRoots::CalculateRoots(functionOfX func, double *guesses) {
 	f = func;
 
 	x1 = guesses[0];
-	guesses++;
-	// if guess #2 provided
-	if (*guesses)
-		x2 = *guesses;
-	else
-		x2 = 0;
+	x2 = guesses[1];
 }
 
-//vector<double> CalculateRoots::calculateRoots() {
-//	CalculateRoots::printIterationHeader();
-//	CalculateRoots::calculateApproximation();
-//	return roots;
-//}
+vector<double> CalculateRoots::calculateRoots() {
+	printIterationHeader();
+	calculateApproximation();
+	return roots;
+}
 
 double CalculateRoots::calculateRelativeError() {
 	relativeError = abs(approximation - previousApproximation) / abs(approximation);
 	return relativeError;
+}
+
+void CalculateRoots::printItems(double *numbs, int size) {
+    for (double *pointer = numbs; pointer != numbs + size; pointer++) {
+        cout << setprecision(3) << setw(10) << *pointer;
+        cout.flush();
+    }
+}
+
+void CalculateRoots::printItems(string *items, int size) {
+    for (string *pointer = items; pointer != items + size; pointer++) {
+        cout << setw(10) << *pointer;
+        cout.flush();
+    }
 }

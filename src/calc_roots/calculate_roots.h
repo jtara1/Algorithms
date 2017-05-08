@@ -2,12 +2,18 @@
 #define CALCULATE_ROOTS_H
 
 #include <vector>
+#include <string>
 
 /**
  * Abstract class for calculating the roots of a function of x
  */
 class CalculateRoots {
 	public:
+	    /**
+	    * The approximation of zero (0.000000000000001)
+	    */
+	    static constexpr double NEAR_ZERO = 1e-15;
+
 		/**
 		 * A type of function that returns a double and takes
 		 * a double as an argument
@@ -21,7 +27,7 @@ class CalculateRoots {
 		 * Begin calculating the roots
 		 * Returns the vector containing all the roots
 		 */
-//		std::vector<double> calculateRoots();
+		std::vector<double> calculateRoots();
 
 	protected:
 		// function that's an attribute
@@ -57,6 +63,12 @@ class CalculateRoots {
 
 		// print all associated variables used in this iteration
 		virtual void printIteration() = 0;
+
+		// print an individual item for the table formatted
+		void printItems(double *, int);
+
+		// print each string in the array of string formatted
+		void printItems(std::string *, int);
 };
 
 #endif

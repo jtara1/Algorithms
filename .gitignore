@@ -1,3 +1,7 @@
+*.o
+*.bin
+*.exe
+
 *.class
 
 # Mobile Tools for Java (J2ME)
