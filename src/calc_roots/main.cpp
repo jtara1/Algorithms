@@ -4,6 +4,7 @@
 #include "calculate_roots.h"
 #include "bisection.h"
 #include "newton_raphson.h"
+#include "secant.h"
 
 using namespace std;
 
@@ -28,6 +29,13 @@ double functionB(double x) {
 	return x + 10 - x * cosh(50 / x);
 }
 
+/**
+ * Root at x = 1;
+ */
+double functionC(double x) {
+    return pow(x, 10.) - 1;
+}
+
 int main() {
     CalculateRoots::functionOfX fA = &functionA;
     CalculateRoots::functionOfX fPA = &fPrimeA;
@@ -42,6 +50,11 @@ int main() {
 	double guesses2[] = {0.5};
 	NewtonRaphson newton = NewtonRaphson(fA, fPA, guesses2);
 	roots = newton.calculateRoots();
+	cout << setprecision(15) << roots.at(0) << endl;
+
+    // funcA, root1, secant
+	Secant secant = Secant(fA, guesses);
+	roots = secant.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
 	return 0;

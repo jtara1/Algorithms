@@ -24,8 +24,10 @@ void NewtonRaphson::calculateApproximation() {
     printIteration();
     iterations++;
 
-    if (setupNextIteration())
+    if (setupNextIteration()) {
+        roots.push_back(approximation);
         return; // root found
+    }
     // recursive call
     calculateApproximation();
 }
