@@ -29,6 +29,29 @@ double CalculateRoots::calculateRelativeError() {
 	return relativeError;
 }
 
+bool CalculateRoots::exitConditionsMet() {
+    // reached max iterations
+    if (iterations > maxIterations)
+        return true;
+
+    // target relative error reached
+    else if (relativeError < targetRelativeError && iterations > 0) {
+        // possibly append roots vector with approximation
+        roots.push_back(approximation);
+        return true;
+    }
+    return false;
+}
+
+bool CalculateRoots::rootFound(double const nearZero) {
+//    double funcOfApprox = f(approximation);
+
+	// root found - we're at zero or extremely close to it
+	if (fapprox < nearZero && fapprox > -nearZero)
+        return true;
+    return false;
+}
+
 void CalculateRoots::printItems(double *numbs, int size) {
     for (double *pointer = numbs; pointer != numbs + size; pointer++) {
         cout << setprecision(3) << setw(10) << *pointer;
@@ -41,4 +64,8 @@ void CalculateRoots::printItems(string *items, int size) {
         cout << setw(10) << *pointer;
         cout.flush();
     }
+}
+
+double CalculateRoots::getApproximation() {
+    return approximation;
 }

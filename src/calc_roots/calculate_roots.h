@@ -32,6 +32,9 @@ class CalculateRoots {
 		 */
 		std::vector<double> calculateRoots();
 
+		/// returns the most recent approximation to the root
+		double getApproximation();
+
 	protected:
 		// function that's an attribute
 		functionOfX f;
@@ -59,6 +62,12 @@ class CalculateRoots {
 		virtual void calculateApproximation() = 0;
 
 		/**
+		 * Returns true if the root has been found at this approx using
+		 * fapprox
+		 */
+		bool rootFound(double const nearZero = NEAR_ZERO);
+
+		/**
 		 * Returns true if exact root found;
 		 * also does operations to setup for next iteration in finding
 		 * a root
@@ -67,6 +76,9 @@ class CalculateRoots {
 
 		// calc relative error (E sub a)
 		double calculateRelativeError();
+
+		/// checks if maxIterations exceeded or target rel. error reached
+		bool exitConditionsMet();
 
 		// print header for iteration values table
 		virtual void printIterationHeader() = 0;

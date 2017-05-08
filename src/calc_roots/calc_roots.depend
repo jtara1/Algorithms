@@ -1,35 +1,41 @@
 # depslib dependency file v1.0
-1494208086 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
+1494279137 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
 	<iostream>
 	<iomanip>
 	"bisection.h"
 
-1494121003 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.h
+1494275989 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.h
 	"calculate_roots.h"
 
-1494208132 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
+1494278385 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
 	<vector>
 	<string>
 
 1494096829 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.cpp
 
-1494203832 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
+1494279081 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
 	<iostream>
 	<cmath>
 	<iomanip>
-	"bisection.h"
 	"calculate_roots.h"
+	"bisection.h"
+	"newton_raphson.h"
 
-1494096799 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
+1494279109 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
+	<iostream>
+	"newton_raphson.h"
 
 1494096809 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
 
 1494096820 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
 
-1494207020 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
+1494278409 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
 	<cmath>
 	<vector>
 	<iostream>
 	<iomanip>
+	"calculate_roots.h"
+
+1494276646 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
 	"calculate_roots.h"
 
