@@ -6,13 +6,16 @@
 
 using namespace std;
 
-CalculateRoots::CalculateRoots(functionOfX func, double *guesses) {
+CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int maxIterations = 100, double targetRelativeError = 0.01) {
 	iterations = 0;
 
 	f = func;
 
 	x1 = guesses[0];
 	x2 = guesses[1];
+
+	this->maxIterations = maxIterations;
+	this->targetRelativeError = targetRelativeError;
 }
 
 vector<double> CalculateRoots::calculateRoots() {

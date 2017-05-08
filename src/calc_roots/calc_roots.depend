@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1494203356 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
+1494208086 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
 	<iostream>
 	<iomanip>
 	"bisection.h"
@@ -7,7 +7,7 @@
 1494121003 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.h
 	"calculate_roots.h"
 
-1494199611 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
+1494208132 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
 	<vector>
 	<string>
 
@@ -26,7 +26,7 @@
 
 1494096820 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
 
-1494200194 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
+1494207020 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
 	<cmath>
 	<vector>
 	<iostream>

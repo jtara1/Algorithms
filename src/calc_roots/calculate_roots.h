@@ -20,8 +20,11 @@ class CalculateRoots {
 		 */
 		typedef double (*functionOfX)(double);
 
-		// takes a function and an abitrary number of guesses
-		CalculateRoots(functionOfX, double *);
+		/**
+		 * takes a function and an abitrary number of
+		 * guesses and relative err. to exit at
+		 */
+		CalculateRoots(functionOfX, double *, int, double);
 
 		/**
 		 * Begin calculating the roots
@@ -33,11 +36,18 @@ class CalculateRoots {
 		// function that's an attribute
 		functionOfX f;
 
-		// approximation for this iteration & two x values to calc approx
-		double approximation, x1, x2, previousApproximation;
+		// values and function values used during each iteration
+		double x1, x2, fx1, fx2, fapprox;
+
+		// approximation for this iteration
+		double approximation, previousApproximation;
 
 		// errors calculated
-		double relativeError, absoluteError;
+		double relativeError = 100, absoluteError = 100;
+
+		// exit conditions
+		double targetRelativeError;
+		int maxIterations;
 
 		// all of the roots found for this function
 		std::vector<double> roots;
