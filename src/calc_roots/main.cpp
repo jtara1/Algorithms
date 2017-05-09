@@ -5,6 +5,7 @@
 #include "bisection.h"
 #include "newton_raphson.h"
 #include "secant.h"
+#include "secant_modified.h"
 
 using namespace std;
 
@@ -55,6 +56,11 @@ int main() {
     // funcA, root1, secant
 	Secant secant = Secant(fA, guesses);
 	roots = secant.calculateRoots();
+	cout << setprecision(15) << roots.at(0) << endl;
+
+    // funcA, root1, secant modified
+	SecantModified secant2 = SecantModified(fA, guesses2, 0.01);
+	roots = secant2.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
 	return 0;

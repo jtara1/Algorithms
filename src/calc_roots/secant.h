@@ -4,22 +4,23 @@
 #include "calculate_roots.h"
 
 class Secant : public CalculateRoots {
-     private:
-         /// swaps two variables
-         void swapValues(double &, double &);
+     protected:
+        /// swaps two variables
+        void swapValues(double &, double &);
 
-         /// swap x1 and x2 if conditions for secant method are met
-         void swapIfNeeded();
+        /// swap x1 and x2 if conditions for secant method are met
+        void swapIfNeeded();
 
-		/// calc the next approximation
-		void calculateApproximation() override;
-
-		/**
+        /**
 		 * Returns true if exact root found;
 		 * also does operations to setup for next iteration in finding
 		 * a root
 		 */
 		bool setupNextIteration() override;
+
+     private:
+		/// calc the next approximation
+		void calculateApproximation() override;
 
 		/// print header for iteration values table
 		void printIterationHeader() override;

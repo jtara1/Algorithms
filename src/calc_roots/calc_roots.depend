@@ -13,7 +13,7 @@
 
 1494096829 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.cpp
 
-1494285616 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
+1494295095 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
 	<iostream>
 	<cmath>
 	<iomanip>
@@ -21,14 +21,20 @@
 	"bisection.h"
 	"newton_raphson.h"
 	"secant.h"
+	"secant_modified.h"
 
 1494284688 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
 	<iostream>
 	"newton_raphson.h"
 
-1494096809 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
+1494285692 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
+	<iostream>
+	<cmath>
+	"secant.h"
 
-1494096820 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
+1494295118 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
+	<iostream>
+	"secant_modified.h"
 
 1494278409 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
 	<cmath>
@@ -40,6 +46,9 @@
 1494276646 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
 	"calculate_roots.h"
 
-1494284216 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
+1494287651 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
+	"calculate_roots.h"
+
+1494294352 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.h
 	"calculate_roots.h"
 
