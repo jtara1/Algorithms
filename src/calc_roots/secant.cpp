@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Secant::Secant(functionOfX func, double *bracketingPoints)
+Secant::Secant(functionOfX func, double *bracketingPoints, int maxIter = 100, double targetRelErr = 0.01)
 : CalculateRoots::CalculateRoots(func, bracketingPoints, 100, 0.01) {
 
 }

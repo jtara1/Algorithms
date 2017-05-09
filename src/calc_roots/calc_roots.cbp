@@ -33,6 +33,8 @@
 		</Compiler>
 		<Unit filename="bisection.cpp" />
 		<Unit filename="bisection.h" />
+		<Unit filename="bracketing_method.cpp" />
+		<Unit filename="bracketing_method.h" />
 		<Unit filename="calculate_roots.cpp" />
 		<Unit filename="calculate_roots.h" />
 		<Unit filename="false_position.cpp" />

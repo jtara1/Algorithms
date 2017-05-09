@@ -40,7 +40,7 @@ class CalculateRoots {
 		functionOfX f;
 
 		// values and function values used during each iteration
-		double x1, x2, fx1, fx2, fapprox;
+		double x1, x2, fx1, fx2, fapprox = 1;
 
 		// approximation for this iteration
 		double approximation, previousApproximation;

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Bisection::Bisection(functionOfX f, double *guesses)
+Bisection::Bisection(functionOfX f, double *guesses, int maxIterations, double targetRelErr = 0.01)
 : CalculateRoots::CalculateRoots(f, guesses, 100, 0.01) {
     if (f(x1) * f(x2) > 0)
         throw invalid_argument("f(a) and f(b) can not have the same sign");

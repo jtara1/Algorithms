@@ -29,6 +29,6 @@ class Secant : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		Secant(functionOfX, double *);
+		Secant(functionOfX, double *, int, double);
 };
 #endif // SECANT_H

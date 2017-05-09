@@ -3,8 +3,8 @@
 
 using namespace std;
 
-SecantModified::SecantModified(functionOfX func, double *bracketingPoints, double delta)
-: CalculateRoots::CalculateRoots(func, bracketingPoints, 100, 0.01) {
+SecantModified::SecantModified(functionOfX func, double *bracketingPoints, double delta, int maxIter = 100, double targetRelErr = 0.01)
+: CalculateRoots::CalculateRoots(func, bracketingPoints, maxIter, targetRelErr) {
     x2 = x1 * delta;
     this->delta = delta;
 }

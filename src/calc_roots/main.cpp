@@ -6,6 +6,7 @@
 #include "newton_raphson.h"
 #include "secant.h"
 #include "secant_modified.h"
+#include "false_position.h"
 
 using namespace std;
 
@@ -30,6 +31,10 @@ double functionB(double x) {
 	return x + 10 - x * cosh(50 / x);
 }
 
+double fPrimeB(double x) {
+    return (50 * sinh(50 / x)) / x - cosh(50 / x) + 1;
+}
+
 /**
  * Root at x = 1;
  */
@@ -38,29 +43,46 @@ double functionC(double x) {
 }
 
 int main() {
+    double delta = 0.01; // delta value used for secant modified method
+
+    // functionA, its derivative, and its guesses
     CalculateRoots::functionOfX fA = &functionA;
     CalculateRoots::functionOfX fPA = &fPrimeA;
+    double guesses1A[] = {0., 0.5};
+    double guess1A[] = {0};	double guesses[] = {0., 0.5};
+
+    // functionB, its derivative, and its guesses
+    CalculateRoots::functionOfX fB = &functionB;
+    CalculateRoots::functionOfX fPB = &fPrimeB;
+    double guessesB[] = {120., 130.};
+    double guessB[] = {125.};
+
+    int maxIterations = 100;
+    double targetRelativeError = 0.01;
 
     // funcA, root1, bisection
-	double guesses[] = {0., 0.5};
-	Bisection bisection = Bisection(fA, guesses);
+	Bisection bisection = Bisection(fA, guesses1A, maxIterations, targetRelativeError);
 	vector<double> roots = bisection.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
 	// funcA, root1, newton
-	double guesses2[] = {0.5};
-	NewtonRaphson newton = NewtonRaphson(fA, fPA, guesses2);
+	NewtonRaphson newton = NewtonRaphson(fA, fPA, guess1A, maxIterations, targetRelativeError);
 	roots = newton.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
     // funcA, root1, secant
-	Secant secant = Secant(fA, guesses);
+	Secant secant = Secant(fA, guesses1A, maxIterations, targetRelativeError);
 	roots = secant.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
     // funcA, root1, secant modified
-	SecantModified secant2 = SecantModified(fA, guesses2, 0.01);
+	SecantModified secant2 = SecantModified(fA, guess1A, delta, maxIterations, targetRelativeError);
 	roots = secant2.calculateRoots();
+	cout << setprecision(15) << roots.at(0) << endl;
+
+	// funcA, root1, false-positive
+	FalsePosition fPos = FalsePosition(fA, guesses1A, maxIterations, targetRelativeError);
+	roots = fPos.calculateRoots();
 	cout << setprecision(15) << roots.at(0) << endl;
 
 	return 0;

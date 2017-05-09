@@ -26,6 +26,6 @@ class NewtonRaphson : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		NewtonRaphson(functionOfX, functionOfX, double *);
+		NewtonRaphson(functionOfX, functionOfX, double *, int, double);
 };
 #endif // NEWTON_RAPHSON_H
