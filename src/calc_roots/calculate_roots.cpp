@@ -6,21 +6,49 @@
 
 using namespace std;
 
-CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int maxIterations = 100, double targetRelativeError = 0.01) {
+CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int guessesSize, int maxIterations = 100, double targetRelativeError = 0.01) {
 	iterations = 0;
 
 	f = func;
 
-	x1 = guesses[0];
-	x2 = guesses[1];
+    this->guesses = guesses;
+    this->guessesSize = guessesSize;
 
 	this->maxIterations = maxIterations;
 	this->targetRelativeError = targetRelativeError;
 }
 
+bool CalculateRoots::getNextGuesses() {
+    if (guessIndex + guessesPerRoot - 1 >= guessesSize)
+        return false;
+
+    if (guessesPerRoot == 1) {
+        x1 = guesses[guessIndex];
+        fx1 = f(x1);
+    } else if (guessesPerRoot == 2) {
+        x1 = guesses[guessIndex];
+        fx1 = f(x1);
+        x2 = guesses[guessIndex + 1];
+        fx2 = f(x2);
+    } else {
+        throw invalid_argument("number of guesses per root should be 1 or 2\n");
+    }
+    iterations = 0;
+    relativeError = 100;
+    guessIndex += guessesPerRoot;
+
+    return true;
+}
+
 vector<double> CalculateRoots::calculateRoots() {
-	printIterationHeader();
-	calculateApproximation();
+    cout << methodName << ":\n";
+    // approx next root while next guess(es) available to use
+	while (getNextGuesses()) {
+        printIterationHeader();
+        // recursively calls itself until a break condition is met
+        calculateApproximation();
+        cout << endl;
+	}
 	return roots;
 }
 
@@ -68,4 +96,12 @@ void CalculateRoots::printItems(string *items, int size) {
 
 double CalculateRoots::getApproximation() {
     return approximation;
+}
+
+void CalculateRoots::printRoots() {
+    cout << "Roots at x = {\n" << setprecision(15);
+    for (int i = 0; i < roots.size(); i++) {
+        cout << roots.at(i) << endl;
+    }
+    cout << "}" << endl;
 }

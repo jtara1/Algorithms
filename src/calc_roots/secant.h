@@ -4,8 +4,8 @@
 #include "calculate_roots.h"
 
 class Secant : public CalculateRoots {
-     protected:
-        /// swaps two variables
+     private:
+         /// swaps two variables
         void swapValues(double &, double &);
 
         /// swap x1 and x2 if conditions for secant method are met
@@ -18,7 +18,6 @@ class Secant : public CalculateRoots {
 		 */
 		bool setupNextIteration() override;
 
-     private:
 		/// calc the next approximation
 		void calculateApproximation() override;
 
@@ -29,6 +28,6 @@ class Secant : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		Secant(functionOfX, double *, int, double);
+		Secant(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
 };
 #endif // SECANT_H

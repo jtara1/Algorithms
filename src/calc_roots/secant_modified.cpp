@@ -3,12 +3,13 @@
 
 using namespace std;
 
-SecantModified::SecantModified(functionOfX func, double *bracketingPoints, double delta, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots::CalculateRoots(func, bracketingPoints, maxIter, targetRelErr) {
+SecantModified::SecantModified(functionOfX func, double delta, double *bracketingPoints, int guessesSize, int maxIter = 100, double targetRelErr = 0.01)
+: CalculateRoots::CalculateRoots(func, bracketingPoints, guessesSize, maxIter, targetRelErr) {
     if (x1 == 0.0)
         throw std::invalid_argument("Modified Secant method initial guess can not be 0.\n");
     x2 = x1 * delta;
     this->delta = delta;
+    methodName = "Modified Secant";
 }
 
 void SecantModified::calculateApproximation() {

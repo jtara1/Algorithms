@@ -3,9 +3,10 @@
 
 using namespace std;
 
-NewtonRaphson::NewtonRaphson(functionOfX func, functionOfX fPrime, double *guess, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots(func, guess, maxIter, targetRelErr) {
+NewtonRaphson::NewtonRaphson(functionOfX func, functionOfX fPrime, double *guess, int guessSize, int maxIter = 100, double targetRelErr = 0.01)
+: CalculateRoots(func, guess, guessSize, maxIter, targetRelErr) {
     this->fPrime = fPrime;
+    methodName = "Newton-Raphson";
 }
 
 void NewtonRaphson::calculateApproximation() {

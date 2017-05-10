@@ -4,12 +4,9 @@
 
 using namespace std;
 
-FalsePosition::FalsePosition(functionOfX func, double *guesses, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots::CalculateRoots(func, guesses, maxIter, targetRelErr) {
-    fx1 = f(x1);
-    fx2 = f(x2);
-    if (fx1 > 0 || fx2 < 0)
-        throw invalid_argument("Condition not met for false position: f(x1) < 0 && f(x2) > 0\n");
+FalsePosition::FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations = 100, double targetRelativeError = 0.01)
+: BracketingMethod::BracketingMethod(func, guesses, guessesSize, maxIterations, targetRelativeError) {
+    methodName = "False-position";
 }
 
 void FalsePosition::calculateApproximation() {

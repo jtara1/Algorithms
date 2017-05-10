@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Secant::Secant(functionOfX func, double *bracketingPoints, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots::CalculateRoots(func, bracketingPoints, 100, 0.01) {
-
+Secant::Secant(functionOfX func, double *bracketingPoints, int guessesSize, int maxIter = 100, double targetRelErr = 0.01)
+: CalculateRoots::CalculateRoots(func, bracketingPoints, guessesSize, maxIter, targetRelErr) {
+    methodName = "Secant";
 }
 
 void Secant::swapValues(double &value1, double &value2) {

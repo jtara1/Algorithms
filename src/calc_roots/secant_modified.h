@@ -25,6 +25,6 @@ class SecantModified : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		SecantModified(functionOfX, double *, double, int, double);
+		SecantModified(functionOfX func, double delta, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
 };
 #endif // SECANT_MODIFIED_H

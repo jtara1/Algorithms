@@ -2,82 +2,80 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="calculate_roots.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="secant.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1127" topLine="42" />
-		</Cursor>
-	</File>
-	<File name="newton_raphson.h" open="0" top="0" tabpos="4" split="2" active="1" splitpos="1108" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="693" topLine="8" />
-			<Cursor2 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="bisection.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="953" topLine="0" />
+			<Cursor1 position="294" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="calculate_roots.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="991" topLine="33" />
+			<Cursor1 position="2394" topLine="52" />
 		</Cursor>
 	</File>
-	<File name="bracketing_method.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="bracketing_method.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="264" topLine="0" />
+			<Cursor1 position="703" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="newton_raphson.cpp" open="0" top="0" tabpos="7" split="2" active="1" splitpos="1007" zoom_1="0" zoom_2="0">
+	<File name="calculate_roots.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="199" topLine="0" />
-			<Cursor2 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="secant.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="782" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1384" topLine="66" />
-		</Cursor>
-	</File>
-	<File name="bracketing_method.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="273" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="false_position.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="594" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="bisection.h" open="0" top="0" tabpos="5" split="2" active="1" splitpos="1108" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="452" topLine="0" />
-			<Cursor2 position="143" topLine="0" />
+			<Cursor1 position="950" topLine="11" />
 		</Cursor>
 	</File>
 	<File name="secant_modified.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="727" topLine="7" />
+			<Cursor1 position="727" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="secant_modified.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="bracketing_method.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="339" topLine="3" />
+			<Cursor1 position="425" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="secant.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="bisection.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="257" topLine="0" />
+			<Cursor1 position="291" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="false_position.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="newton_raphson.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="1007" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="90" topLine="0" />
+			<Cursor1 position="166" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1087" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="secant.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="858" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="newton_raphson.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="1108" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="684" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="secant_modified.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="294" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="bisection.h" open="0" top="0" tabpos="5" split="2" active="1" splitpos="1108" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="30" topLine="0" />
+			<Cursor2 position="148" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="false_position.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="671" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="false_position.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="332" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

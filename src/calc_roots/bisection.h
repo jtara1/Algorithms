@@ -1,9 +1,9 @@
-#include "calculate_roots.h"
+#include "bracketing_method.h"
 
 #ifndef BISECTION_H
 #define BISECTION_H
 
-class Bisection : public CalculateRoots {
+class Bisection : public BracketingMethod {
 	private:
 		/// calc the next approximation
 		void calculateApproximation() override;
@@ -22,7 +22,7 @@ class Bisection : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		Bisection(CalculateRoots::functionOfX, double *, int, double);
+		Bisection(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
 };
 
 #endif

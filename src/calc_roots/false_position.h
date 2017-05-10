@@ -1,9 +1,9 @@
 #ifndef FALSE_POSITION_H
 #define FALSE_POSITION_H
 
-#include "calculate_roots.h"
+#include "bracketing_method.h"
 
-class FalsePosition : public CalculateRoots {
+class FalsePosition : public BracketingMethod {
      private:
 		/// calc the next approximation
 		void calculateApproximation() override;
@@ -21,6 +21,6 @@ class FalsePosition : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		FalsePosition(functionOfX, double *, int, double);
+		FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
 };
 #endif
