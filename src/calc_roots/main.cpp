@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+
 #include "calculate_roots.h"
 #include "bisection.h"
 #include "newton_raphson.h"
@@ -49,7 +50,7 @@ int main() {
     CalculateRoots::functionOfX fA = &functionA;
     CalculateRoots::functionOfX fPA = &fPrimeA;
     double guesses1A[] = {0., 0.5};
-    double guess1A[] = {0};	double guesses[] = {0., 0.5};
+    double guess1A[] = {1};
 
     // functionB, its derivative, and its guesses
     CalculateRoots::functionOfX fB = &functionB;

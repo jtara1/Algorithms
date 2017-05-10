@@ -61,7 +61,7 @@ void FalsePosition::printIteration() {
 }
 
 void FalsePosition::printIterationHeader() {
-    string headers[] = {"n", "a", "b", "c", "f(c)", "Rel. Err."};
+    string headers[] = {"n", "a", "b", "c", "f(a)", "f(b)", "f(c)", "Rel. Err."};
     printItems(headers, sizeof(headers)/sizeof(*headers));
     cout << endl;
 }
