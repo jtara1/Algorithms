@@ -7,6 +7,7 @@ NewtonRaphson::NewtonRaphson(functionOfX func, functionOfX fPrime, double *guess
 : CalculateRoots(func, guess, guessSize, maxIter, targetRelErr) {
     this->fPrime = fPrime;
     methodName = "Newton-Raphson";
+    guessesPerRoot = 1;
 }
 
 void NewtonRaphson::calculateApproximation() {

@@ -103,5 +103,5 @@ void CalculateRoots::printRoots() {
     for (int i = 0; i < roots.size(); i++) {
         cout << roots.at(i) << endl;
     }
-    cout << "}" << endl;
+    cout << "}\n" << endl;
 }

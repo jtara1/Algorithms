@@ -27,7 +27,7 @@
 	"secant_modified.h"
 	"false_position.h"
 
-1494454644 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
+1494456179 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
 	<iostream>
 	"newton_raphson.h"
 
@@ -40,7 +40,7 @@
 	<iostream>
 	"secant_modified.h"
 
-1494455264 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
+1494456200 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
 	<cmath>
 	<vector>
 	<iostream>

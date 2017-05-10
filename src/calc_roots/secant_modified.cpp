@@ -10,6 +10,7 @@ SecantModified::SecantModified(functionOfX func, double delta, double *bracketin
     x2 = x1 * delta;
     this->delta = delta;
     methodName = "Modified Secant";
+    guessesPerRoot = 1;
 }
 
 void SecantModified::calculateApproximation() {
@@ -17,6 +18,7 @@ void SecantModified::calculateApproximation() {
         return;
 
     if (iterations == 0) {
+        x2 = delta * x1;
         fx1 = f(x1);
         fx2 = f(x1 + x2);
     }
