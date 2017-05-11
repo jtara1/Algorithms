@@ -21,6 +21,10 @@ std::vector<double> BracketingMethod::calculateRoots() {
         }
         printIterationHeader();
         calculateApproximation();
+        std::cout << std::endl;
+
+        outFile.close();
+        outFile.clear();
 	}
 	return roots;
 }

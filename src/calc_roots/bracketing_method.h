@@ -12,6 +12,6 @@ class BracketingMethod : public CalculateRoots {
         BracketingMethod(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
 
         /// override this so it can check whether or not the current set of guesses bracket a root
-        std::vector<double> calculateRoots();
+        std::vector<double> calculateRoots() override;
 };
 #endif

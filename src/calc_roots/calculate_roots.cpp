@@ -2,6 +2,10 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
+#include <sstream>
+#include <cstring>
+
 #include "calculate_roots.h"
 
 using namespace std;
@@ -22,6 +26,19 @@ bool CalculateRoots::getNextGuesses() {
     if (guessIndex + guessesPerRoot - 1 >= guessesSize)
         return false;
 
+    // create output file to hold approximations & errors for a set of iterations
+    stringstream ss;
+    ss << guessIndex / guessesPerRoot;
+    string ofName = methodName + ss.str() + ".csv";
+
+    outFile.open(ofName);
+    if (outFile.fail()) {
+        printf("Failed to create file for output file: %s.\n", ofName);
+        cerr << "Error: " << strerror(errno);
+        exit(1);
+    }
+
+    // update variables for next set of iterations
     if (guessesPerRoot == 1) {
         x1 = guesses[guessIndex];
         fx1 = f(x1);
@@ -48,6 +65,8 @@ vector<double> CalculateRoots::calculateRoots() {
         // recursively calls itself until a break condition is met
         calculateApproximation();
         cout << endl;
+        outFile.close();
+        outFile.clear();
 	}
 	return roots;
 }
@@ -72,26 +91,54 @@ bool CalculateRoots::exitConditionsMet() {
 }
 
 bool CalculateRoots::rootFound(double const nearZero) {
-//    double funcOfApprox = f(approximation);
-
 	// root found - we're at zero or extremely close to it
 	if (fapprox < nearZero && fapprox > -nearZero)
         return true;
     return false;
 }
 
-void CalculateRoots::printItems(double *numbs, int size) {
+void CalculateRoots::recordItems(double *numbs, int size, bool endLineAfter) {
     for (double *pointer = numbs; pointer != numbs + size; pointer++) {
+        // print
         cout << setprecision(3) << setw(10) << *pointer;
         cout.flush();
+
+        // write to file
+        outFile << *pointer << ',';
+    }
+    if (endLineAfter) {
+        outFile << endl;
     }
 }
 
-void CalculateRoots::printItems(string *items, int size) {
+void CalculateRoots::recordItems(string *items, int size, bool endLineAfter) {
     for (string *pointer = items; pointer != items + size; pointer++) {
+        // print
         cout << setw(10) << *pointer;
         cout.flush();
+
+        // write to file
+        outFile << *pointer << ',';
     }
+    if (endLineAfter) {
+        outFile << endl;
+    }
+}
+
+void CalculateRoots::writeLineToFile(double *items, int size) {
+    for (; size > 0; size--) {
+        outFile << *items << ',';
+        items++;
+    }
+    outFile << endl;
+}
+
+void CalculateRoots::writeLineToFile(string *items, int size) {
+    for (; size > 0; size--) {
+        outFile << *items << ',';
+        items++;
+    }
+    outFile << endl;
 }
 
 double CalculateRoots::getApproximation() {

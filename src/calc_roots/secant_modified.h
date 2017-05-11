@@ -6,8 +6,11 @@
 
 class SecantModified : public CalculateRoots {
      private:
-         /// delta used in calculating roots using modified secant method
-         double delta;
+        /// delta used in calculating roots using modified secant method
+        double delta;
+
+        /// true if guess is valid
+        bool guessIsValid();
 
 		/// calc the next approximation
 		void calculateApproximation() override;
@@ -26,5 +29,7 @@ class SecantModified : public CalculateRoots {
 
 	public:
 		SecantModified(functionOfX func, double delta, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+
+		std::vector<double> calculateRoots() override;
 };
 #endif // SECANT_MODIFIED_H

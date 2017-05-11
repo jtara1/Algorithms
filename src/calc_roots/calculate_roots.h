@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 /**
  * Abstract class for calculating the roots of a function of x
@@ -30,7 +31,7 @@ class CalculateRoots {
 		 * Begin calculating the roots
 		 * Returns the vector containing all the roots
 		 */
-		std::vector<double> calculateRoots();
+		virtual std::vector<double> calculateRoots();
 
 		/// returns the most recent approximation to the root
 		double getApproximation();
@@ -73,6 +74,9 @@ class CalculateRoots {
 		/// index of current guess; number of guesses
 		int guessIndex = 0, guessesSize;
 
+		/// output file used to store variables from each set of iterations when calc a root
+		std::ofstream outFile;
+
 		/// get the next guess(es) from the array guesses; returns false if there are no more guesses
 		bool getNextGuesses();
 
@@ -105,10 +109,16 @@ class CalculateRoots {
 		virtual void printIteration() = 0;
 
 		/// print an individual item for the table formatted
-		void printItems(double *, int);
+		void recordItems(double *, int, bool = true);
 
 		/// print each string in the array of string formatted
-		void printItems(std::string *, int);
+		void recordItems(std::string *, int, bool = true);
+
+		///
+		void writeLineToFile(double *, int);
+
+		///
+		void writeLineToFile(std::string *, int);
 };
 
 #endif

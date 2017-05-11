@@ -44,16 +44,17 @@ bool NewtonRaphson::setupNextIteration() {
 void NewtonRaphson::printIteration() {
     double numbs[] = {(double)iterations, x1, approximation, fx1, fPrimex1, fapprox};
     // print values in this row for this iteration of the table
-    printItems(numbs, sizeof(numbs)/sizeof(*numbs));
+    recordItems(numbs, sizeof(numbs)/sizeof(*numbs), false);
     if (iterations != 0) {
         double err = calculateRelativeError();
-        printItems(&err, 1);
-    }
+        recordItems(&err, 1);
+    } else
+        outFile << endl;
     cout << endl;
 }
 
 void NewtonRaphson::printIterationHeader() {
     string headers[] = {"n", "Xn", "Xn+1", "f(Xn)", "f'(Xn)", "f(Xn+1)", "Rel. Err."};
-    printItems(headers, sizeof(headers)/sizeof(*headers));
+    recordItems(headers, sizeof(headers)/sizeof(*headers));
     cout << endl;
 }
