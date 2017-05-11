@@ -28,7 +28,7 @@ double fPrimeA(double x) {
 /**
  * Root at x = 126.632
  */
-double functionB(double x) {
+double functionB(double x) {caclulateRoots
 	return x + 10 - x * cosh(50 / x);
 }
 
@@ -51,46 +51,69 @@ int main() {
     CalculateRoots::functionOfX fPA = &fPrimeA;
 
     // array of guesses used in pairs (0, 1), (1, 2), (2, 4)
-    double guesses1A[] = {0., 1., 1., 2., 2., 4.,};
-    int guesses1ASize = sizeof(guesses1A) / sizeof(*guesses1A);
+    double guessesA[] = {0., 1., 1., 2., 2., 4.,};
+    int guessesASize = sizeof(guessesA) / sizeof(*guessesA);
 
     // single guesses for methods that need 1 guess per root approximation
-    double guess1A[] = {1., 2., 3.,};
-    int guess1ASize = sizeof(guess1A) / sizeof(*guess1A);
+    double guessA[] = {1., 2., 3.,};
+    int guessASize = sizeof(guessA) / sizeof(*guessA);
 
     // functionB, its derivative, and its guesses
     CalculateRoots::functionOfX fB = &functionB;
     CalculateRoots::functionOfX fPB = &fPrimeB;
     double guessesB[] = {120., 130.};
+    int guessesBSize = sizeof(guessesB) / sizeof(*guessesB);
     double guessB[] = {125.};
+    int guessBSize = sizeof(guessB) / sizeof(*guessB);
 
     int maxIterations = 100;
-    double targetRelativeError = 0.01;
+    double targetRelativeError = 0.0001; // 0.01%
 
     // funcA, root1, bisection
-	Bisection bisection = Bisection(fA, guesses1A, guesses1ASize, maxIterations, targetRelativeError);
+	Bisection bisection = Bisection(fA, guessesA, guessesASize, maxIterations, targetRelativeError);
 	bisection.calculateRoots();
 	bisection.printRoots();
 
 	// funcA, root1, newton
-	NewtonRaphson newton = NewtonRaphson(fA, fPA, guess1A, guess1ASize, maxIterations, targetRelativeError);
+	NewtonRaphson newton = NewtonRaphson(fA, fPA, guessA, guessASize, maxIterations, targetRelativeError);
 	newton.calculateRoots();
 	newton.printRoots();
 
     // funcA, root1, secant
-	Secant secant = Secant(fA, guesses1A, guesses1ASize, maxIterations, targetRelativeError);
+	Secant secant = Secant(fA, guessesA, guessesASize, maxIterations, targetRelativeError);
 	secant.calculateRoots();
 	secant.printRoots();
 
     // funcA, root1, secant modified
-	SecantModified secant2 = SecantModified(fA, delta, guess1A, guess1ASize, maxIterations, targetRelativeError);
+	SecantModified secant2 = SecantModified(fA, delta, guessA, guessASize, maxIterations, targetRelativeError);
 	secant2.calculateRoots();
 	secant2.printRoots();
 
 	// funcA, root1, false-positive
-	FalsePosition fPos = FalsePosition(fA, guesses1A, guesses1ASize, maxIterations, targetRelativeError);
+	FalsePosition fPos = FalsePosition(fA, guessesA, guessesASize, maxIterations, targetRelativeError);
 	fPos.calculateRoots();
 	fPos.printRoots();
+
+	// methods for funcB
+	Bisection bi = Bisection(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+	bi.calculateRoots();
+	bi.printRoots();
+
+	NewtonRaphson newt = NewtonRaphson(fB, fPB, guessB, guessBSize, maxIterations, targetRelativeError);
+	newt.calculateRoots();
+	newt.printRoots();
+
+	Secant sec = Secant(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+	sec.calculateRoots();
+	sec.printRoots();
+
+	SecantModified secMod = SecantModified(fB, delta, guessB, guessBSize, maxIterations, targetRelativeError);
+	secMod.calculateRoots();
+	secMod.printRoots();
+
+	FalsePosition falsePos = FalsePosition(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+	falsePos.calculateRoots();
+	falsePos.printRoots();
 
 	return 0;
 }
