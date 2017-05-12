@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
+1494518978 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
 	<iostream>
 	<iomanip>
 	"bisection.h"
@@ -17,7 +17,7 @@
 	<iostream>
 	"false_position.h"
 
-1494455328 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
+1494514801 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
 	<iostream>
 	<cmath>
 	<iomanip>
@@ -28,16 +28,16 @@
 	"secant_modified.h"
 	"false_position.h"
 
-1494472600 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
+1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
 	<iostream>
 	"newton_raphson.h"
 
-1494472604 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
+1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
 	<iostream>
 	<cmath>
 	"secant.h"
 
-1494473313 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
+1494529813 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
 	<iostream>
 	"secant_modified.h"
 
@@ -51,13 +51,13 @@
 	<cstring>
 	"calculate_roots.h"
 
-1494454564 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
+1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
 	"calculate_roots.h"
 
-1494454569 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
+1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
 	"calculate_roots.h"
 
-1494473379 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.h
+1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.h
 	"calculate_roots.h"
 
 1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.h

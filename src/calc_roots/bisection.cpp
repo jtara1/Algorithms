@@ -18,6 +18,8 @@ void Bisection::calculateApproximation() {
 	approximation = (x1 + x2) / 2;
 
 	fapprox = f(approximation);
+	printIteration();
+
 	// root found, done iterating
 	if (setupNextIteration()) {
         roots.push_back(approximation);
@@ -28,7 +30,6 @@ void Bisection::calculateApproximation() {
 	fx1 = f(x1);
 	fx2 = f(x2);
 
-	printIteration();
 	iterations++;
 	// recursive call
 	calculateApproximation();

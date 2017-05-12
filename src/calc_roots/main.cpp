@@ -28,7 +28,7 @@ double fPrimeA(double x) {
 /**
  * Root at x = 126.632
  */
-double functionB(double x) {caclulateRoots
+double functionB(double x) {
 	return x + 10 - x * cosh(50 / x);
 }
 
@@ -95,25 +95,25 @@ int main() {
 	fPos.printRoots();
 
 	// methods for funcB
-	Bisection bi = Bisection(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
-	bi.calculateRoots();
-	bi.printRoots();
-
-	NewtonRaphson newt = NewtonRaphson(fB, fPB, guessB, guessBSize, maxIterations, targetRelativeError);
-	newt.calculateRoots();
-	newt.printRoots();
-
-	Secant sec = Secant(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
-	sec.calculateRoots();
-	sec.printRoots();
-
-	SecantModified secMod = SecantModified(fB, delta, guessB, guessBSize, maxIterations, targetRelativeError);
-	secMod.calculateRoots();
-	secMod.printRoots();
-
-	FalsePosition falsePos = FalsePosition(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
-	falsePos.calculateRoots();
-	falsePos.printRoots();
+//	Bisection bi = Bisection(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	bi.calculateRoots();
+//	bi.printRoots();
+//
+//	NewtonRaphson newt = NewtonRaphson(fB, fPB, guessB, guessBSize, maxIterations, targetRelativeError);
+//	newt.calculateRoots();
+//	newt.printRoots();
+//
+//	Secant sec = Secant(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	sec.calculateRoots();
+//	sec.printRoots();
+//
+//	SecantModified secMod = SecantModified(fB, delta, guessB, guessBSize, maxIterations, targetRelativeError);
+//	secMod.calculateRoots();
+//	secMod.printRoots();
+//
+//	FalsePosition falsePos = FalsePosition(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	falsePos.calculateRoots();
+//	falsePos.printRoots();
 
 	return 0;
 }
