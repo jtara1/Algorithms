@@ -28,6 +28,6 @@ class Secant : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		Secant(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		Secant(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = NULL);
 };
 #endif // SECANT_H

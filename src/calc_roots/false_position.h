@@ -21,6 +21,6 @@ class FalsePosition : public BracketingMethod {
 		void printIteration() override;
 
 	public:
-		FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = nullptr);
 };
 #endif

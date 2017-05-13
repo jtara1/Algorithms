@@ -26,6 +26,6 @@ class NewtonRaphson : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		NewtonRaphson(functionOfX func, functionOfX fPrime, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		NewtonRaphson(functionOfX func, functionOfX fPrime, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = NULL);
 };
 #endif // NEWTON_RAPHSON_H

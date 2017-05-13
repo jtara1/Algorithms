@@ -10,7 +10,7 @@
 
 using namespace std;
 
-CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int guessesSize, int maxIterations = 100, double targetRelativeError = 0.01) {
+CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int guessesSize, int maxIterations = 100, double targetRelativeError = 0.01, double *trueRoot) {
 	iterations = 0;
 
 	f = func;
@@ -20,6 +20,7 @@ CalculateRoots::CalculateRoots(functionOfX func, double *guesses, int guessesSiz
 
 	this->maxIterations = maxIterations;
 	this->targetRelativeError = targetRelativeError;
+	this->trueRoot = trueRoot;
 }
 
 bool CalculateRoots::getNextGuesses() {
@@ -51,7 +52,8 @@ bool CalculateRoots::getNextGuesses() {
         throw invalid_argument("number of guesses per root should be 1 or 2\n");
     }
     iterations = 0;
-    relativeError = 100;
+    relativeError = 2e9;
+    absoluteError = 2e9;
     guessIndex += guessesPerRoot;
 
     return true;
@@ -71,8 +73,11 @@ vector<double> CalculateRoots::calculateRoots() {
 	return roots;
 }
 
-double CalculateRoots::calculateRelativeError() {
-	relativeError = abs(approximation - previousApproximation) / abs(approximation);
+double CalculateRoots::calculateErrors() {
+    if (trueRoot != nullptr && *trueRoot != 0)
+        absoluteError = abs(*trueRoot - approximation) / abs(*trueRoot);
+    if (iterations != 0)
+        relativeError = abs(approximation - previousApproximation) / abs(approximation);
 	return relativeError;
 }
 
@@ -108,6 +113,7 @@ void CalculateRoots::recordItems(double *numbs, int size, bool endLineAfter) {
     }
     if (endLineAfter) {
         outFile << endl;
+        cout << endl;
     }
 }
 
@@ -122,6 +128,7 @@ void CalculateRoots::recordItems(string *items, int size, bool endLineAfter) {
     }
     if (endLineAfter) {
         outFile << endl;
+        cout << endl;
     }
 }
 

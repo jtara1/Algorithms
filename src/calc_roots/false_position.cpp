@@ -4,8 +4,8 @@
 
 using namespace std;
 
-FalsePosition::FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations = 100, double targetRelativeError = 0.01)
-: BracketingMethod::BracketingMethod(func, guesses, guessesSize, maxIterations, targetRelativeError) {
+FalsePosition::FalsePosition(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot)
+: BracketingMethod::BracketingMethod(func, guesses, guessesSize, maxIterations, targetRelativeError, trueRoot) {
     methodName = "False-position";
 }
 
@@ -47,19 +47,14 @@ bool FalsePosition::setupNextIteration() {
 }
 
 void FalsePosition::printIteration() {
-    double numbs[] = {(double)iterations, x1, x2, approximation, fx1, fx2, fapprox};
+    calculateErrors();
+    double numbs[] = {(double)iterations, x1, x2, approximation, fx1, fx2, fapprox, absoluteError, relativeError};
     // print values in this row for this iteration of the table
-    recordItems(numbs, sizeof(numbs)/sizeof(*numbs), false);
-    if (iterations != 0) {
-        double err = calculateRelativeError();
-        recordItems(&err, 1);
-    } else
-        outFile << endl;
-    cout << endl;
+    recordItems(numbs, sizeof(numbs)/sizeof(*numbs));
 }
 
 void FalsePosition::printIterationHeader() {
-    string headers[] = {"n", "a", "b", "c", "f(a)", "f(b)", "f(c)", "Rel. Err."};
+    string headers[] = {"n", "a", "b", "c", "f(a)", "f(b)", "f(c)", "Abs. Err.", "Rel. Err."};
     recordItems(headers, sizeof(headers)/sizeof(*headers));
     cout << endl;
 }

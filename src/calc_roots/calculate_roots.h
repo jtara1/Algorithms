@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <cmath>
 
 /**
  * Abstract class for calculating the roots of a function of x
@@ -25,7 +26,7 @@ class CalculateRoots {
 		 * takes a function and an abitrary number of
 		 * guesses and relative err. to exit at
 		 */
-		CalculateRoots(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		CalculateRoots(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = nullptr);
 
 		/**
 		 * Begin calculating the roots
@@ -49,8 +50,11 @@ class CalculateRoots {
 		/// approximation for this iteration
 		double approximation, previousApproximation;
 
+		/// the true value of the root, nullptr if none given
+		double *trueRoot;
+
 		/// errors calculated
-		double relativeError = 100, absoluteError = 100;
+		double relativeError = 2e9, absoluteError = 2e9;
 
 		/// guesses per root
 		int guessesPerRoot = 2;
@@ -97,7 +101,7 @@ class CalculateRoots {
 		virtual bool setupNextIteration() = 0;
 
 		/// calc relative error (E sub a)
-		double calculateRelativeError();
+		double calculateErrors();
 
 		/// checks if maxIterations exceeded or target rel. error reached
 		bool exitConditionsMet();

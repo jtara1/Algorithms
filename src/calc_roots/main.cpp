@@ -26,7 +26,7 @@ double fPrimeA(double x) {
 }
 
 /**
- * Root at x = 126.632
+ * Root at x = 126.63243603998882806353860
  */
 double functionB(double x) {
 	return x + 10 - x * cosh(50 / x);
@@ -61,10 +61,11 @@ int main() {
     // functionB, its derivative, and its guesses
     CalculateRoots::functionOfX fB = &functionB;
     CalculateRoots::functionOfX fPB = &fPrimeB;
-    double guessesB[] = {120., 130.};
+    double guessesB[] = {50., 200.,};
     int guessesBSize = sizeof(guessesB) / sizeof(*guessesB);
-    double guessB[] = {125.};
+    double guessB[] = {200.};
     int guessBSize = sizeof(guessB) / sizeof(*guessB);
+    double trueRootB = 126.63243603998882806353860;
 
     int maxIterations = 100;
     double targetRelativeError = 0.0001; // 0.01%
@@ -95,23 +96,23 @@ int main() {
 	fPos.printRoots();
 
 	// methods for funcB
-//	Bisection bi = Bisection(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	Bisection bi = Bisection(fB, guessesB, guessesBSize, maxIterations, targetRelativeError, &trueRootB);
 //	bi.calculateRoots();
 //	bi.printRoots();
 //
-//	NewtonRaphson newt = NewtonRaphson(fB, fPB, guessB, guessBSize, maxIterations, targetRelativeError);
+//	NewtonRaphson newt = NewtonRaphson(fB, fPB, guessB, guessBSize, maxIterations, targetRelativeError, &trueRootB);
 //	newt.calculateRoots();
 //	newt.printRoots();
 //
-//	Secant sec = Secant(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	Secant sec = Secant(fB, guessesB, guessesBSize, maxIterations, targetRelativeError, &trueRootB);
 //	sec.calculateRoots();
 //	sec.printRoots();
 //
-//	SecantModified secMod = SecantModified(fB, delta, guessB, guessBSize, maxIterations, targetRelativeError);
+//	SecantModified secMod = SecantModified(fB, delta, guessB, guessBSize, maxIterations, targetRelativeError, &trueRootB);
 //	secMod.calculateRoots();
 //	secMod.printRoots();
 //
-//	FalsePosition falsePos = FalsePosition(fB, guessesB, guessesBSize, maxIterations, targetRelativeError);
+//	FalsePosition falsePos = FalsePosition(fB, guessesB, guessesBSize, maxIterations, targetRelativeError, &trueRootB);
 //	falsePos.calculateRoots();
 //	falsePos.printRoots();
 

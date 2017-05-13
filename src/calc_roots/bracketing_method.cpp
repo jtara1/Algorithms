@@ -1,8 +1,8 @@
 #include <iostream>
 #include "bracketing_method.h"
 
-BracketingMethod::BracketingMethod(functionOfX f, double *guesses, int guessesSize, int maxIterations, double targetRelErr = 0.01)
-: CalculateRoots::CalculateRoots(f, guesses, guessesSize, maxIterations, targetRelErr) {
+BracketingMethod::BracketingMethod(functionOfX f, double *guesses, int guessesSize, int maxIterations, double targetRelErr, double *trueRoot)
+: CalculateRoots::CalculateRoots(f, guesses, guessesSize, maxIterations, targetRelErr, trueRoot) {
 
 }
 

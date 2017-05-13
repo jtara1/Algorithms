@@ -1,23 +1,24 @@
 # depslib dependency file v1.0
-1494518978 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
+1494624276 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.cpp
 	<iostream>
 	<iomanip>
 	"bisection.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.h
+1494618832 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bisection.h
 	"bracketing_method.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
+1494621715 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.h
 	<vector>
 	<string>
 	<fstream>
+	<cmath>
 
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.cpp
+1494620906 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.cpp
 	<stdexcept>
 	<iostream>
 	"false_position.h"
 
-1494514801 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
+1494619678 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/main.cpp
 	<iostream>
 	<cmath>
 	<iomanip>
@@ -28,20 +29,20 @@
 	"secant_modified.h"
 	"false_position.h"
 
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
+1494624297 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.cpp
 	<iostream>
 	"newton_raphson.h"
 
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
+1494624314 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.cpp
 	<iostream>
 	<cmath>
 	"secant.h"
 
-1494529813 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
+1494624286 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.cpp
 	<iostream>
 	"secant_modified.h"
 
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
+1494628635 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/calculate_roots.cpp
 	<cmath>
 	<vector>
 	<iostream>
@@ -51,23 +52,23 @@
 	<cstring>
 	"calculate_roots.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
+1494618786 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/newton_raphson.h
 	"calculate_roots.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
+1494618900 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant.h
 	"calculate_roots.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.h
+1494617217 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/secant_modified.h
 	"calculate_roots.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.h
+1494618815 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/false_position.h
 	"bracketing_method.h"
 
-1494513822 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bracketing_method.cpp
+1494618750 source:/home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bracketing_method.cpp
 	<iostream>
 	"bracketing_method.h"
 
-1494513822 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bracketing_method.h
+1494618889 /home/j/Documents/_Github-Projects/Algorithms/src/calc_roots/bracketing_method.h
 	<vector>
 	"calculate_roots.h"
 

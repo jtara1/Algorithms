@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Secant::Secant(functionOfX func, double *bracketingPoints, int guessesSize, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots::CalculateRoots(func, bracketingPoints, guessesSize, maxIter, targetRelErr) {
+Secant::Secant(functionOfX func, double *bracketingPoints, int guessesSize, int maxIter, double targetRelErr, double *trueRoot)
+: CalculateRoots::CalculateRoots(func, bracketingPoints, guessesSize, maxIter, targetRelErr, trueRoot) {
     methodName = "Secant";
 }
 
@@ -61,19 +61,14 @@ bool Secant::setupNextIteration() {
 }
 
 void Secant::printIteration() {
-    double numbs[] = {(double)iterations, x1, x2, approximation, fapprox};
+    calculateErrors();
+    double numbs[] = {(double)iterations, x1, x2, approximation, fapprox, absoluteError, relativeError};
     // print values in this row for this iteration of the table
-    recordItems(numbs, sizeof(numbs)/sizeof(*numbs), false);
-    if (iterations != 0) {
-        double err = calculateRelativeError();
-        recordItems(&err, 1);
-    } else
-        outFile << endl;
-    cout << endl;
+    recordItems(numbs, sizeof(numbs)/sizeof(*numbs));
 }
 
 void Secant::printIterationHeader() {
-    string headers[] = {"n", "Xn-1", "Xn", "Xn+1", "f(Xn+1)", "Rel. Err."};
+    string headers[] = {"n", "Xn-1", "Xn", "Xn+1", "f(Xn+1)", "Abs. Err.", "Rel. Err."};
     recordItems(headers, sizeof(headers)/sizeof(*headers));
     cout << endl;
 }

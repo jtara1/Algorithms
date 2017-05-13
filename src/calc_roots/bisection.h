@@ -22,7 +22,7 @@ class Bisection : public BracketingMethod {
 		void printIteration() override;
 
 	public:
-		Bisection(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		Bisection(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = nullptr);
 };
 
 #endif

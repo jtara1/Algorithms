@@ -3,8 +3,8 @@
 
 using namespace std;
 
-NewtonRaphson::NewtonRaphson(functionOfX func, functionOfX fPrime, double *guess, int guessSize, int maxIter = 100, double targetRelErr = 0.01)
-: CalculateRoots(func, guess, guessSize, maxIter, targetRelErr) {
+NewtonRaphson::NewtonRaphson(functionOfX func, functionOfX fPrime, double *guess, int guessSize, int maxIter, double targetRelErr, double *trueRoot)
+: CalculateRoots(func, guess, guessSize, maxIter, targetRelErr, trueRoot) {
     this->fPrime = fPrime;
     methodName = "Newton-Raphson";
     guessesPerRoot = 1;
@@ -42,19 +42,14 @@ bool NewtonRaphson::setupNextIteration() {
 }
 
 void NewtonRaphson::printIteration() {
-    double numbs[] = {(double)iterations, x1, approximation, fx1, fPrimex1, fapprox};
+    calculateErrors();
+    double numbs[] = {(double)iterations, x1, approximation, fx1, fPrimex1, fapprox, absoluteError, relativeError};
     // print values in this row for this iteration of the table
-    recordItems(numbs, sizeof(numbs)/sizeof(*numbs), false);
-    if (iterations != 0) {
-        double err = calculateRelativeError();
-        recordItems(&err, 1);
-    } else
-        outFile << endl;
-    cout << endl;
+    recordItems(numbs, sizeof(numbs)/sizeof(*numbs));
 }
 
 void NewtonRaphson::printIterationHeader() {
-    string headers[] = {"n", "Xn", "Xn+1", "f(Xn)", "f'(Xn)", "f(Xn+1)", "Rel. Err."};
+    string headers[] = {"n", "Xn", "Xn+1", "f(Xn)", "f'(Xn)", "f(Xn+1)", "Abs. Err.", "Rel. Err."};
     recordItems(headers, sizeof(headers)/sizeof(*headers));
     cout << endl;
 }

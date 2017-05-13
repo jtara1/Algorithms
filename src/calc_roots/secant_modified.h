@@ -28,7 +28,7 @@ class SecantModified : public CalculateRoots {
 		void printIteration() override;
 
 	public:
-		SecantModified(functionOfX func, double delta, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+		SecantModified(functionOfX func, double delta, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = NULL);
 
 		std::vector<double> calculateRoots() override;
 };

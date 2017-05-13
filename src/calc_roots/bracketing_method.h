@@ -9,7 +9,7 @@ class BracketingMethod : public CalculateRoots {
         bool bracketsSurroundRoot();
 
     public:
-        BracketingMethod(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError);
+        BracketingMethod(functionOfX func, double *guesses, int guessesSize, int maxIterations, double targetRelativeError, double *trueRoot = nullptr);
 
         /// override this so it can check whether or not the current set of guesses bracket a root
         std::vector<double> calculateRoots() override;
