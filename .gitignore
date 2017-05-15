@@ -1,3 +1,5 @@
+src/calc_roots/bin
+
 *.o
 *.bin
 *.exe

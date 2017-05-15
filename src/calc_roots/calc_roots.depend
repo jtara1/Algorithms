@@ -72,3 +72,76 @@
 	<vector>
 	"calculate_roots.h"
 
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\bisection.cpp
+	<iostream>
+	<iomanip>
+	"bisection.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\bisection.h
+	"bracketing_method.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\bracketing_method.h
+	<vector>
+	"calculate_roots.h"
+
+1494660682 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\calculate_roots.h
+	<vector>
+	<string>
+	<fstream>
+	<cmath>
+
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\bracketing_method.cpp
+	<iostream>
+	"bracketing_method.h"
+
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\calculate_roots.cpp
+	<cmath>
+	<vector>
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<sstream>
+	<cstring>
+	"calculate_roots.h"
+
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\false_position.cpp
+	<stdexcept>
+	<iostream>
+	"false_position.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\false_position.h
+	"bracketing_method.h"
+
+1494821687 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\main.cpp
+	<iostream>
+	<cmath>
+	<iomanip>
+	"calculate_roots.h"
+	"bisection.h"
+	"newton_raphson.h"
+	"secant.h"
+	"secant_modified.h"
+	"false_position.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\newton_raphson.h
+	"calculate_roots.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\secant.h
+	"calculate_roots.h"
+
+1494652498 c:\users\james\documents\_github-projects\algorithms\src\calc_roots\secant_modified.h
+	"calculate_roots.h"
+
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\newton_raphson.cpp
+	<iostream>
+	"newton_raphson.h"
+
+1494660696 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\secant.cpp
+	<iostream>
+	<cmath>
+	"secant.h"
+
+1494652498 source:c:\users\james\documents\_github-projects\algorithms\src\calc_roots\secant_modified.cpp
+	<iostream>
+	"secant_modified.h"
+
