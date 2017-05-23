@@ -13,6 +13,11 @@ public class CityKey extends DataKey {
 		code = cityCode;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return code.equals(((CityKey)obj).getCode());
+	}
+	
 	public String getCode() {
 		return code;
 	}

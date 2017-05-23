@@ -25,6 +25,16 @@ public class BidirectionGraph {
 		}
 	}
 	
+	public BidirectionGraph() {
+		String cityDataFileName = "city.dat";
+		String edgeDataFileName = "road.dat";
+		try {
+			createAdjacencyMatrixFromFile(edgeDataFileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void createAdjacencyMatrixFromFile(String fileName) throws IOException {
 		BufferedReader in = null;
 		int ints = 0;
