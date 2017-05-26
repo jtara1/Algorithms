@@ -5,9 +5,6 @@ package dijkstra_path_finding;
  * @author j
  *
  */
-public class Data {
-	/**
-	 * The index of the vertex that this data is associated with
-	 */
-	protected int index;
+public abstract class Data {
+	public abstract int getIndex();
 }

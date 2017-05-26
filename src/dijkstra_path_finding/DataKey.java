@@ -5,6 +5,6 @@ package dijkstra_path_finding;
  * @author j
  *
  */
-public class DataKey {
-
+public interface DataKey extends Comparable<DataKey> {
+	
 }

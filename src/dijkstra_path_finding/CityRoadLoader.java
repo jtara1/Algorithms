@@ -68,9 +68,8 @@ public class CityRoadLoader implements DataLoader {
 				
 				matcher = pattern.matcher(line);
 				matcher.find();
-				System.out.println(line);
 				City newCity = new City(
-						Integer.parseInt(matcher.group(1)),
+						Integer.parseInt(matcher.group(1)) - 1,
 						matcher.group(2).toUpperCase(),
 						matcher.group(3),
 						Integer.parseInt(matcher.group(4)),
@@ -99,26 +98,29 @@ public class CityRoadLoader implements DataLoader {
 	private void loadEdgesFromFile(String fileName) {
 		BufferedReader reader = null;
 		// pattern to get three matches groups (two ints and one int or float) with any amount of white space between
-		Pattern pattern = Pattern.compile("(\\d*)\\s*(\\d*)\\s*(\\p{Digit}.?\\p{Digit}?)");
+		Pattern pattern = Pattern.compile("\\ *?(\\d+)\\s+(\\d+)\\s+([0-9]+\\.?[0-9]*?)\\s*?");
 		
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
-
+			String line;
+			
 			// read each line using the regex pattern to match values
-			while (reader.ready()) {
-				String line = reader.readLine();
+			while (reader.ready() && (line = reader.readLine()) != null) {
+				if (line.equals(""))
+					break;
 				
 				Matcher matcher = pattern.matcher(line);
-				int v1 = Integer.parseInt(matcher.group(0));
-				int v2 = Integer.parseInt(matcher.group(1));
-				Float distance = Float.parseFloat(matcher.group(2));
+				matcher.find();
 				
-				if (adjMatrix[v1][v2] != null || adjMatrix[v2][v1] != null) {
+				int v1 = Integer.parseInt(matcher.group(1)) - 1;
+				int v2 = Integer.parseInt(matcher.group(2)) - 1;
+				Float distance = Float.parseFloat(matcher.group(3));
+				
+				if (adjMatrix[v1][v2] != null) {
 					throw new IllegalArgumentException("an edge was already given for the two vertices");
 				}
 				
 				adjMatrix[v1][v2] = distance;
-				adjMatrix[v2][v1] = distance;
 			}
 			reader.close();
 		} catch (IOException e) {

@@ -25,6 +25,7 @@ public class UnitTest {
 	}
 	
 	public void basicTest2() {
-		BidirectionGraph graph = new BidirectionGraph(new CityRoadLoader());
+		UnidirectionGraph graph = new UnidirectionGraph(new CityRoadLoader());
+		System.out.println(graph);
 	}
 }
