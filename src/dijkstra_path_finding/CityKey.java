@@ -1,5 +1,7 @@
 package dijkstra_path_finding;
 
+import java.util.Objects;
+
 /**
  * Represents an abbreviation for a city.
  * e.g.: CT, KV, LA, BO, PS
@@ -16,6 +18,11 @@ public class CityKey implements DataKey {
 	@Override
 	public boolean equals(Object obj) {
 		return code.equals(((CityKey)obj).getCode());
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(code);
 	}
 	
 	/**

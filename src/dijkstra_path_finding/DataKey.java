@@ -6,5 +6,6 @@ package dijkstra_path_finding;
  *
  */
 public interface DataKey extends Comparable<DataKey> {
-	
+	public abstract boolean equals(Object obj);
+	public abstract int hashCode();
 }

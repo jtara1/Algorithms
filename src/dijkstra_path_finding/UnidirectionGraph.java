@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -92,8 +93,8 @@ public class UnidirectionGraph {
 		
 		for (Enumeration<DataKey> e = dataKeyToDataDict.keys(); e.hasMoreElements();) {
 			DataKey key = e.nextElement();
-			result += k
+			result += key.toString() + ": " + dataKeyToDataDict.get(key) + "\n";
 		}
-		
+		return result;
 	}
 }

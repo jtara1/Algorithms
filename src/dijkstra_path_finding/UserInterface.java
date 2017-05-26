@@ -45,20 +45,22 @@ public class UserInterface {
 				break;
 			case "I":
 				// insert road (edge)
-				graph.insertEdge(
+				if (!graph.insertEdge(
 						new CityKey(inputValues.get(1)), 
 						new CityKey(inputValues.get(2)), 
 						Float.parseFloat(inputValues.get(3))
-						);
-				System.out.println(graph);
+						)) {
+					System.out.printf("There is already a road from the %s to %s.\n", inputValues.get(1), inputValues.get(2));
+				}
 				break;
 			case "R":
 				// rm road (edge)
-				graph.removeEdge(
+				if (!graph.removeEdge(
 						new CityKey(inputValues.get(1)), 
 						new CityKey(inputValues.get(2))
-						);
-				System.out.println(graph);
+						)) {
+					System.out.printf("The road from %s to %s doesn't exist.\n", inputValues.get(1), inputValues.get(2));
+				}
 				break;
 			case "H":
 				// display help menu
