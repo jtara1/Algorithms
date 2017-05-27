@@ -40,7 +40,7 @@ public class UnitTest {
 	 * Basic test case for inserting and removing an edge in the graph
 	 */
 	public void testCase1() {
-		UnidirectionGraph graph = new UnidirectionGraph(new CityRoadLoader());
+		DirectedGraph graph = new DirectedGraph(new CityRoadLoader());
 		System.out.println(graph);
 		
 		// remove edge (vertices linked: 0 -> 1)

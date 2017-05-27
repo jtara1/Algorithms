@@ -1,31 +1,28 @@
 package dijkstra_path_finding;
 
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Map.Entry;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.PriorityQueue;
 
-public class UnidirectionGraph {
+public class DirectedGraph {
 	private Float[][] graph = null;
 	
 	private Dictionary<Integer, DataKey> indexToDataKeyDict = new Hashtable<Integer, DataKey>();
 	private Dictionary<DataKey, Data> dataKeyToDataDict = new Hashtable<DataKey, Data>();
 	
-	public UnidirectionGraph() {
+	protected interface PathPrinter extends Path.Printer {};
+	
+	public DirectedGraph() {
 		this(new CityRoadLoader("city.dat", "road.dat"));
 //		String cityDataFileName = "city.dat";
 //		String edgeDataFileName = "road.dat";
 	}
 	
-	public UnidirectionGraph(DataLoader loader) {
+	public DirectedGraph(DataLoader loader) {
 		graph = loader.getAdjMatrix();
-		indexToDataKeyDict = loader.getIndexToKeyDict();
+		indexToDataKeyDict = loader.getIndexToKey();
 		dataKeyToDataDict = loader.getKeyToData();
 	}
 	
@@ -65,6 +62,69 @@ public class UnidirectionGraph {
 		
 		graph[source][destination] = null;
 		return true;
+	}
+	
+	public Path dijkstra(DataKey source, DataKey destination) {
+		int v1 = dataKeyToDataDict.get(source).getIndex();
+		int v2 = dataKeyToDataDict.get(destination).getIndex();
+		return dijkstra(v1, v2);
+	}
+	
+	public Path dijkstra(int source, int destination) {
+		// total distance from source vertex to vertex at index i
+		Float[] distances = new Float[graph.length];
+		// parent to vertex at index i that follows the shortest path to get to the source vertex
+		Integer[] parents = new Integer[graph.length];
+		
+		// init destination total distances that're infinity except for source vertex
+		for (int i = 0; i < distances.length; i++) {
+			distances[i] = Float.POSITIVE_INFINITY;
+		}
+		distances[source] = 0f;
+		
+		class EdgeComparator implements Comparator<Integer> {
+			public int compare(Integer obj1, Integer obj2) {
+				Float difference = distances[obj1] - distances[obj2];
+				if (difference == 0f)
+					return 0;
+				return difference < 0 ? -1 : 1;
+			}
+		}
+		// the queue used to determine which vertex will be processed next
+		PriorityQueue<Integer> sourceQueue = new PriorityQueue<Integer>(distances.length, new EdgeComparator());
+		for (int i = 0; i < graph.length; i++) {
+			sourceQueue.add(i);
+		}
+		
+		Integer src = null;
+		while ((src = sourceQueue.poll()) != null) {
+			for (int dest = 0; dest < graph.length; dest++) {
+				// src has no edge connecting it to dest
+				if (graph[src][dest] == null)
+					continue;
+				
+				// the remaining vertices are inaccessible from source
+				if (distances[src] == Float.POSITIVE_INFINITY)
+					break;
+				
+				// relax
+				Float distance = distances[src] + graph[src][dest];
+				if (distance < distances[dest]) {
+					distances[dest] = distance;
+					parents[dest] = src;
+				}
+				// check if the shortest path from source to destination has been found
+				if (parents[destination] != null) {
+					return new Path(
+							parents, 
+							source, 
+							destination, 
+							distances[destination]
+					);
+				}
+			}
+		}
+		return null;
 	}
 	
 	/**

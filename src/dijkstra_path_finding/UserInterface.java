@@ -1,11 +1,12 @@
 package dijkstra_path_finding;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserInterface {
 	Scanner scanner = new Scanner(System.in);
-	UnidirectionGraph graph = null;
+	DirectedGraph graph = null;
 	
 	public static void main(String[] args) {
 		UserInterface ui = new UserInterface();
@@ -13,7 +14,7 @@ public class UserInterface {
 	}
 	
 	public void start() {
-		graph = new UnidirectionGraph();
+		graph = new DirectedGraph();
 		commandMenu();
 	}
 	
@@ -42,6 +43,16 @@ public class UserInterface {
 				break;
 			case "D":
 				// distance between two cities
+				Path path = graph.dijkstra(
+						new CityKey(inputValues.get(1)), 
+						new CityKey(inputValues.get(2))
+						);
+				
+				if (path == null) {
+					System.out.printf("There is no path from %s to %s.", inputValues.get(1), inputValues.get(2));
+				} else {
+					printPath(path, new CityKey(inputValues.get(1)), new CityKey(inputValues.get(2)));
+				}
 				break;
 			case "I":
 				// insert road (edge)
@@ -74,6 +85,26 @@ public class UserInterface {
 				System.out.println("Invalid input");
 				break;
 			}
+		}
+	}
+	
+	private void printPath(Path path, CityKey source, CityKey destination) {
+		City city1 = (City)graph.getDataKeyToDataDict().get(source);
+		City city2 = (City)graph.getDataKeyToDataDict().get(destination);
+		
+		System.out.printf(
+				"Minimum distance between %s and %s is %.2f through the route: ",
+				city1.getName(),
+				city2.getName(),
+				path.getDistance()
+		);
+		
+		LinkedList<Integer> route = path.getPath();
+		
+		while (!route.isEmpty()) {
+			Integer index = route.removeFirst();
+			CityKey cityCode = (CityKey)graph.getIndexToDataKeyDict().get(index);
+			System.out.printf("%s" + (route.isEmpty() ? "\n" : ", "), cityCode.getCode());
 		}
 	}
 }

@@ -7,7 +7,7 @@ public class City extends Data {
 	private int population;
 	private float elevation;
 	
-	City(int cityIndex, String cityCode, String cityName, int cityPopulation, float cityElevation) {
+	public City(int cityIndex, String cityCode, String cityName, int cityPopulation, float cityElevation) {
 		index = cityIndex;
 		code = cityCode;
 		name = cityName;

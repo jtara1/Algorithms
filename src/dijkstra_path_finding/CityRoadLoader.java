@@ -37,7 +37,7 @@ public class CityRoadLoader implements DataLoader {
 		loadEdgesFromFile(roadsFileName);
 	}
 	
-	public Dictionary<Integer, DataKey> getIndexToKeyDict() {
+	public Dictionary<Integer, DataKey> getIndexToKey() {
 		return indexToKeyDict;
 	}
 	
@@ -70,8 +70,8 @@ public class CityRoadLoader implements DataLoader {
 				matcher.find();
 				City newCity = new City(
 						Integer.parseInt(matcher.group(1)) - 1,
-						matcher.group(2).toUpperCase(),
-						matcher.group(3),
+						matcher.group(2).toUpperCase().trim(),
+						matcher.group(3).trim(),
 						Integer.parseInt(matcher.group(4)),
 						Float.parseFloat(matcher.group(5))
 						);
