@@ -1,7 +1,9 @@
 #ifndef RATIONAL_NUMBER_H
 #define RATIONAL_NUMBER_H
 
-public class RationalNumber {
+#include <ostream>
+
+class RationalNumber {
 private:
     /// numerator
     int num;
@@ -9,20 +11,20 @@ private:
     /// denominator
     int den;
 
-public:
-    RationalNumber();
-    RationalNumber(int, int);
-
     /**
      * Mutate this RationalNumber to simplify
      * and return the simplified version
      */
     RationalNumber simplify();
 
+public:
+    RationalNumber();
+    RationalNumber(int, int);
+
     RationalNumber operator+(const RationalNumber &);
     RationalNumber operator-(const RationalNumber &);
     RationalNumber operator*(const RationalNumber &);
     RationalNumber operator=(const RationalNumber &);
-    std::ostream& operator<<(std::ostream &, const RationalNumber &rationalNum);
+    friend std::ostream& operator<<(std::ostream &, const RationalNumber &);
 };
 #endif // RATIONAL_NUMBER_H

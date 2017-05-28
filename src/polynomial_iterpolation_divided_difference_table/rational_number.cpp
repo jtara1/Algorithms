@@ -13,6 +13,7 @@ RationalNumber::RationalNumber(int n, int d) {
 
     num = n;
     den = d;
+    simplify();
 }
 
 RationalNumber RationalNumber::simplify() {
@@ -65,4 +66,9 @@ RationalNumber RationalNumber::operator=(const RationalNumber &op) {
     num = op.num;
     den = op.den;
     return *this;
+}
+
+std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber) {
+    os << rationalNumber.num << "/" << rationalNumber.den;
+    return os;
 }
