@@ -167,8 +167,9 @@ Polynomial Polynomial::operator-(const Polynomial &op) {
 }
 
 Polynomial Polynomial::operator*(const Polynomial &op) {
-    Polynomial poly1 = terms <= op.terms ? *this : op;
-    Polynomial poly2 = terms > op.terms ? *this : op;
+    Polynomial poly1, poly2;
+    poly1 = terms <= op.terms ? *this : op;
+    poly2 = terms > op.terms ? *this : op;
 
     // this'll a number of polynomials that hasn't combined like terms yet
     Polynomial *product = new Polynomial[poly1.terms];
