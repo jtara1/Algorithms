@@ -37,6 +37,12 @@ void testPolynomial() {
     f.print();
 
     cout << "\nSUBTRACTION TESTS:\n";
+    x.print();
+    y.print();
+    Polynomial z1 = x - y;
+    z1.print();
+    cout << endl;
+
     a.print();
     b.print();
     Polynomial a1 = a - b;
@@ -97,6 +103,6 @@ void testRationalNumber() {
 }
 
 int main() {
-    testRationalNumber();
-//    testPolynomial();
+//    testRationalNumber();
+    testPolynomial();
 }

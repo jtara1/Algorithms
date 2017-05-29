@@ -160,7 +160,7 @@ Polynomial Polynomial::operator+(const Polynomial &op) {
 Polynomial Polynomial::operator-(const Polynomial &op) {
     Polynomial temp;
     temp = op;
-    for (int i = 0; i < terms; i++) {
+    for (int i = 0; i < op.terms; i++) {
         temp.coefficients[i] = temp.coefficients[i] * -1;
     }
     return *this + temp;
