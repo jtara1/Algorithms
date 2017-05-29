@@ -1,11 +1,13 @@
 #ifndef POLYNOMIAL_H
 #define POLYNOMIAL_H
 
+#include "rational_number.h"
+
 using namespace std;
 
 class Polynomial {
 private:
-    float *coefficients;
+    RationalNumber *coefficients;
     int *exponents;
     int terms;
 

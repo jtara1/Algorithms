@@ -13,7 +13,7 @@ Polynomial::Polynomial() {
 }
 
 Polynomial::Polynomial(int terms) {
-    coefficients = new float[terms];
+    coefficients = new RationalNumber[terms];
     exponents = new int[terms];
     this->terms = terms;
 }
@@ -27,10 +27,10 @@ Polynomial::Polynomial(const Polynomial &poly) {
     delete [] coefficients;
     delete [] exponents;
 
-    coefficients = new float[terms];
+    coefficients = new RationalNumber[terms];
     exponents = new int[terms];
 
-    memcpy(coefficients, poly.coefficients, terms * sizeof(float));
+    memcpy(coefficients, poly.coefficients, terms * sizeof(RationalNumber));
     memcpy(exponents, poly.exponents, terms * sizeof(int));
 }
 
@@ -52,7 +52,7 @@ void Polynomial::parseString(string poly) {
         }
     }
 
-    coefficients = new float[terms];
+    coefficients = new RationalNumber[terms];
     exponents = new int[terms];
 
     // insert plus sign in front of first coefficient if no sign
@@ -77,8 +77,8 @@ void Polynomial::parseTerm(string term, int termIndex) {
     if (splitIndex == string::npos)
         throw invalid_argument("\"x^\" could not be found in a term in the polynomial\n");
 
-//    float coefficient = atof(term.substr(0, splitIndex));
-    coefficients[termIndex] = (term[1] == 'x' ? 1.0 : atof(term.c_str()));
+//    RationalNumber coefficient = atof(term.substr(0, splitIndex));
+    coefficients[termIndex] = (term[1] == 'x' ? RationalNumber(1, 1) : RationalNumber(atoi(term.c_str()), 1));
 
     size_t expIndex = splitIndex + 2;
     exponents[termIndex] = atoi(term.substr(expIndex, term.size() - expIndex).c_str());
@@ -97,7 +97,7 @@ void Polynomial::removeSpaces(string &str) {
 
 void Polynomial::print() const {
     for (int i = 0; i < terms; i++) {
-        cout << (coefficients[i] < 0 ? "" : "+") << coefficients[i] << "x^" << exponents[i];
+        cout << (coefficients[i] < RationalNumber::ZERO ? "" : "+") << coefficients[i] << "x^" << exponents[i];
     }
     cout << endl;
 }
@@ -141,10 +141,10 @@ Polynomial Polynomial::operator+(const Polynomial &op) {
     }
 
     // down size the length of the two pointers used in newP
-    float *coef = new float[polyIndex];
+    RationalNumber *coef = new RationalNumber[polyIndex];
     int *expo = new int[polyIndex];
 
-    memcpy(coef, newP.coefficients, (polyIndex) * sizeof(float));
+    memcpy(coef, newP.coefficients, (polyIndex) * sizeof(RationalNumber));
     memcpy(expo, newP.exponents, (polyIndex) * sizeof(int));
 
     delete [] newP.coefficients;
@@ -158,7 +158,8 @@ Polynomial Polynomial::operator+(const Polynomial &op) {
 }
 
 Polynomial Polynomial::operator-(const Polynomial &op) {
-    Polynomial temp = op;
+    Polynomial temp;
+    temp = op;
     for (int i = 0; i < terms; i++) {
         temp.coefficients[i] = temp.coefficients[i] * -1;
     }
@@ -172,7 +173,7 @@ Polynomial Polynomial::operator*(const Polynomial &op) {
     // this'll a number of polynomials that hasn't combined like terms yet
     Polynomial *product = new Polynomial[poly1.terms];
     for (int i = 0; i < poly1.terms; i++) {
-        product[i].coefficients = new float[poly2.terms];
+        product[i].coefficients = new RationalNumber[poly2.terms];
         product[i].exponents = new int[poly2.terms];
         product[i].terms = poly2.terms;
     }
@@ -200,11 +201,11 @@ Polynomial& Polynomial::operator=(const Polynomial &op) {
         delete [] exponents;
 
         terms = op.terms;
-        coefficients = new float[terms];
+        coefficients = new RationalNumber[terms];
         exponents = new int[terms];
     }
 
-    memcpy(coefficients, op.coefficients, op.terms * sizeof(float));
+    memcpy(coefficients, op.coefficients, op.terms * sizeof(RationalNumber));
     memcpy(exponents, op.exponents, op.terms * sizeof(int));
 
     return *this;

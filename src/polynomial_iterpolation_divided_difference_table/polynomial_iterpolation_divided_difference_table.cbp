@@ -31,6 +31,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="main.cpp" />
+		<Unit filename="polynomial.cpp" />
+		<Unit filename="polynomial.h" />
+		<Unit filename="rational_number.cpp" />
+		<Unit filename="rational_number.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
