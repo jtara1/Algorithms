@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1496024550 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
+	<iostream>
+	"polynomial.h"
+	"rational_number.h"
+
+1496010338 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
+	<ostream>
+
+1496011100 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
+	<iostream>
+	<cctype>
+	<cstdlib>
+	<string>
+	<cstring>
+	"polynomial.h"
+
+1496005895 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
+	"rational_number.h"
+
+1496019175 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
+	<iostream>
+	<cstdlib>
+	"rational_number.h"
+

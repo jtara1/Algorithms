@@ -31,9 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="divided_difference.cpp" />
+		<Unit filename="divided_difference.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="polynomial.cpp" />
 		<Unit filename="polynomial.h" />
+		<Unit filename="polynomial_iterpolation.cpp" />
+		<Unit filename="polynomial_iterpolation.h" />
 		<Unit filename="rational_number.cpp" />
 		<Unit filename="rational_number.h" />
 		<Extensions>
