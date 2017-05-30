@@ -12,6 +12,8 @@ public class CityKey implements DataKey {
 	private String code;
 	
 	CityKey(String cityCode) {
+		if (cityCode.length() != 2)
+			throw new IllegalArgumentException("city code must be exactly 2 letters");
 		code = cityCode;
 	}
 	

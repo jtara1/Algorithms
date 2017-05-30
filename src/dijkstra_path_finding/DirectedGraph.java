@@ -33,6 +33,10 @@ public class DirectedGraph {
 	public Dictionary<DataKey, Data> getDataKeyToDataDict() {
 		return dataKeyToDataDict;
 	}
+	
+	public boolean insertEdge(Data source, Data destination, float distance) {
+		return insertEdge(source.getIndex(), destination.getIndex(), distance);
+	}
 
 	public boolean insertEdge(DataKey source, DataKey destination, float distance) {
 		int src = dataKeyToDataDict.get(source).getIndex();
@@ -47,6 +51,10 @@ public class DirectedGraph {
 		
 		graph[source][destination] = distance;
 		return true;
+	}
+	
+	public boolean removeEdge(Data source, Data destination) {
+		return removeEdge(source.getIndex(), destination.getIndex());
 	}
 	
 	public boolean removeEdge(DataKey source, DataKey destination) {
@@ -125,6 +133,10 @@ public class DirectedGraph {
 			}
 		}
 		return null;
+	}
+	
+	public Data getData(DataKey key) {
+		return dataKeyToDataDict.get(key);
 	}
 	
 	/**
