@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * Enables a user to do operations with a directed graph using the 
+ * city and raod data set
+ * @author j
+ *
+ */
 public class UserInterface {
-	Scanner scanner = new Scanner(System.in);
+	Scanner scanner = null;
 	DirectedGraph graph = null;
 	
 	public static void main(String[] args) {
@@ -13,11 +19,18 @@ public class UserInterface {
 		ui.start();
 	}
 	
+	/**
+	 * Start the UI 
+	 */
 	public void start() {
+		scanner = new Scanner(System.in);
 		graph = new DirectedGraph();
 		commandMenu();
 	}
 	
+	/**
+	 * Allows user to do operations with the graph
+	 */
 	private void commandMenu() {
 		String[] codes;
 		City src, dest;
@@ -81,9 +94,11 @@ public class UserInterface {
 				src = getCity(codes[0]);
 				dest = getCity(codes[1]); 
 				
+				// rm unsuccessful
 				if (!graph.removeEdge(src, dest)) {
 					System.out.printf("The road from %s to %s doesn't exist.\n", src.getName(), dest.getName());
 				} else {
+					// rm successful
 					System.out.printf("The road from %s to %s was inserted.\n", src.getName(), dest.getName());
 				}
 				break;
@@ -102,6 +117,12 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Gets number of words (based on inputs argument) from console input
+	 * @param inputs
+	 * @return The array of size based on argument inputs each element being a word
+	 * entered by the user
+	 */
 	private String[] getCityCodes(int inputs) {
 		String[] codes = new String[inputs];
 		System.out.print("City code" + (inputs == 1 ? ": " : "s: "));
@@ -112,6 +133,13 @@ public class UserInterface {
 		return codes;
 	}
 	
+	/**
+	 * Print the src and destination cities, and the sequence of vertices visited
+	 * to traverse the path
+	 * @param path
+	 * @param source
+	 * @param destination
+	 */
 	private void printPath(Path path, CityKey source, CityKey destination) {
 		City city1 = (City)graph.getDataKeyToDataDict().get(source);
 		City city2 = (City)graph.getDataKeyToDataDict().get(destination);
@@ -132,6 +160,12 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Simplifies access to get a {@link City} given the String representing
+	 * the {@link CityKey}
+	 * @param cityCode
+	 * @return
+	 */
 	private City getCity(String cityCode) {
 		return (City)graph.getData(new CityKey(cityCode));
 	}

@@ -4,11 +4,15 @@ import java.util.Objects;
 
 /**
  * Represents an abbreviation for a city.
- * e.g.: CT, KV, LA, BO, PS
+ * For all Cities, each associated CityKeys is unique
+ * e.g.: CT, KV, LA, BO, PS, LV
  * @author j
  *
  */
 public class CityKey implements DataKey {
+	/**
+	 * Two characters representing a city
+	 */
 	private String code;
 	
 	CityKey(String cityCode) {
@@ -22,22 +26,14 @@ public class CityKey implements DataKey {
 		return code.equals(((CityKey)obj).getCode());
 	}
 	
+	/**
+	 * The hash code of this object will be created from the hash of the two character
+	 * code
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(code);
 	}
-	
-//	/**
-//	 * Overrides the {@link #compareTo(Object)} method as the
-//	 * parent class this class inherits from extends the interface
-//	 * Comparable<T>
-//	 * @param obj
-//	 * @return The comparison of the two {@link #code} 
-//	 */
-//	@Override
-//	public int compareTo(DataKey obj) {
-//		return code.compareTo(((CityKey)obj).getCode());
-//	}
 	
 	public String getCode() {
 		return code;

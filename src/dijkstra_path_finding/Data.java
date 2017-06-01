@@ -6,5 +6,13 @@ package dijkstra_path_finding;
  *
  */
 public abstract class Data {
+	/**
+	 * The index of the vertex in the graph
+	 */
+	protected int index;
+	
+	/**
+	 * @return The index
+	 */
 	public abstract int getIndex();
 }

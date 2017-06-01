@@ -6,20 +6,42 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.PriorityQueue;
 
+/**
+ * A generic implementation of the abstract data type of a graph with directed
+ * edge. Intended for use with {@link City} and {@link CityKey}, not tested 
+ * with other sets of data or other implementations of {@link Data} and {@link DataKey} 
+ * @author James T (jtara1)
+ *
+ */
 public class DirectedGraph {
+	/**
+	 * The adjacency matrix where each non-null value is the distance / cost from
+	 * the source vertex to the destination vertex. A null value indicates there
+	 * is no link / edge between the source and destination.
+	 */
 	private Float[][] graph = null;
 	
+	/**
+	 * Maps a vertex at an index to a {@link DataKey}
+	 */
 	private Dictionary<Integer, DataKey> indexToDataKeyDict = new Hashtable<Integer, DataKey>();
+	
+	/**
+	 * Maps a {@link DataKey} to a {@link Data}
+	 */
 	private Dictionary<DataKey, Data> dataKeyToDataDict = new Hashtable<DataKey, Data>();
 	
-	protected interface PathPrinter extends Path.Printer {};
-	
+	/**
+	 * Load up default data set
+	 */
 	public DirectedGraph() {
 		this(new CityRoadLoader("city.dat", "road.dat"));
-//		String cityDataFileName = "city.dat";
-//		String edgeDataFileName = "road.dat";
 	}
 	
+	/**
+	 * Copy structures from loader into attributes of this instance
+	 * @param loader
+	 */
 	public DirectedGraph(DataLoader loader) {
 		graph = loader.getAdjMatrix();
 		indexToDataKeyDict = loader.getIndexToKey();
@@ -45,6 +67,14 @@ public class DirectedGraph {
 		return insertEdge(src, dest, distance);
 	}
 	
+	/**
+	 * Create an edge from source to destination with a cost of distance
+	 * @param source The src vertex index
+	 * @param destination The dest vertex index
+	 * @param distance The cost to traverse along the edge being inserted
+	 * @return true if the insertion was successful, false if an edge already 
+	 * existed from source to destination
+	 */
 	public boolean insertEdge(int source, int destination, float distance) {
 		if (graph[source][destination] != null)
 			return false; // there was already an edge from src to dest
@@ -64,6 +94,13 @@ public class DirectedGraph {
 		return removeEdge(src, dest);
 	}
 	
+	/**
+	 * Removes the edge leading from source vertex to destination vertex
+	 * @param source The src vertex index
+	 * @param destination The dest vertex
+	 * @return false if there was no edge from source to destination to remove, true if 
+	 * operation was successful
+	 */
 	public boolean removeEdge(int source, int destination) {
 		if (graph[source][destination] == null)
 			return false; // there was already no edge from src to dest
@@ -78,6 +115,13 @@ public class DirectedGraph {
 		return dijkstra(v1, v2);
 	}
 	
+	/**
+	 * Uses Dijkstra's algorithm to find the shortest path from source to destination
+	 * @param source The src vertex index
+	 * @param destination The dest vertex index
+	 * @return A {@link Path} containing the total distance and a linked list containing the 
+	 * sequence of vertices traversed to to travel from source to destination
+	 */
 	public Path dijkstra(int source, int destination) {
 		// total distance from source vertex to vertex at index i
 		Float[] distances = new Float[graph.length];
@@ -154,6 +198,13 @@ public class DirectedGraph {
 		return result;
 	}
 	
+	/**
+	 * An alternative method to get a string representation of this instance
+	 * Calls {@link #toString()} then appends a representation of the {@link #indexToDataKeyDict}
+	 * and {@link #dataKeyToDataDict} dictionaries
+	 * TODO: Test this out
+	 * @return
+	 */
 	public String toStringDebug() {
 		String result = toString();
 		

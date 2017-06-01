@@ -3,6 +3,13 @@ package dijkstra_path_finding;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+/**
+ * Contains a number of methods that test the functionality the {@link DirectedGraph}
+ * it's features, and associated classes.
+ * Relies on manual checking for confirmation of expected behavior.
+ * @author j
+ *
+ */
 public class UnitTest {
 	public static void main(String[] args) {
 		UnitTest ut = new UnitTest();
@@ -21,6 +28,9 @@ public class UnitTest {
 		System.out.printf("Two DataKeys containing same values are equal? %b\n", k1.equals(k2));
 	}
 	
+	/**
+	 * Partial testing of dictionary creation for use in directed graph
+	 */
 	public void basicTest() {
 		Dictionary<Integer, CityKey> d1 = new Hashtable<Integer, CityKey>();
 		Dictionary<CityKey, City> d2 = new Hashtable<CityKey, City>();

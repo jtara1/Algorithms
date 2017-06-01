@@ -8,20 +8,27 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Loads the cities and roads and sets up the data structures needed for
+ * {@link DirectedGraph}
+ * @author j
+ *
+ */
 public class CityRoadLoader implements DataLoader {
-//	private class Road {
-//		public int source;
-//		public int destination;
-//		public Float cost;
-//		Road(int src, int dest, Float distance) {
-//			source = src;
-//			destination = dest;
-//			cost = distance;
-//		}
-//	}
-	
+	/**
+	 * Maps an integer index to a {@link DataKey}
+	 */
 	private Dictionary<Integer, DataKey> indexToKeyDict = new Hashtable<Integer, DataKey>();
+	
+	/**
+	 * Maps a {@link DataKey} to a {@link Data}
+	 */
 	private Dictionary<DataKey, Data> keyToDataDict = new Hashtable<DataKey, Data>();
+	
+	/**
+	 * Adjacency matrix used to hold the the distances and connections of the vertices
+	 * in the graph
+	 */
 	private Float[][] adjMatrix = null;
 	
 	CityRoadLoader() {
@@ -49,10 +56,18 @@ public class CityRoadLoader implements DataLoader {
 		return adjMatrix;
 	}
 	
+	/**
+	 * Uses regex to matrix the input from the file
+	 * Matches the following e.g.: 
+	 *   1 LV LAS VEGAS 10000 1000
+	 * 987   LA     LAS ANGLES     10000    1111
+	 * 100   MF    MT. FUJI    1000    1234.29
+	 * @param fileName
+	 */
 	private void loadVerticesFromFile(String fileName) {
 		// match groups 0-5: index, code, name, population, elevation
 		Pattern pattern = Pattern.compile(
-				"\\s*?(\\d+)\\s+([a-zA-Z][a-zA-Z])\\s+([a-zA-Z]+\\.?\\ ?[a-zA-Z]*?)\\s+(\\d+)\\s+(\\d+\\.?\\d*?).*?"
+				"\\s*?(\\d+)\\s+([a-zA-Z][a-zA-Z])\\s+([a-zA-Z]+\\.?\\ ?[a-zA-Z]*?)\\s*(\\d+)\\s+(\\d+\\.?\\d*?).*?"
 				);
 		
 		BufferedReader reader = null;
@@ -95,6 +110,13 @@ public class CityRoadLoader implements DataLoader {
 		}
 	}
 	
+	/**
+	 * Uses regex to match groups for each line to load the edge of the graph
+	 * matches e.g.:
+	 *     5 2 400.4
+	 * 40012 3 230
+	 * @param fileName
+	 */
 	private void loadEdgesFromFile(String fileName) {
 		BufferedReader reader = null;
 		// pattern to get three matches groups (two ints and one int or float) with any amount of white space between
