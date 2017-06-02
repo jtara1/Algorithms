@@ -4,6 +4,7 @@ import java.util.Dictionary;
 
 /**
  * Loads data from files and returns needed structures
+ * for {@link DirectedGraph}
  * @author j
  *
  */

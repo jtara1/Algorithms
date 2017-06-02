@@ -38,4 +38,9 @@ public class CityKey implements DataKey {
 	public String getCode() {
 		return code;
 	}
+	
+	@Override
+	public String toString() {
+		return code;
+	}
 }

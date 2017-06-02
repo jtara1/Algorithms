@@ -1,6 +1,5 @@
 package dijkstra_path_finding;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -45,12 +44,7 @@ public class UserInterface {
 			System.out.print("Enter command: ");
 			String input = scanner.nextLine().trim().toUpperCase();
 			
-			ArrayList<String> inputValues = new ArrayList<String>();
-			for (String value : input.split(" ")) {
-				inputValues.add(value);
-			}
-			
-			switch (inputValues.get(0)) {
+			switch (input) {
 			case "Q":
 				// query, get city data from dictionary, cast to City, print
 				codes = getCityCodes(1);
@@ -64,9 +58,9 @@ public class UserInterface {
 				Path path = graph.dijkstra(key1, key2);
 				
 				if (path == null) {
-					System.out.printf("There is no path from %s to %s.", inputValues.get(1), inputValues.get(2));
+					System.out.printf("There is no path from %s to %s.", key1.toString(), key2.toString());
 				} else {
-					printPath(path, new CityKey(codes[0]), new CityKey(codes[1]));
+					printPath(path, key1, key2);
 				}
 				break;
 			case "I":
@@ -99,7 +93,7 @@ public class UserInterface {
 					System.out.printf("The road from %s to %s doesn't exist.\n", src.getName(), dest.getName());
 				} else {
 					// rm successful
-					System.out.printf("The road from %s to %s was inserted.\n", src.getName(), dest.getName());
+					System.out.printf("The road from %s to %s was removed.\n", src.getName(), dest.getName());
 				}
 				break;
 			case "H":
@@ -119,14 +113,14 @@ public class UserInterface {
 	
 	/**
 	 * Gets number of words (based on inputs argument) from console input
-	 * @param inputs
+	 * @param numberOfInputs
 	 * @return The array of size based on argument inputs each element being a word
 	 * entered by the user
 	 */
-	private String[] getCityCodes(int inputs) {
-		String[] codes = new String[inputs];
-		System.out.print("City code" + (inputs == 1 ? ": " : "s: "));
-		for (int i = 0; i < inputs; i++) {
+	private String[] getCityCodes(int numberOfInputs) {
+		String[] codes = new String[numberOfInputs];
+		System.out.print("City code" + (numberOfInputs == 1 ? ": " : "s: "));
+		for (int i = 0; i < numberOfInputs; i++) {
 			codes[i] = scanner.next().toUpperCase();
 		}
 		scanner.nextLine(); // clear the newline character

@@ -38,6 +38,7 @@ public class CityRoadLoader implements DataLoader {
 	CityRoadLoader(String citiesFileName, String roadsFileName) {
 		loadVerticesFromFile(citiesFileName);
 		
+		// create the adj matrix now that we know the number of vertices
 		int vertices = indexToKeyDict.size(); 
 		adjMatrix = new Float[vertices][vertices];
 		
@@ -60,7 +61,7 @@ public class CityRoadLoader implements DataLoader {
 	 * Uses regex to matrix the input from the file
 	 * Matches the following e.g.: 
 	 *   1 LV LAS VEGAS 10000 1000
-	 * 987   LA     LAS ANGLES     10000    1111
+	 * 987   LA     LAS ANGELES     10000    1111
 	 * 100   MF    MT. FUJI    1000    1234.29
 	 * @param fileName
 	 */
@@ -100,6 +101,7 @@ public class CityRoadLoader implements DataLoader {
 				
 				// check if the CityKey is already in the dictionary
 				if (keyToDataDict.get(newCityKey) != null) {
+					reader.close();
 					throw new IllegalArgumentException("duplicate city code given in city data input file");
 				}
 				keyToDataDict.put(newCityKey, newCity);
@@ -139,6 +141,7 @@ public class CityRoadLoader implements DataLoader {
 				Float distance = Float.parseFloat(matcher.group(3));
 				
 				if (adjMatrix[v1][v2] != null) {
+					reader.close();
 					throw new IllegalArgumentException("an edge was already given for the two vertices");
 				}
 				
