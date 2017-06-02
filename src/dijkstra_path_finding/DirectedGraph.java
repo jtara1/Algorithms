@@ -134,6 +134,7 @@ public class DirectedGraph {
 		}
 		distances[source] = 0f;
 		
+		// Given two indices, compare the total distance of each one to the source vertex 
 		class EdgeComparator implements Comparator<Integer> {
 			public int compare(Integer obj1, Integer obj2) {
 				Float difference = distances[obj1] - distances[obj2];
