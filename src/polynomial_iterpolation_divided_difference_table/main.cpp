@@ -1,7 +1,9 @@
 #include <iostream>
+#include <ratio>
 
 #include "polynomial.h"
 #include "rational_number.h"
+#include "divided_difference.h"
 
 using namespace std;
 
@@ -80,6 +82,7 @@ void testPolynomial() {
 //    printPolynomial(x);
 }
 
+/// test cases
 void testRationalNumber() {
     RationalNumber::PRINT_AS_FRACTION = true;
 
@@ -103,6 +106,8 @@ void testRationalNumber() {
 }
 
 int main() {
+    DividedDifference divDiff;
+
 //    testRationalNumber();
-    testPolynomial();
+//    testPolynomial();
 }

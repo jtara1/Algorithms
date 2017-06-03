@@ -1,13 +1,15 @@
 # depslib dependency file v1.0
-1496024550 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
+1496449954 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
 	<iostream>
+	<ratio>
 	"polynomial.h"
 	"rational_number.h"
+	"divided_difference.h"
 
-1496010338 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
+1496458297 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
 	<ostream>
 
-1496011100 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
+1496080271 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
 	<iostream>
 	<cctype>
 	<cstdlib>
@@ -18,8 +20,27 @@
 1496005895 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
 	"rational_number.h"
 
-1496019175 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
+1496458713 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
 	<iostream>
 	<cstdlib>
 	"rational_number.h"
+
+1496430325 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+	"divided_difference.h"
+
+1496435195 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.h
+	"polynomial_iterpolation.h"
+
+1496443994 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.h
+	<vector>
+	<string>
+	"rational_number.h"
+
+1496458879 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.cpp
+	<fstream>
+	<string>
+	<cstdlib>
+	<regex>
+	<iostream>
+	"polynomial_iterpolation.h"
 

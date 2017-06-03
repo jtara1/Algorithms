@@ -1,15 +1,18 @@
 #include <iostream>
 #include <cstdlib>
-//#include <cmath>
 
 #include "rational_number.h"
 
 const RationalNumber RationalNumber::ZERO = RationalNumber(0, 1);
-bool RationalNumber::PRINT_AS_FRACTION = false;
+bool RationalNumber::PRINT_AS_FRACTION = true;
 
 RationalNumber::RationalNumber() {
     num = 1;
     den = 1;
+}
+
+RationalNumber::RationalNumber(std::string n, std::string d) {
+    parseString(n, d);
 }
 
 RationalNumber::RationalNumber(int n, int d) {
@@ -25,6 +28,8 @@ RationalNumber::RationalNumber(int n, int d) {
         den = d;
     }
     simplify();
+//    rationalize(num);
+//    rationalize(den);
 }
 
 RationalNumber RationalNumber::simplify() {
@@ -86,8 +91,8 @@ void RationalNumber::rationalize(float numb, bool isNumerator, int maxDen) {
     long maxden;
     long ai;
 
-    startx = x = atof(numb);
-    maxden = atoi(maxDen);
+    startx = x = numb;
+    maxden = maxDen;
 
     /* initialize matrix */
     m[0][0] = m[1][1] = 1;
@@ -120,6 +125,16 @@ void RationalNumber::rationalize(float numb, bool isNumerator, int maxDen) {
     printf("%ld/%ld, error = %e\n", m[0][0], m[1][0],
 	   startx - ((double) m[0][0] / (double) m[1][0]));
 
+}
+
+void RationalNumber::parseString(std::string n, std::string d) {
+    num = (n == "" ? 1 : std::atoi(n.c_str()));
+    den = (d == "" ? 1 : atoi(d.c_str()));
+    if (den == 0)
+        throw std::invalid_argument("can't divide by 0");
+//    RationalNumber(n == "" ? 1 : std::atoi(n.c_str()),
+//                   d == "" ? 1 : std::atoi(d.c_str())
+//    );
 }
 
 RationalNumber RationalNumber::operator+(const RationalNumber &op) {

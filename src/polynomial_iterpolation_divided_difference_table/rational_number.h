@@ -6,10 +6,10 @@
 class RationalNumber {
 private:
     /// numerator
-    float num;
+    int num;
 
     /// denominator
-    float den;
+    int den;
 
     /**
      * Mutate this RationalNumber to simplify
@@ -22,11 +22,14 @@ private:
      * of the num or den, and converts it into a rational
      * number if there is a repeating part
      */
-    void rationalize(float numb = this->num, bool isNumerator = true, int maxDen = 10000);
+    void rationalize(float numb, bool isNumerator = true, int maxDen = 10000);
+
+    void parseString(std::string, std::string);
 
 public:
     RationalNumber();
-    RationalNumber(float, float);
+    RationalNumber(int, int);
+    RationalNumber(std::string, std::string);
 
     /// the rational number representation of zero
     const static RationalNumber ZERO;

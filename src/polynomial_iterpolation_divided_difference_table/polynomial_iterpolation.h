@@ -2,11 +2,13 @@
 #define POLYNOMIAL_ITERPOLATION_H
 
 #include <vector>
+#include <string>
+#include "rational_number.h"
 
-virtual class PolynomialIterpolation {
+class PolynomialIterpolation {
 protected:
-    std::vector<double> xValues;
-    std::vector<double> yValues;
+    std::vector<RationalNumber> xValues;
+    std::vector<RationalNumber> yValues;
     void loadDataFromFile(std::string);
 
 public:
