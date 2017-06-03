@@ -88,6 +88,10 @@ void testRationalNumber() {
 
     RationalNumber a(2, 4);
     RationalNumber b(1, 4);
+
+    RationalNumber d1(10, -6);
+    cout << "10/-6 simplified => " << d1 << endl;
+
     cout << a << " + " << b << " = " << a + b << endl;
 
     RationalNumber c(12, 38);
@@ -103,6 +107,9 @@ void testRationalNumber() {
 
     RationalNumber a1(4, -404);
     cout << "4/-404" << " simplified => " << a1 << endl;
+
+    RationalNumber b1(1, 6);
+    cout << "(1/6 - 1/2)/(-1) = " << (b1 - a) / (RationalNumber(-1, 1)) << endl;
 }
 
 int main() {

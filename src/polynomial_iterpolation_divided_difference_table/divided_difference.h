@@ -5,7 +5,7 @@
 
 class DividedDifference : public PolynomialIterpolation {
 private:
-    void iterpolate();
+    void interpolate();
 public:
     DividedDifference(std::string fileName = "input.txt");
 };

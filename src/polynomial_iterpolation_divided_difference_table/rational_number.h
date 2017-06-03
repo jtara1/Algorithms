@@ -44,6 +44,7 @@ public:
     RationalNumber operator-(const RationalNumber &);
     RationalNumber operator*(const RationalNumber &);
     RationalNumber operator*(const int &);
+    RationalNumber operator/(const RationalNumber &);
     bool operator<(const RationalNumber &);
     bool operator>(const RationalNumber &);
     RationalNumber operator=(const RationalNumber &);

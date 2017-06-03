@@ -33,16 +33,18 @@ RationalNumber::RationalNumber(int n, int d) {
 }
 
 RationalNumber RationalNumber::simplify() {
-    bool denominatorIsLarger = abs(num) <= abs(den) ? true : false;
-    bool isNegative = num < 0 ? true : false;
+    bool denominatorIsLarger = abs(num) <= abs(den);
+
+    bool isNegative = num * den < 0;
+    num *= (isNegative ? -1 : 1); // needs to be positive for while condition
+
     int divisor = denominatorIsLarger ? num : den;
     int dividend = denominatorIsLarger ? den: num;
-    divisor *= (isNegative ? -1 : 1); // needs to be positive for while condition
 
     int prevDivisor = 0;
     while (prevDivisor < divisor) {
         prevDivisor++;
-        if (divisor % prevDivisor != 0)
+        if (divisor % prevDivisor != 0 || divisor % prevDivisor != -0)
             continue;
 
         int thisDivisor = divisor / prevDivisor;
@@ -152,11 +154,15 @@ RationalNumber RationalNumber::operator-(const RationalNumber &op) {
 }
 
 RationalNumber RationalNumber::operator*(const RationalNumber &op) {
-    return RationalNumber(num * op.num, den * op.den).simplify();
+    return RationalNumber(num * op.num, den * op.den);
 }
 
 RationalNumber RationalNumber::operator*(const int &op) {
-    return RationalNumber(num * op, den).simplify();
+    return RationalNumber(num * op, den);
+}
+
+RationalNumber RationalNumber::operator/(const RationalNumber &op) {
+    return RationalNumber(*this * RationalNumber(op.den, op.num)).simplify();
 }
 
 bool RationalNumber::operator<(const RationalNumber &op) {
