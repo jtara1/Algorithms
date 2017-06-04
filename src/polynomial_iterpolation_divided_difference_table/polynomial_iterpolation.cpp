@@ -67,4 +67,7 @@ void PolynomialIterpolation::loadDataFromFile(std::string inputFile) {
     if (xValues.size() != yValues.size())
         throw std::invalid_argument("there are a different amount of x values and y values");
 
+    if (xValues.size() <= 1)
+        throw std::invalid_argument("there needs to be at least two pairs of (x, y) values");
+
 }

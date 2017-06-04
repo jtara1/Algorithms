@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 
 #include "rational_number.h"
 
@@ -130,7 +131,7 @@ void RationalNumber::rationalize(float numb, bool isNumerator, int maxDen) {
 }
 
 void RationalNumber::parseString(std::string n, std::string d) {
-    num = (n == "" ? 1 : std::atoi(n.c_str()));
+    num = (n == "" ? 1 : atoi(n.c_str()));
     den = (d == "" ? 1 : atoi(d.c_str()));
     if (den == 0)
         throw std::invalid_argument("can't divide by 0");
@@ -180,9 +181,24 @@ RationalNumber RationalNumber::operator=(const RationalNumber &op) {
 }
 
 std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber) {
-    if (RationalNumber::PRINT_AS_FRACTION)
-        os << rationalNumber.num << "/" << rationalNumber.den;
+    if (RationalNumber::PRINT_AS_FRACTION) {
+        std::stringstream ss;
+        ss << rationalNumber.num << "/" << rationalNumber.den;
+        os << ss.str();
+//        os << rationalNumber.num << "/" << rationalNumber.den;
+    }
     else
         os << rationalNumber.num / (double)rationalNumber.den;
     return os;
+}
+
+std::string RationalNumber::toString() {
+    if (RationalNumber::PRINT_AS_FRACTION) {
+        std::stringstream ss;
+        ss << num << "/" << den;
+        return ss.str();
+    }
+    else
+        throw std::invalid_argument("rational to string as decimal is not implemented");
+    return "";
 }

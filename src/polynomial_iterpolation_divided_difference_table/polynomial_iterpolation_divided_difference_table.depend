@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1496449954 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
+1496541483 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
 	<iostream>
 	<ratio>
 	"polynomial.h"
 	"rational_number.h"
 	"divided_difference.h"
 
-1496458297 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
+1496617323 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
 	<ostream>
 
 1496080271 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
@@ -20,23 +20,27 @@
 1496005895 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
 	"rational_number.h"
 
-1496458713 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
+1496617484 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
 	<iostream>
 	<cstdlib>
+	<sstream>
 	"rational_number.h"
 
-1496430325 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+1496619340 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+	<iostream>
+	<iomanip>
 	"divided_difference.h"
 
-1496435195 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.h
+1496617323 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.h
+	<vector>
 	"polynomial_iterpolation.h"
 
-1496443994 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.h
+1496542192 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.h
 	<vector>
 	<string>
 	"rational_number.h"
 
-1496458879 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.cpp
+1496599510 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial_iterpolation.cpp
 	<fstream>
 	<string>
 	<cstdlib>

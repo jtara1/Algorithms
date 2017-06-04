@@ -49,5 +49,7 @@ public:
     bool operator>(const RationalNumber &);
     RationalNumber operator=(const RationalNumber &);
     friend std::ostream& operator<<(std::ostream &, const RationalNumber &);
+
+    std::string toString();
 };
 #endif // RATIONAL_NUMBER_H
