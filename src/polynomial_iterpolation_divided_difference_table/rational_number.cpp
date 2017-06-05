@@ -135,9 +135,6 @@ void RationalNumber::parseString(std::string n, std::string d) {
     den = (d == "" ? 1 : atoi(d.c_str()));
     if (den == 0)
         throw std::invalid_argument("can't divide by 0");
-//    RationalNumber(n == "" ? 1 : std::atoi(n.c_str()),
-//                   d == "" ? 1 : std::atoi(d.c_str())
-//    );
 }
 
 RationalNumber RationalNumber::operator+(const RationalNumber &op) {
@@ -183,9 +180,11 @@ RationalNumber RationalNumber::operator=(const RationalNumber &op) {
 std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber) {
     if (RationalNumber::PRINT_AS_FRACTION) {
         std::stringstream ss;
-        ss << rationalNumber.num << "/" << rationalNumber.den;
+        if (rationalNumber.num == 0 || rationalNumber.den == 1)
+            ss << rationalNumber.num;
+        else
+            ss << rationalNumber.num << "/" << rationalNumber.den;
         os << ss.str();
-//        os << rationalNumber.num << "/" << rationalNumber.den;
     }
     else
         os << rationalNumber.num / (double)rationalNumber.den;
@@ -195,7 +194,10 @@ std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber)
 std::string RationalNumber::toString() {
     if (RationalNumber::PRINT_AS_FRACTION) {
         std::stringstream ss;
-        ss << num << "/" << den;
+        if (num == 0 || den == 1)
+            ss << num;
+        else
+            ss << num << "/" << den;
         return ss.str();
     }
     else

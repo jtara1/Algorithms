@@ -113,7 +113,10 @@ void testRationalNumber() {
 }
 
 int main() {
+    // the data is loaded from the file, polynomial is interpolated, & output printed
     DividedDifference divDiff;
+    DividedDifference divDiff2("input (1).txt");
+    DividedDifference divDiff3("input (2).txt");
 
 //    testRationalNumber();
 //    testPolynomial();

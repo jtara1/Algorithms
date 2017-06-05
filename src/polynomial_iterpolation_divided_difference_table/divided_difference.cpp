@@ -10,14 +10,21 @@ using std::left;
 DividedDifference::DividedDifference(std::string fileName) {
     // load x, y vals from a file
     loadDataFromFile(fileName);
-    // add x, y vals to table values
+    // add x, y vals to table values (prepare for interpolation & printing)
     tableValues.push_back(xValues);
     tableValues.push_back(yValues);
     tableFormatWidth = 9;
+
     // begin
     interpolate();
+
+    // print results
     printTable();
+    cout << "Newton's Form:\n";
     printNewtonsForm();
+    cout << "Lagrange's Form:\n";
+    printLagrangesForm();
+    cout << "------" << endl;
 }
 
 void DividedDifference::interpolate() {
@@ -29,7 +36,6 @@ void DividedDifference::interpolate() {
         for (j = 0; j < xValues.size() - stepSize; j++) {
             RationalNumber rational =
                 (prevValues.at(j+1) - prevValues.at(j)) / (xValues.at(stepSize + j) - xValues.at(j));
-//            std::cout << rational << (j == prevValues.size() - stepSize ? "\n" : ", ");
             prevValues.push_back(rational);
         }
         prevValues.erase(begin(prevValues), begin(prevValues) + j + 1);
@@ -37,7 +43,6 @@ void DividedDifference::interpolate() {
         tableValues.push_back(prevValues);
         stepSize++;
     }
-    cout << endl;
 }
 
 void DividedDifference::printNewtonsForm() {
@@ -50,6 +55,19 @@ void DividedDifference::printNewtonsForm() {
             << (i == coefficients.size() - 1 ? endParentheses : " + ");
 
         endParentheses += ")";
+    }
+    cout << endl;
+}
+
+void DividedDifference::printLagrangesForm() {
+    std::string multiplier = "";
+
+    cout << "f(x) = " << coefficients.at(0);
+    for (int i = 1; i < coefficients.size(); i++) {
+        multiplier += "(x - " + xValues.at(i-1).toString() + ")";
+        cout << " + "
+            << coefficients.at(i)
+            << multiplier;
     }
     cout << endl;
 }

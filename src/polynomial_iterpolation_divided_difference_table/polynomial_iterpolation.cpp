@@ -19,7 +19,7 @@ void PolynomialIterpolation::loadDataFromFile(std::string inputFile) {
     if (infile.fail())
         throw std::ios_base::failure("failed to open " + inputFile);
 
-    std::regex pattern("([0-9]+)\/?([0-9]*?)", std::regex_constants::extended);
+    std::regex pattern("([+-]?[0-9]+)\/?([+-]?[0-9]*?)", std::regex_constants::extended);
     std::smatch strMatch;
     std::string line;
     std::string numb;
