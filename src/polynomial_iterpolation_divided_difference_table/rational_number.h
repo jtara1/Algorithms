@@ -17,13 +17,6 @@ private:
      */
     RationalNumber simplify();
 
-    /**
-     * Attempts to find a repeating part of the decimal
-     * of the num or den, and converts it into a rational
-     * number if there is a repeating part
-     */
-    void rationalize(float numb, bool isNumerator = true, int maxDen = 10000);
-
     void parseString(std::string, std::string);
 
 public:
@@ -33,9 +26,6 @@ public:
 
     /// the rational number representation of zero
     const static RationalNumber ZERO;
-
-    /// the limit to how many digits are in a repeating set after the decimal point when rationalizing
-    static int RATIONALIZE_REPEATING_LIMIT;
 
     /// flag used to toggle between printing RationalNumber in fraction or decimal form
     static bool PRINT_AS_FRACTION;
@@ -50,6 +40,7 @@ public:
     RationalNumber operator=(const RationalNumber &);
     friend std::ostream& operator<<(std::ostream &, const RationalNumber &);
 
-    std::string toString();
+    std::string toString() const;
+    float getDecimalValue() const;
 };
 #endif // RATIONAL_NUMBER_H

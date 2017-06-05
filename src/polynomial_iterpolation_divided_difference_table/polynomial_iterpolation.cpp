@@ -42,15 +42,16 @@ void PolynomialIterpolation::loadDataFromFile(std::string inputFile) {
             }
 
             bool matchFound = std::regex_search(numb, strMatch, pattern);
+            if (!matchFound)
+                break;
 
-//            pos += strMatch.str(0).size();
             pos += strMatch.length(0);
             RationalNumber rational(
                     strMatch.str(1),
                     strMatch.str(2)
             );
             values.push_back(rational);
-            if (!matchFound || done)
+            if (done)
                  break;
         }
         if (i == 0)

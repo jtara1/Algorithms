@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+
 #include "divided_difference.h"
 
 using std::cout;
@@ -13,7 +14,7 @@ DividedDifference::DividedDifference(std::string fileName) {
     // add x, y vals to table values (prepare for interpolation & printing)
     tableValues.push_back(xValues);
     tableValues.push_back(yValues);
-    tableFormatWidth = 9;
+    tableFormatWidth = 17;
 
     // begin
     interpolate();

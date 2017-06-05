@@ -110,13 +110,27 @@ void testRationalNumber() {
 
     RationalNumber b1(1, 6);
     cout << "(1/6 - 1/2)/(-1) = " << (b1 - a) / (RationalNumber(-1, 1)) << endl;
+
+    RationalNumber c1(0, 1002);
+    RationalNumber c2(0, -10);
+    cout << "0/1002 = " << c1 << endl;
+    cout << "0/-10 = " << c2 << endl;
+//    cout << "0/1002 / 0/-10 = " << c1 / c2 << endl;
+    cout << "0/1002 + 0/-10 = " << c1 + c2 << endl;
+    cout << "0/1002 - 0/-10 = " << c1 - c2 << endl;
 }
 
+/**
+ * The input should be a file containing one row of x-values
+ * and a second row of y-values
+ * Each value needs to be an integer or ratio (e.g.: -3, 4/22, etc.)
+ */
 int main() {
     // the data is loaded from the file, polynomial is interpolated, & output printed
     DividedDifference divDiff;
     DividedDifference divDiff2("input (1).txt");
     DividedDifference divDiff3("input (2).txt");
+    DividedDifference divDiff4("input (3).txt");
 
 //    testRationalNumber();
 //    testPolynomial();
