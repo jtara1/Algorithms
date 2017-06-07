@@ -100,6 +100,12 @@ RationalNumber RationalNumber::operator*(const int &op) {
     return RationalNumber(num * op, den);
 }
 
+RationalNumber RationalNumber::operator*=(const RationalNumber &op) {
+    num *= op.num;
+    den *= op.den;
+    return *this;
+}
+
 RationalNumber RationalNumber::operator/(const RationalNumber &op) {
     if (op.num == 0 || op.num == -0)
         throw std::invalid_argument("attempted to divide by 0 while dividing two rational numbers");

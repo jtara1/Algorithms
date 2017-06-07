@@ -24,7 +24,7 @@ DividedDifference::DividedDifference(std::string fileName) {
     cout << "Newton's Form:\n";
     printNewtonsForm();
     cout << "Lagrange's Form:\n";
-    printLagrangesForm();
+    printLagrangesFormAndBuildSimplePolynomial();
     cout << "------" << endl;
 }
 
@@ -60,8 +60,10 @@ void DividedDifference::printNewtonsForm() {
     cout << endl;
 }
 
-void DividedDifference::printLagrangesForm() {
+void DividedDifference::printLagrangesFormAndBuildSimplePolynomial() {
     std::string multiplier = "";
+    Polynomial poly;
+    Polynomial nextPoly;
 
     cout << "f(x) = " << coefficients.at(0);
     for (int i = 1; i < coefficients.size(); i++) {
@@ -69,6 +71,13 @@ void DividedDifference::printLagrangesForm() {
         cout << " + "
             << coefficients.at(i)
             << multiplier;
+
+        std::string polyStr = "-" + xValues.at(i-1).toString() + "x^0 + x^1";
+        nextPoly = Polynomial(polyStr);
+        cout << endl;
+        nextPoly.print();
+        poly = poly * nextPoly * coefficients.at(i);
+        simplifiedPolynomial = simplifiedPolynomial + poly;
     }
     cout << endl;
 }

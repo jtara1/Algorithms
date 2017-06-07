@@ -32,6 +32,8 @@ public:
     Polynomial operator+(const Polynomial &op);
     Polynomial operator-(const Polynomial &op);
     Polynomial operator*(const Polynomial &op);
+    Polynomial operator*(const int &op);
+    Polynomial operator*(const RationalNumber &op);
     Polynomial& operator=(const Polynomial &op);
 };
 #endif

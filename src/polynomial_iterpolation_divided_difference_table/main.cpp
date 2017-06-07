@@ -15,6 +15,11 @@ void testPolynomial() {
     cout << "ADDITION TESTS:\n";
     Polynomial a = Polynomial("x^0 + 2x^1 + 2x^2 + 11x^3");
     Polynomial b = Polynomial("x^0 + 2x^2 + 3x^3");
+    Polynomial apple = Polynomial("-1x^0");
+    cout << "-1x^0 = ";
+    apple.print();
+    cout << endl;
+
     a.print();
     b.print();
     Polynomial c = a + b;
@@ -127,11 +132,11 @@ void testRationalNumber() {
  */
 int main() {
     // the data is loaded from the file, polynomial is interpolated, & output printed
-    DividedDifference divDiff;
-    DividedDifference divDiff2("input (1).txt");
-    DividedDifference divDiff3("input (2).txt");
-    DividedDifference divDiff4("input (3).txt");
+//    DividedDifference divDiff;
+//    DividedDifference divDiff2("input (1).txt");
+//    DividedDifference divDiff3("input (2).txt");
+//    DividedDifference divDiff4("input (3).txt");
 
 //    testRationalNumber();
-//    testPolynomial();
+    testPolynomial();
 }

@@ -41,9 +41,10 @@ Polynomial::~Polynomial() {
 
 void Polynomial::parseString(string poly) {
     removeSpaces(poly);
-    // count how many terms there are
+
     size_t index = 0;
     terms = 0;
+    // count how many terms there are
     while (index != string::npos) {
         index = poly.find("x^", index);
         if (index != string::npos) {
@@ -56,7 +57,7 @@ void Polynomial::parseString(string poly) {
     exponents = new int[terms];
 
     // insert plus sign in front of first coefficient if no sign
-    if (poly[0] != '-' || poly[0] != '+')
+    if (poly[0] != '-' && poly[0] != '+')
         poly = poly.insert(0, "+");
 
     size_t splitIndex = poly.find_first_of("+-");
@@ -194,6 +195,20 @@ Polynomial Polynomial::operator*(const Polynomial &op) {
     delete [] product;
 
     return sum;
+}
+
+Polynomial Polynomial::operator*(const int &op) {
+    for (int i = 0; i < terms; i++) {
+        coefficients[i] = coefficients[i] * op;
+    }
+    return *this;
+}
+
+Polynomial Polynomial::operator*(const RationalNumber &op) {
+    for (int i = 0; i < terms; i++) {
+        coefficients[i] *= op;
+    }
+    return *this;
 }
 
 Polynomial& Polynomial::operator=(const Polynomial &op) {

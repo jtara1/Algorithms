@@ -2,7 +2,9 @@
 #define DIVIDED_DIFFERENCE_H
 
 #include <vector>
+
 #include "polynomial_iterpolation.h"
+#include "polynomial.h"
 
 class DividedDifference : public PolynomialIterpolation {
 private:
@@ -13,10 +15,15 @@ private:
     /// a vector containing the columns (vectors of the values at each row)
     std::vector<std::vector<RationalNumber>> tableValues;
 
+    /// the polynomial that's interpolated
+    Polynomial simplifiedPolynomial;
+
     void interpolate();
 
     void printNewtonsForm();
-    void printLagrangesForm();
+
+    /// build the simplified
+    void printLagrangesFormAndBuildSimplePolynomial();
 
     /// print header for divided diff table
     void printHeader();
