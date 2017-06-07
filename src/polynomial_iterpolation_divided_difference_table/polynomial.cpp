@@ -25,8 +25,10 @@ Polynomial::Polynomial(string poly) {
 
 Polynomial::Polynomial(const Polynomial &poly) {
     terms = poly.terms;
-    delete [] coefficients;
-    delete [] exponents;
+    if (coefficients != nullptr && exponents != nullptr) {
+        delete [] coefficients;
+        delete [] exponents;
+    }
 
     coefficients = new RationalNumber[terms];
     exponents = new int[terms];
@@ -46,12 +48,13 @@ void Polynomial::parseString(string poly) {
     size_t index = 0;
     terms = 0;
     // count how many terms there are
-    while (index != string::npos) {
+    while (true) {
         index = poly.find("x^", index);
         if (index != string::npos) {
             index += 2;
             terms++;
-        }
+        } else
+            break;
     }
 
     coefficients = new RationalNumber[terms];
@@ -145,7 +148,8 @@ Polynomial Polynomial::operator+(const Polynomial &op) {
             // more terms from this polynomial too add, but no more from op poly
             newP.coefficients[polyIndex] = coefficients[a];
             newP.exponents[polyIndex] = exponents[a];
-            polyIndex++; a++;
+            polyIndex++;
+            a++;
         }
     }
 
@@ -214,7 +218,7 @@ Polynomial Polynomial::operator*(const Polynomial &op) {
 }
 
 Polynomial Polynomial::operator*(const int &op) {
-    Polynomial newP(terms);
+    Polynomial newP(*this);
     for (int i = 0; i < terms; i++) {
         newP.coefficients[i] = newP.coefficients[i] * op;
     }
@@ -222,10 +226,11 @@ Polynomial Polynomial::operator*(const int &op) {
 }
 
 Polynomial Polynomial::operator*(const RationalNumber &op) {
-    Polynomial newP(terms);
+    Polynomial newP(*this);
     for (int i = 0; i < terms; i++) {
         newP.coefficients[i] = newP.coefficients[i] * op;
     }
+    cout << "poly * ratio = " << newP << endl;
     return newP;
 }
 

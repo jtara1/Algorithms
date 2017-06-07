@@ -16,8 +16,6 @@ DividedDifference::DividedDifference(std::string fileName) {
     tableValues.push_back(yValues);
     tableFormatWidth = 17;
 
-    simplifiedPolynomial = Polynomial("0x^0");
-
     // begin
     interpolate();
 
@@ -67,9 +65,15 @@ void DividedDifference::printNewtonsForm() {
 void DividedDifference::printLagrangesFormAndBuildSimplePolynomial() {
     std::string multiplier = "";
     Polynomial poly("-" + xValues.at(0).toString() + "x^0 + x^1");
-    cout << poly << endl;
+//    cout << poly << endl;
     Polynomial nextPoly;
     Polynomial temp;
+
+
+    simplifiedPolynomial = Polynomial("x^0");
+    RationalNumber r = coefficients.at(0);
+    simplifiedPolynomial = simplifiedPolynomial * r;
+    cout << simplifiedPolynomial << endl;
 
 //    cout << "f(x) = " << coefficients.at(0);
     for (int i = 1; i < coefficients.size(); i++) {
@@ -82,13 +86,14 @@ void DividedDifference::printLagrangesFormAndBuildSimplePolynomial() {
             std::string polyStr = "-" + xValues.at(i-1).toString() + "x^0 + x^1";
 
             poly = poly * Polynomial(polyStr);
-            cout << poly << endl;
+//            cout << poly << endl;
     //        cout << endl << coefficients.at(i) << endl;
 
         }
-        temp = poly;
-        temp = temp * coefficient;
+//        temp = poly;
+        temp = poly * coefficient;
 //        cout << temp << endl;
+        cout << simplifiedPolynomial << endl;
 
         simplifiedPolynomial = simplifiedPolynomial + temp;
     }

@@ -8,8 +8,8 @@ using namespace std;
 
 class Polynomial {
 private:
-    RationalNumber *coefficients;
-    int *exponents;
+    RationalNumber *coefficients = nullptr;
+    int *exponents = nullptr;
     int terms;
 
     /// parse a string containing a polynomial

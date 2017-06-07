@@ -8,7 +8,7 @@
 1496855686 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
 	<ostream>
 
-1496860907 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
+1496865070 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
 	<iostream>
 	<cctype>
 	<cstdlib>
@@ -17,7 +17,7 @@
 	<sstream>
 	"polynomial.h"
 
-1496858850 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
+1496865323 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
 	<ostream>
 	"rational_number.h"
 
@@ -27,7 +27,7 @@
 	<sstream>
 	"rational_number.h"
 
-1496860420 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+1496864823 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
 	<iostream>
 	<iomanip>
 	"divided_difference.h"
