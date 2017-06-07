@@ -5,7 +5,9 @@
 #include "rational_number.h"
 
 const RationalNumber RationalNumber::ZERO = RationalNumber(0, 1);
+const RationalNumber RationalNumber::ONE = RationalNumber(1, 1);
 bool RationalNumber::PRINT_AS_FRACTION = true;
+bool RationalNumber::PRINT_SIGN = true;
 
 RationalNumber::RationalNumber() {
     num = 1;
@@ -14,6 +16,10 @@ RationalNumber::RationalNumber() {
 
 RationalNumber::RationalNumber(std::string n, std::string d) {
     parseString(n, d);
+}
+
+RationalNumber::RationalNumber(std::string rational) {
+    parseString(rational);
 }
 
 RationalNumber::RationalNumber(int n, int d) {
@@ -70,12 +76,30 @@ RationalNumber RationalNumber::simplify() {
     return *this ;
 }
 
+void RationalNumber::parseString(std::string rational) {
+    size_t pos = rational.find("/");
+    if (pos == std::string::npos) {
+        parseString(rational, "1");
+        return;
+    }
+
+    std::string n = rational.substr(0, pos);
+    std::string d;
+    if (pos == rational.size() - 1)
+        d = "1";
+    else {
+        d = rational.substr(pos + 1, rational.size() - pos);
+    }
+    parseString(n, d);
+}
+
 void RationalNumber::parseString(std::string n, std::string d) {
     den = (d == "" ? 1 : atoi(d.c_str()));
     if (den == 0)
         throw std::invalid_argument("can't divide by 0");
 
     num = (n == "" ? 1 : atoi(n.c_str()));
+    simplify();
 }
 
 RationalNumber RationalNumber::operator+(const RationalNumber &op) {
@@ -120,6 +144,10 @@ bool RationalNumber::operator>(const RationalNumber &op) {
     return getDecimalValue() > op.getDecimalValue();
 }
 
+bool RationalNumber::operator==(const RationalNumber &op) {
+    return (num == op.num && den == op.den) || (getDecimalValue() == op.getDecimalValue());
+}
+
 RationalNumber RationalNumber::operator=(const RationalNumber &op) {
     num = op.num;
     den = op.den;
@@ -127,8 +155,13 @@ RationalNumber RationalNumber::operator=(const RationalNumber &op) {
 }
 
 std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber) {
+    std::stringstream ss;
+    if (RationalNumber::PRINT_SIGN && rationalNumber.num >= 0) {
+        ss << '+';
+    }
+
     if (RationalNumber::PRINT_AS_FRACTION) {
-        std::stringstream ss;
+
         if (rationalNumber.num == 0 || rationalNumber.den == 1)
             ss << rationalNumber.num;
         else

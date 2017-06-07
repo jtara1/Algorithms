@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 
+#include <sstream>
 #include "polynomial.h"
 
 using namespace std;
@@ -61,7 +62,6 @@ void Polynomial::parseString(string poly) {
         poly = poly.insert(0, "+");
 
     size_t splitIndex = poly.find_first_of("+-");
-//    parseTerm(poly.substr(0, splitIndex), 0);
 
     for (int i = 0; i < terms; i++) {
         size_t nextSplitIndex = poly.find_first_of("+-", splitIndex + 2);
@@ -78,8 +78,13 @@ void Polynomial::parseTerm(string term, int termIndex) {
     if (splitIndex == string::npos)
         throw invalid_argument("\"x^\" could not be found in a term in the polynomial\n");
 
-//    RationalNumber coefficient = atof(term.substr(0, splitIndex));
-    coefficients[termIndex] = (term[1] == 'x' ? RationalNumber(1, 1) : RationalNumber(atoi(term.c_str()), 1));
+    // no coef given after sign, 1 is implied
+    if (term[1] == 'x')
+        coefficients[termIndex] = RationalNumber(1, 1);
+    else {
+        // creates rational numb from a fraction or scalar
+        coefficients[termIndex] = RationalNumber(term);
+    }
 
     size_t expIndex = splitIndex + 2;
     exponents[termIndex] = atoi(term.substr(expIndex, term.size() - expIndex).c_str());
@@ -98,7 +103,7 @@ void Polynomial::removeSpaces(string &str) {
 
 void Polynomial::print() const {
     for (int i = 0; i < terms; i++) {
-        cout << (coefficients[i] < RationalNumber::ZERO ? "" : "+") << coefficients[i] << "x^" << exponents[i];
+        cout << coefficients[i] << "x^" << exponents[i];
     }
     cout << endl;
 }
@@ -120,17 +125,20 @@ Polynomial Polynomial::operator+(const Polynomial &op) {
                 } else if (exponents[a] > op.exponents[b]) {
                     newP.coefficients[polyIndex] = op.coefficients[b];
                     newP.exponents[polyIndex] = op.exponents[b];
-                    polyIndex++; b++;
+                    polyIndex++;
+                    b++;
                 } else {
                     newP.coefficients[polyIndex] = coefficients[a];
                     newP.exponents[polyIndex] = exponents[a];
-                    polyIndex++; a++;
+                    polyIndex++;
+                    a++;
                     break;
                 }
             } else {
                 newP.coefficients[polyIndex] = op.coefficients[b];
                 newP.exponents[polyIndex] = op.exponents[b];
-                polyIndex++; b++;
+                polyIndex++;
+                b++;
             }
         }
         if (b >= op.terms && a < terms) {
@@ -169,46 +177,56 @@ Polynomial Polynomial::operator-(const Polynomial &op) {
 
 Polynomial Polynomial::operator*(const Polynomial &op) {
     Polynomial poly1, poly2;
+    // use the polynomial with fewest terms to reduce numb of times to add products
     poly1 = terms <= op.terms ? *this : op;
     poly2 = terms > op.terms ? *this : op;
 
     // this'll a number of polynomials that hasn't combined like terms yet
-    Polynomial *product = new Polynomial[poly1.terms];
+    Polynomial *products = new Polynomial[poly1.terms];
     for (int i = 0; i < poly1.terms; i++) {
-        product[i].coefficients = new RationalNumber[poly2.terms];
-        product[i].exponents = new int[poly2.terms];
-        product[i].terms = poly2.terms;
+        products[i].coefficients = new RationalNumber[poly2.terms];
+        products[i].exponents = new int[poly2.terms];
+        products[i].terms = poly2.terms;
     }
 
+    // multiple the two polynomials
     for (int i = 0; i < poly1.terms; i++) {
         for (int j = 0; j < poly2.terms; j++) {
-            product[i].coefficients[j] = poly1.coefficients[i] * poly2.coefficients[j];
-            product[i].exponents[j] = poly1.exponents[i] + poly2.exponents[j];
+            products[i].coefficients[j] = poly1.coefficients[i] * poly2.coefficients[j];
+            products[i].exponents[j] = poly1.exponents[i] + poly2.exponents[j];
         }
     }
 
     Polynomial sum = Polynomial("0x^0"); // zero polynomial
-    // simply the product to a single polynomial
+    // simplify the products to a single polynomial
     for (int i = 0; i < poly1.terms; i++) {
-        sum = sum + product[i];
+        sum = sum + products[i];
     }
-    delete [] product;
+
+    // delete
+//    for (int i = 0; i < poly1.terms; i++) {
+//        delete [] products[i].coefficients;
+//        delete [] products[i].exponents;
+//    }
+    delete [] products;
 
     return sum;
 }
 
 Polynomial Polynomial::operator*(const int &op) {
+    Polynomial newP(terms);
     for (int i = 0; i < terms; i++) {
-        coefficients[i] = coefficients[i] * op;
+        newP.coefficients[i] = newP.coefficients[i] * op;
     }
-    return *this;
+    return newP;
 }
 
 Polynomial Polynomial::operator*(const RationalNumber &op) {
+    Polynomial newP(terms);
     for (int i = 0; i < terms; i++) {
-        coefficients[i] *= op;
+        newP.coefficients[i] = newP.coefficients[i] * op;
     }
-    return *this;
+    return newP;
 }
 
 Polynomial& Polynomial::operator=(const Polynomial &op) {
@@ -225,4 +243,20 @@ Polynomial& Polynomial::operator=(const Polynomial &op) {
     memcpy(exponents, op.exponents, op.terms * sizeof(int));
 
     return *this;
+}
+
+ostream& operator<<(ostream &os, const Polynomial &op) {
+    stringstream ss;
+    for (int i = 0; i < op.terms; i++) {
+        ss << op.coefficients[i];
+
+        // 0 times anything is 0, no need to print x and its exponent
+        if (op.coefficients[i] == RationalNumber::ZERO)
+            continue;
+        // avoid printing x^0
+        if (op.exponents[i] != 0)
+            ss << "x^" << op.exponents[i];
+    }
+    os << ss.str();
+    return os;
 }

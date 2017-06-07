@@ -16,6 +16,8 @@ DividedDifference::DividedDifference(std::string fileName) {
     tableValues.push_back(yValues);
     tableFormatWidth = 17;
 
+    simplifiedPolynomial = Polynomial("0x^0");
+
     // begin
     interpolate();
 
@@ -25,7 +27,9 @@ DividedDifference::DividedDifference(std::string fileName) {
     printNewtonsForm();
     cout << "Lagrange's Form:\n";
     printLagrangesFormAndBuildSimplePolynomial();
+    cout << simplifiedPolynomial << endl;
     cout << "------" << endl;
+
 }
 
 void DividedDifference::interpolate() {
@@ -62,22 +66,31 @@ void DividedDifference::printNewtonsForm() {
 
 void DividedDifference::printLagrangesFormAndBuildSimplePolynomial() {
     std::string multiplier = "";
-    Polynomial poly;
+    Polynomial poly("-" + xValues.at(0).toString() + "x^0 + x^1");
+    cout << poly << endl;
     Polynomial nextPoly;
+    Polynomial temp;
 
-    cout << "f(x) = " << coefficients.at(0);
+//    cout << "f(x) = " << coefficients.at(0);
     for (int i = 1; i < coefficients.size(); i++) {
+        RationalNumber coefficient = coefficients.at(i);
         multiplier += "(x - " + xValues.at(i-1).toString() + ")";
-        cout << " + "
-            << coefficients.at(i)
-            << multiplier;
 
-        std::string polyStr = "-" + xValues.at(i-1).toString() + "x^0 + x^1";
-        nextPoly = Polynomial(polyStr);
-        cout << endl;
-        nextPoly.print();
-        poly = poly * nextPoly * coefficients.at(i);
-        simplifiedPolynomial = simplifiedPolynomial + poly;
+//        cout << " + " << coefficient << multiplier;
+
+        if (i != 1) {
+            std::string polyStr = "-" + xValues.at(i-1).toString() + "x^0 + x^1";
+
+            poly = poly * Polynomial(polyStr);
+            cout << poly << endl;
+    //        cout << endl << coefficients.at(i) << endl;
+
+        }
+        temp = poly;
+        temp = temp * coefficient;
+//        cout << temp << endl;
+
+        simplifiedPolynomial = simplifiedPolynomial + temp;
     }
     cout << endl;
 }

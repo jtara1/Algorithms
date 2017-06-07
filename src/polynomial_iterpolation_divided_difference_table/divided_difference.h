@@ -8,6 +8,7 @@
 
 class DividedDifference : public PolynomialIterpolation {
 private:
+    /// coefficients generated from the interpolation needed to form the new polynomial
     std::vector<RationalNumber> coefficients;
 
     int tableFormatWidth;

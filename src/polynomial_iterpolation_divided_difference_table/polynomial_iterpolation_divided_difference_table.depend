@@ -1,37 +1,38 @@
 # depslib dependency file v1.0
-1496631973 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
+1496859777 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
 	<iostream>
-	<ratio>
 	"polynomial.h"
 	"rational_number.h"
 	"divided_difference.h"
 
-1496804279 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
+1496855686 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
 	<ostream>
 
-1496806382 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
+1496860907 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
 	<iostream>
 	<cctype>
 	<cstdlib>
 	<string>
 	<cstring>
+	<sstream>
 	"polynomial.h"
 
-1496803581 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
+1496858850 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.h
+	<ostream>
 	"rational_number.h"
 
-1496804215 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
+1496859948 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
 	<iostream>
 	<cstdlib>
 	<sstream>
 	"rational_number.h"
 
-1496805840 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+1496860420 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
 	<iostream>
 	<iomanip>
 	"divided_difference.h"
 
-1496803039 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.h
+1496806685 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.h
 	<vector>
 	"polynomial_iterpolation.h"
 	"polynomial.h"

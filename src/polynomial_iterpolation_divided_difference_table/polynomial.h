@@ -1,6 +1,7 @@
 #ifndef POLYNOMIAL_H
 #define POLYNOMIAL_H
 
+#include <ostream>
 #include "rational_number.h"
 
 using namespace std;
@@ -35,5 +36,6 @@ public:
     Polynomial operator*(const int &op);
     Polynomial operator*(const RationalNumber &op);
     Polynomial& operator=(const Polynomial &op);
+    friend ostream& operator<<(ostream &os, const Polynomial &op);
 };
 #endif

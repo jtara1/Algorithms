@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ratio>
 
 #include "polynomial.h"
 #include "rational_number.h"
@@ -10,7 +9,17 @@ using namespace std;
 
 /// test cases
 void testPolynomial() {
-    RationalNumber::PRINT_AS_FRACTION = false;
+    RationalNumber::PRINT_AS_FRACTION = true;
+
+    cout << "CONSTRUCTION TESTS:\n";
+    Polynomial alpha("3/2x^0-5/2x^1+x^2");
+    cout << "3/2x^0-5/2x^1+x^2 = ";
+    alpha.print();
+    cout << endl;
+    Polynomial beta("-0x^0+x^1");
+    cout << "-0x^0+x^1 = ";
+    beta.print();
+    cout << endl;
 
     cout << "ADDITION TESTS:\n";
     Polynomial a = Polynomial("x^0 + 2x^1 + 2x^2 + 11x^3");
@@ -68,10 +77,21 @@ void testPolynomial() {
     cout << "-----" << endl;
 
     cout << "\nMULTIPLICATION TESTS:\n";
-    d.print();
-    e.print();
+//    d.print();
+//    e.print();
     Polynomial f1 = d * e;
-    f1.print();
+    cout << d << e << f1;
+//    f1.print();
+
+    cout << "-----" << endl;
+
+    Polynomial app("-1x^0+x^1");
+    Polynomial ban("-3/2x^0+x^1");
+    app.print();
+    ban.print();
+    Polynomial crux;
+    crux = app * ban;
+    crux.print();
 
     cout << "-----" << endl;
 
@@ -90,6 +110,22 @@ void testPolynomial() {
 /// test cases
 void testRationalNumber() {
     RationalNumber::PRINT_AS_FRACTION = true;
+
+    RationalNumber apple("-2/5");
+    RationalNumber ban("2/");
+    cout << "-2/5 = " << apple << endl;
+    cout << "2/ = " << ban << endl;
+
+    RationalNumber crux("-1x^0");
+    cout << "-1x^0 = " << crux << endl;
+
+    RationalNumber bux("-3/5x^1");
+    cout << "-3/5x^1 = " << bux << endl;
+
+    cout << "COMPARISON TESTS:\n";
+    RationalNumber charlie("0x^1");
+    bool lessT = charlie < RationalNumber::ZERO ;
+    cout << "0x^1 < 0x^0 ==" << lessT << endl;
 
     RationalNumber a(2, 4);
     RationalNumber b(1, 4);
@@ -132,11 +168,13 @@ void testRationalNumber() {
  */
 int main() {
     // the data is loaded from the file, polynomial is interpolated, & output printed
-//    DividedDifference divDiff;
+
+    DividedDifference divDiff;
 //    DividedDifference divDiff2("input (1).txt");
 //    DividedDifference divDiff3("input (2).txt");
 //    DividedDifference divDiff4("input (3).txt");
 
 //    testRationalNumber();
     testPolynomial();
+    return 0;
 }
