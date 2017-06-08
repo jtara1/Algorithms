@@ -206,12 +206,6 @@ Polynomial Polynomial::operator*(const Polynomial &op) {
     for (int i = 0; i < poly1.terms; i++) {
         sum = sum + products[i];
     }
-
-    // delete
-//    for (int i = 0; i < poly1.terms; i++) {
-//        delete [] products[i].coefficients;
-//        delete [] products[i].exponents;
-//    }
     delete [] products;
 
     return sum;
@@ -230,7 +224,6 @@ Polynomial Polynomial::operator*(const RationalNumber &op) {
     for (int i = 0; i < terms; i++) {
         newP.coefficients[i] = newP.coefficients[i] * op;
     }
-    cout << "poly * ratio = " << newP << endl;
     return newP;
 }
 
@@ -255,12 +248,12 @@ ostream& operator<<(ostream &os, const Polynomial &op) {
     for (int i = 0; i < op.terms; i++) {
         ss << op.coefficients[i];
 
-        // 0 times anything is 0, no need to print x and its exponent
-        if (op.coefficients[i] == RationalNumber::ZERO)
-            continue;
         // avoid printing x^0
-        if (op.exponents[i] != 0)
+        if (!(op.coefficients[i] == RationalNumber::ZERO) &&
+            op.exponents[i] != 0) {
             ss << "x^" << op.exponents[i];
+        }
+        ss << " ";
     }
     os << ss.str();
     return os;

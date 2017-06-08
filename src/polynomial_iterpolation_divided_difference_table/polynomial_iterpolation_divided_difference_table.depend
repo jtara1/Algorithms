@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1496859777 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
+1496871994 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/main.cpp
 	<iostream>
 	"polynomial.h"
 	"rational_number.h"
 	"divided_difference.h"
+	"unit_test.h"
 
 1496855686 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.h
 	<ostream>
 
-1496865070 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
+1496866137 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/polynomial.cpp
 	<iostream>
 	<cctype>
 	<cstdlib>
@@ -21,13 +22,13 @@
 	<ostream>
 	"rational_number.h"
 
-1496859948 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
+1496867186 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/rational_number.cpp
 	<iostream>
 	<cstdlib>
 	<sstream>
 	"rational_number.h"
 
-1496864823 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
+1496869434 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/divided_difference.cpp
 	<iostream>
 	<iomanip>
 	"divided_difference.h"
@@ -95,4 +96,12 @@
 1496477096 source:c:\users\james\documents\_github-projects\algorithms\src\polynomial_iterpolation_divided_difference_table\divided_difference.cpp
 	<iostream>
 	"divided_difference.h"
+
+1496871736 source:/home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/unit_test.cpp
+	<iostream>
+	"unit_test.h"
+
+1496870281 /home/j/_Github-Projects/Algorithms/src/polynomial_iterpolation_divided_difference_table/unit_test.h
+	"polynomial.h"
+	"rational_number.h"
 

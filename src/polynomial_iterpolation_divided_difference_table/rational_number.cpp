@@ -161,15 +161,14 @@ std::ostream& operator<<(std::ostream &os, const RationalNumber &rationalNumber)
     }
 
     if (RationalNumber::PRINT_AS_FRACTION) {
-
         if (rationalNumber.num == 0 || rationalNumber.den == 1)
             ss << rationalNumber.num;
         else
             ss << rationalNumber.num << "/" << rationalNumber.den;
-        os << ss.str();
     }
     else
-        os << rationalNumber.num / (double)rationalNumber.den;
+        ss << rationalNumber.getDecimalValue();
+    os << ss.str();
     return os;
 }
 

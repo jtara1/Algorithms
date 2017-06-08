@@ -9,6 +9,8 @@ using std::setw;
 using std::left;
 
 DividedDifference::DividedDifference(std::string fileName) {
+    RationalNumber::PRINT_AS_FRACTION = true;
+    RationalNumber::PRINT_SIGN = true;
     // load x, y vals from a file
     loadDataFromFile(fileName);
     // add x, y vals to table values (prepare for interpolation & printing)
@@ -23,11 +25,16 @@ DividedDifference::DividedDifference(std::string fileName) {
     printTable();
     cout << "Newton's Form:\n";
     printNewtonsForm();
+    cout << endl;
+
     cout << "Lagrange's Form:\n";
     printLagrangesFormAndBuildSimplePolynomial();
-    cout << simplifiedPolynomial << endl;
-    cout << "------" << endl;
+    cout << endl;
 
+    RationalNumber::PRINT_AS_FRACTION = false;
+    cout << "Simplified Form:\n";
+    cout << "f(x) = " << simplifiedPolynomial << endl;
+    cout << "------" << endl;
 }
 
 void DividedDifference::interpolate() {
@@ -53,7 +60,7 @@ void DividedDifference::printNewtonsForm() {
 
     cout << "f(x) = " << coefficients.at(0) << " + ";
     for (int i = 1; i < coefficients.size(); i++) {
-        cout << "(x - " << (xValues.at(i-1))
+        cout << "(x" << (xValues.at(i-1) * -1)
             << ")(" << coefficients.at(i)
             << (i == coefficients.size() - 1 ? endParentheses : " + ");
 
@@ -65,36 +72,24 @@ void DividedDifference::printNewtonsForm() {
 void DividedDifference::printLagrangesFormAndBuildSimplePolynomial() {
     std::string multiplier = "";
     Polynomial poly("-" + xValues.at(0).toString() + "x^0 + x^1");
-//    cout << poly << endl;
-    Polynomial nextPoly;
     Polynomial temp;
 
-
     simplifiedPolynomial = Polynomial("x^0");
-    RationalNumber r = coefficients.at(0);
-    simplifiedPolynomial = simplifiedPolynomial * r;
-    cout << simplifiedPolynomial << endl;
+    simplifiedPolynomial = simplifiedPolynomial * coefficients.at(0);
 
-//    cout << "f(x) = " << coefficients.at(0);
+    cout << "f(x) = " << coefficients.at(0);
     for (int i = 1; i < coefficients.size(); i++) {
         RationalNumber coefficient = coefficients.at(i);
-        multiplier += "(x - " + xValues.at(i-1).toString() + ")";
+        multiplier += "(x" + (xValues.at(i-1) * -1).toString() + ")";
 
-//        cout << " + " << coefficient << multiplier;
+        cout << coefficient << multiplier << " ";
 
         if (i != 1) {
             std::string polyStr = "-" + xValues.at(i-1).toString() + "x^0 + x^1";
-
             poly = poly * Polynomial(polyStr);
-//            cout << poly << endl;
-    //        cout << endl << coefficients.at(i) << endl;
-
         }
-//        temp = poly;
-        temp = poly * coefficient;
-//        cout << temp << endl;
-        cout << simplifiedPolynomial << endl;
 
+        temp = poly * coefficient;
         simplifiedPolynomial = simplifiedPolynomial + temp;
     }
     cout << endl;
@@ -118,7 +113,7 @@ void DividedDifference::printTable() {
     int start = 0;
     int start2 = 0;
     for (int printRow = 0; printRow < xValues.size() * 2; printRow++) {
-        // print first two values
+        // print first two values (x, y) pair
         if (printRow % 2 == 0) {
             cout << left << setw(tableFormatWidth) << tableValues.at(0).at(printRow / 2)
                 << setw(tableFormatWidth) << tableValues.at(1).at(printRow / 2)

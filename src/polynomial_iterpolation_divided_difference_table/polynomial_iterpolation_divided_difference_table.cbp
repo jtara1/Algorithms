@@ -40,6 +40,8 @@
 		<Unit filename="polynomial_iterpolation.h" />
 		<Unit filename="rational_number.cpp" />
 		<Unit filename="rational_number.h" />
+		<Unit filename="unit_test.cpp" />
+		<Unit filename="unit_test.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
