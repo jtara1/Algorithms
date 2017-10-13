@@ -1,26 +1,62 @@
 def mergesort(array):
-    pass
-
-
-def _mergesort(array, first, last):
+    """Returns a sorted copy of the array/list given using
+    the merge sort algorithm. Uses the less than op. (__lt__)
+    for comparison
+    """
     n = len(array)
     # base case
-    if n <= 1:
+    if n == 1:
         return array
 
-    _mergesort(array, 0, n/2)
-    _mergesort(array, n/2 + 1, n - 1)
-    _merge()
+    return _merge(
+        mergesort(array[:int(n / 2)]),
+        mergesort(array[int(n / 2):]))
 
 
-def _merge(left, right):
-    def swap_ref(a, b):
-        return b, a
-
-    if len(left) < len(right):
-        left, right = swap_ref(left, right)
-
-    index = 0
+def _merge(left_list, right_list):
+    """Merge two lists with the result being sorted using __lt__
+    operator / method
+    """
     final = []
-    for item in left:
-        pass
+
+    # index1, index2 for left and right lists respectively
+    i1, i2 = 0, 0
+    for _ in range(len(left_list) + len(right_list)):
+        # get value from left, if none avail, append value from right
+        try:
+            left = left_list[i1]
+        except IndexError:
+            final.append(right_list[i2])
+            i2 += 1
+            continue
+
+        # get value from right, if none avail, append value from left
+        try:
+            right = right_list[i2]
+        except IndexError:
+            final.append(left)
+            i1 += 1
+            continue
+
+        # compare the values to have the smaller value come first
+        if left < right:
+            final.append(left)
+            i1 += 1
+        else:
+            final.append(right)
+            i2 += 1
+
+    return final
+
+
+if __name__ == '__main__':
+    # testing
+    import random
+    a = []
+    for _ in range(21):
+        a.append(random.randrange(0, 20))
+
+    # a = [4, 2, 5, 1, 42]
+    print(a)
+    a = mergesort(a)
+    print(a)
