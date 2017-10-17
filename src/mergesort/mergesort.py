@@ -21,7 +21,6 @@ def _merge(left_list, right_list):
 
     # index1, index2 for left and right lists respectively
     i1, i2 = 0, 0                                       # k4
-    print(len(left_list) + len(right_list))
     for _ in range(len(left_list) + len(right_list)):   # n
         # get value from left, if none avail, extend final w/ remaining values
         try:
