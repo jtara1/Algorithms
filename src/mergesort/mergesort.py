@@ -8,9 +8,9 @@ def mergesort(array):
     if n <= 1:                                          # k1
         return array                                    # k2
 
-    return _merge(                                      # n - 1
-        mergesort(array[:n // 2]),                      # log(n)
-        mergesort(array[n // 2:]))                      # log(n)
+    left = mergesort(array[:n // 2])                    # log(n)
+    right = mergesort(array[n // 2:])                   # log(n)
+    return _merge(left, right)                          # n - 1
 
 
 def _merge(left_list, right_list):
@@ -21,7 +21,7 @@ def _merge(left_list, right_list):
 
     # index1, index2 for left and right lists respectively
     i1, i2 = 0, 0                                       # k4
-    for _ in range(len(left_list) + len(right_list)):   # n
+    for _ in range(len(left_list) + len(right_list)):   # log(n)
         # get value from left, if none avail, extend final w/ remaining values
         try:
             left = left_list[i1]                        # k5
@@ -49,28 +49,31 @@ def _merge(left_list, right_list):
 
 def time_it(func):
     """Decorator that prints the time the decorated function took to run"""
-    def run():
+    def run(**kwargs):
         import time
         start = time.time()
-        func()
+        func(**kwargs)
         print(time.time() - start)
     return run
 
 
 @time_it
-def test():
+def test(sort_func=mergesort, mutates=False, size=15):
     """Some quick tests for the algorithm"""
     import random
     a = []
-    for _ in range(15):
+    for _ in range(size):
         a.append(random.randrange(0, 20))
 
     # a = [3, 2, 1, 0]
     # a = []
     print(a)
-    a = mergesort(a)
+    if mutates:
+        sort_func(a)
+    else:
+        a = sort_func(a)
     print(a)
 
 
 if __name__ == '__main__':
-    test()
+    test(size=10)

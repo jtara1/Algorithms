@@ -41,9 +41,7 @@ public class UnitTest {
 		d1.put(1, key2);
 		
 		d2.put(key1, new City(0, key1.getCode(), "Kenny Ville", 10000, 1000));
-		d2.put(key2, new City(1, key2.getCode(), "Las Vegas", 1000000, 0));
-		
-//		BidirectionGraph<Integer> graph = new BidirectionGraph(d1, d2, "road.dat");
+		d2.put(key2, new City(1, key2.getCode(), "Las Vegas", 1000000, 0));		
 	}
 	
 	/**

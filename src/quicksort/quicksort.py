@@ -22,9 +22,9 @@ def quicksort(array_param):
         less.append(element) if element < pivot else greater.append(element)
 
     return _qs_concatenate(          # n
-        quicksort(less),             # n
+        quicksort(less),             # n xor 1
         pivot,                       # k6
-        quicksort(greater))          # n
+        quicksort(greater))          # 1 xor n
 
 
 def _qs_concatenate(*args):
@@ -37,9 +37,13 @@ def _qs_concatenate(*args):
     return final                     # k9
 
 
+def test():
+    from src.mergesort.mergesort import test as test_sort
+    test_sort(sort_func=quicksort, mutates=False, size=10)
+
+
 if __name__ == '__main__':
-    a = [2, 3, 1, 5]
-    print(a)
-    print(quicksort(a))
-    # a = quicksort(a)
+    # a = [2, 3, 1, 5]
     # print(a)
+    # print(quicksort(a))
+    test()
