@@ -1,0 +1,52 @@
+Write a program that creates a divided difference table from the given data in a text file and uses that to create the interpolating polynomial. Print the polynomial in both the Newton's form and Lagrange's form.
+
+
+The sample output of your program for this input file (download the txt file here) should print out the divided difference table and the interpolating polynomial as shown below:
+
+
+x                        f[]                    f[ , ]                 f[ , , ]                f[ , , , ]
+
+
+1                         3                       
+
+
+                                                      1/2    
+
+
+3/2                  13/4                                                1/3
+
+
+                                                      1/6                                                              -2
+
+
+ 0                      3                                                       -5/3
+
+
+                                                      -2/3
+
+
+ 2                      5/3  
+
+
+ 
+
+
+Interpolating polynomial (Lagrange's form) is:
+
+
+3 + 1/2(x-1) +1/3(x-1)(x-3/2) - 2(x-1)(x-3/2)x
+
+
+Simplified polynomial is:
+
+
+-2x^3 + 5.334x^2 - 3.334x + 3
+
+
+ 
+
+
+Your program should work on any data (at most 50 node points) and not just the above sample data.
+
+
+Points distribution: 50% for printing out the correct divided difference table, 25% for printing the correct polynomial in un-simplified form and 25% for printing the polynomial in simplified form.
