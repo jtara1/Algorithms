@@ -1,7 +1,11 @@
 from src.minimum_spanning_tree.graph import Graph, Edge as E
+from src.minimum_spanning_tree.doubly_linked_list import DoublyLinkedList, Node
+
+__doc__ = """Tests for minimum spanning tree and associated data structures and
+algorithsm. Tests intended to be run using pytest."""
 
 
-def test1():
+def test_graph():
     graph = Graph()
     graph.add_vertex(E(end=0, value=2))
     graph.add_vertex(E(end=0, value=4), E(end=1, value=5))
@@ -19,3 +23,7 @@ def test1():
 
     assert graph.adj_matrix[0][2] == 10
     assert graph.adj_matrix[2][0] == 10
+
+
+def test_doubly_linked_list():
+    pass
