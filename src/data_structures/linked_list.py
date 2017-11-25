@@ -1,4 +1,4 @@
-from src.minimum_spanning_tree.node import SingleLinkedNode as Node
+from src.data_structures.node import SingleLinkedNode as Node
 
 
 class LinkedList:
@@ -22,6 +22,7 @@ class LinkedList:
         """
         self.last.next_node = node
         self.last = node
+        self.last.next_node = None
 
     def insert_after(self, after_this, new_node):
         """Note: it's not ideal to do insert_before a node in a linked list
@@ -47,3 +48,12 @@ class LinkedList:
         while node is not None:
             yield node
             node = node.next_node
+
+    def __str__(self):
+        string = ""
+        for node in self:
+            string += "{}{}".format(
+                str(node),
+                " | " if node.next_node is not None else "")
+        return string
+

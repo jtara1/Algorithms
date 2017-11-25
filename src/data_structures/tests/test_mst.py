@@ -2,7 +2,7 @@ from src.minimum_spanning_tree.graph import Graph, Edge as E
 from src.minimum_spanning_tree.doubly_linked_list import DoublyLinkedList, Node
 
 __doc__ = """Tests for minimum spanning tree and associated data structures and
-algorithsm. Tests intended to be run using pytest."""
+algorithms. Tests intended to be run using pytest."""
 
 
 def test_graph():
@@ -26,4 +26,20 @@ def test_graph():
 
 
 def test_doubly_linked_list():
-    pass
+    ll = DoublyLinkedList(Node(2))
+    ll.append(Node(3))
+    ll.prepend(Node(1))
+
+    print()
+    print(ll)
+    assert(ll.first.datum == 1 and ll.last.datum == 3)
+
+    node = list(ll)[1]
+    ll.insert_before(node, Node(1.5))
+    print(ll)
+    assert(ll.first.next_node.datum == 1.5)
+
+    ll.insert_after(list(ll)[2], Node(2.5))
+    second = ll.first.next_node
+    print(ll)
+    assert(second.next_node.next_node.datum == 2.5)
