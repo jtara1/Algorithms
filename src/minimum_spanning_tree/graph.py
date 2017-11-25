@@ -1,6 +1,8 @@
 import math
 import functools
 from src.minimum_spanning_tree.edge import Edge
+from src.minimum_spanning_tree.doubly_linked_list \
+    import DoublyLinkedList, Node
 
 
 class Graph:
@@ -49,7 +51,7 @@ class Graph:
             # invalid value in argument
             if not isinstance(edge, Edge):
                 raise Exception("Value was {} of type {} but {} was expected"
-                                .format(type(edge), type(Edge)))
+                                .format(edge, type(edge), type(Edge)))
 
             self.adj_matrix[n][edge.end] = edge.value
             # if a -> b then b -> a; avoid appending to last row (alrdy updated)
@@ -65,8 +67,36 @@ class Graph:
         """Returns a list of all the edges in the graph sorted by the edge
         weight from least to greatest. Note: size of list is n! if graph is
         bidirectional, n * n otherwise
-        """
 
+        should've just used a priority queue, derp
+        """
+        if self.is_bidirectional:
+            n = len(self.adj_matrix) - 1  # last vertex's index
+            row = 0  # current row index (for iterating)
+            #
+            edge_list = DoublyLinkedList(Node(datum=self.adj_matrix[n][n]))
+            start_splice = 0
+            while start_splice != n:
+                for col in self.adj_matrix[start_splice:]:
+                    edge_weight = self.adj_matrix[row][col]
+                    # next node that'll be inserted into list i.e. it's sorted
+                    new_node = Node(
+                        datum=Edge(start=row, end=col, value=edge_weight))
+
+                    # weight is infinity, just append and continue
+                    if edge_weight is math.inf:
+                        edge_list.append(new_node)
+                        continue
+
+                    # iterate over edge_list until we find the spot for new_node
+                    for node in edge_list:
+                        if edge_weight <= node.datum:
+                            edge_list.insert_before(
+                                before_this=node, new_node=new_node)
+                            break
+            return edge_list
+        else:
+            raise Exception("not implemented")
 
 
     def __repr__(self):

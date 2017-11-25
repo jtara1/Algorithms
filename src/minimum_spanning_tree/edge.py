@@ -12,3 +12,7 @@ class Edge:
         self.start = int(start) if start is not None else None
         self.end = int(end) if end is not None else None
         self.value = value
+
+    def __str__(self):
+        return "start={}; end={}; val={}"\
+            .format(self.start, self.end, self.value)
