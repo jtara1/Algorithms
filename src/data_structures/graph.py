@@ -64,30 +64,29 @@ class Graph:
 
     def get_edge_list(self):
         """Returns a list of all the edges in the graph sorted by the edge
-        weight from least to greatest. Note: size of list is n! if graph is
-        bidirectional, n * n otherwise
+        weight from least to greatest. Note: size of list is (n^2-n)/2 + n if
+        graph is bidirectional, n * n otherwise
+
+        :return: queue.PriorityQueue with elements of type
+            src.data_structures.edge.Edge
         """
+        # O(n^2)
         if self.is_bidirectional:
             n = len(self.adj_matrix) - 1  # last vertex's index
-            row = 0  # current row index (for iterating)
-            #
-            edge_list = DoublyLinkedList(Node(datum=self.adj_matrix[n][n]))
             edge_list = PriorityQueue()
-            start_splice = 0
-            # while start_splice != n:
-            while start_splice != n + 1:
-                for col in self.adj_matrix[start_splice:]:
-                    edge_weight = self.adj_matrix[row][col]
+            # iterate over rows
+            for row in range(n + 1):
+                # iterate over (n - row) columns
+                for col, edge_weight in enumerate(
+                        self.adj_matrix[row][row:],
+                        start=row):
                     # next node that'll be inserted into list i.e. it's sorted
-                    new_node = Node(
-                        datum=Edge(start=row, end=col, value=edge_weight))
+                    edge = Edge(start=row, end=col, value=edge_weight)
 
-                    edge_list.put(item=(edge_weight, new_node), block=False)
-                start_splice += 1  # finished iterating over a row
+                    edge_list.put(item=edge, block=True)
             return edge_list
         else:
             raise Exception("not implemented")
-
 
     def __repr__(self):
         """The direction conversion of the adj_matrix to str"""

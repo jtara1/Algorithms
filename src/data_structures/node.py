@@ -12,6 +12,9 @@ class SingleLinkedNode:
             self.datum,
             "None" if self.next_node is None else self.next_node.datum)
 
+    def __lt__(self, other):
+        return self.datum < other.datum
+
 
 class DoubleLinkedNode(SingleLinkedNode):
     def __init__(self, datum=None):

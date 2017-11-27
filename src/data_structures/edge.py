@@ -14,5 +14,11 @@ class Edge:
         self.value = value
 
     def __str__(self):
-        return "start={}; end={}; val={}"\
-            .format(self.start, self.end, self.value)
+        return "start={}; val={}; end={}; "\
+            .format(self.start, self.value, self.end)
+
+    def __lt__(self, other):
+        return self.value < other.value
+
+    def __ge__(self, other):
+        return self.value >= other.value
