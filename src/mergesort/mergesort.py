@@ -8,9 +8,9 @@ def mergesort(array):
     if n <= 1:                                          # k1
         return array                                    # k2
 
-    return _merge(                                      # n - 1
-        mergesort(array[:n // 2]),                      # log(n)
-        mergesort(array[n // 2:]))                      # log(n)
+    left = mergesort(array[:n // 2])                    # log(n)
+    right = mergesort(array[n // 2:])                   # log(n)
+    return _merge(left, right)                          # n^2
 
 
 def _merge(left_list, right_list):
