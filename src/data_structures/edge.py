@@ -22,3 +22,10 @@ class Edge:
 
     def __ge__(self, other):
         return self.value >= other.value
+
+    def __eq__(self, other):
+        return self.start == other.start and self.end == other.end \
+            and self.value == other.value
+
+    def __hash__(self):
+        return hash(self.value)
