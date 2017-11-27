@@ -1,7 +1,6 @@
 package dijkstra_path_finding;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Path {
 	public interface Printer {

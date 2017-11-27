@@ -124,51 +124,51 @@ public class DirectedGraph {
 	 */
 	public Path dijkstra(int source, int destination) {
 		// total distance from source vertex to vertex at index i
-		Float[] distances = new Float[graph.length];
+		Float[] distances = new Float[graph.length];                                                              // k0
 		// parent to vertex at index i that follows the shortest path to get to the source vertex
-		Integer[] parents = new Integer[graph.length];
+		Integer[] parents = new Integer[graph.length];                                                            // k1
 		
 		// init destination total distances that're infinity except for source vertex
-		for (int i = 0; i < distances.length; i++) {
-			distances[i] = Float.POSITIVE_INFINITY;
+		for (int i = 0; i < distances.length; i++) {                                                              // N
+			distances[i] = Float.POSITIVE_INFINITY;                                                               // k2
 		}
-		distances[source] = 0f;
+		distances[source] = 0f;                                                                                   // k3
 		
 		// Given two indices, compare the total distance of each one to the source vertex 
-		class EdgeComparator implements Comparator<Integer> {
+		class EdgeComparator implements Comparator<Integer> {                                                     
 			public int compare(Integer obj1, Integer obj2) {
-				Float difference = distances[obj1] - distances[obj2];
-				if (difference == 0f)
-					return 0;
-				return difference < 0 ? -1 : 1;
+				Float difference = distances[obj1] - distances[obj2];                                             // k4
+				if (difference == 0f)                                                                             // k5
+					return 0;                                                                                     // k6
+				return difference < 0 ? -1 : 1;                                                                   // k7
 			}
 		}
 		// the queue used to determine which vertex will be processed next
-		PriorityQueue<Integer> sourceQueue = new PriorityQueue<Integer>(distances.length, new EdgeComparator());
-		for (int i = 0; i < graph.length; i++) {
-			sourceQueue.add(i);
+		PriorityQueue<Integer> sourceQueue = new PriorityQueue<Integer>(distances.length, new EdgeComparator());  // k8
+		for (int i = 0; i < graph.length; i++) {                                                                  // N
+			sourceQueue.add(i);                                                                                   // k9
 		}
 		
-		Integer src = null;
-		while ((src = sourceQueue.poll()) != null) {
-			for (int dest = 0; dest < graph.length; dest++) {
+		Integer src = null;                                                                                       // k10
+		while ((src = sourceQueue.poll()) != null) {                                                              // N
+			for (int dest = 0; dest < graph.length; dest++) {                                                     // N
 				// src has no edge connecting it to dest
-				if (graph[src][dest] == null)
+				if (graph[src][dest] == null)                                                                     // k11
 					continue;
 				
 				// the remaining vertices are inaccessible from source
-				if (distances[src] == Float.POSITIVE_INFINITY)
+				if (distances[src] == Float.POSITIVE_INFINITY)                                                    // k12
 					break;
 				
 				// relax
-				Float distance = distances[src] + graph[src][dest];
-				if (distance < distances[dest]) {
-					distances[dest] = distance;
-					parents[dest] = src;
+				Float distance = distances[src] + graph[src][dest];                                               // k13
+				if (distance < distances[dest]) {                                                                 // k14
+					distances[dest] = distance;                                                                   // k15
+					parents[dest] = src;                                                                          // k16
 				}
 				// check if the shortest path from source to destination has been found
-				if (parents[destination] != null) {
-					return new Path(
+				if (parents[destination] != null) {                                                               // k17
+					return new Path(                                                                              // N
 							parents, 
 							source, 
 							destination, 
@@ -177,7 +177,7 @@ public class DirectedGraph {
 				}
 			}
 		}
-		return null;
+		return null;                                                                                              // k18
 	}
 	
 	public Data getData(DataKey key) {

@@ -10,7 +10,7 @@ def mergesort(array):
 
     left = mergesort(array[:n // 2])                    # log(n)
     right = mergesort(array[n // 2:])                   # log(n)
-    return _merge(left, right)                          # n^2
+    return _merge(left, right)                          # n - 1
 
 
 def _merge(left_list, right_list):
