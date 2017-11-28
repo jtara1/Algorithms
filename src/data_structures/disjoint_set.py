@@ -26,3 +26,10 @@ class DisjointSet:
         # if they have the same root, they're in the same tree / set
         if self.rank[root_a] == self.rank[root_b]:
             self.rank[root_b] += 1
+
+    def __repr__(self):
+        string = ""
+        for index, value in enumerate(self.roots):
+            string += "{: <5}, {: <5}".format(index, value)
+            string += " | " if index < len(self.roots) - 1 else ""
+        string += "ranks = {}".format(self.ranks)

@@ -1,3 +1,4 @@
+from src.data_structures.disjoint_set import DisjointSet
 from src.data_structures.graph import Graph, Edge as E
 from src.data_structures.doubly_linked_list import DoublyLinkedList, Node
 import math
@@ -74,3 +75,11 @@ def test_doubly_linked_list():
     second = ll.first.next_node
     print(ll)
     assert(second.next_node.next_node.datum == 2.5)
+
+
+def test_disjoint_set():
+    djs = DisjointSet(range(10))
+    print('test_disjoint_set')
+    print(djs.find(3))
+    djs.merge(1, 2)
+    print(djs)
