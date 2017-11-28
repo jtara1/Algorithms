@@ -3,9 +3,10 @@ from src.data_structures.graph import Graph, Edge as E
 from src.data_structures.doubly_linked_list import DoublyLinkedList, Node
 import math
 
-__doc__ = """Tests for minimum spanning tree and associated data structures and
-algorithms. Tests intended to be run using pytest."""
+__doc__ = """Quick tests for various data structures and their operations.
+Tests intended to be run using pytest."""
 
+# global vars
 graph = None
 
 
@@ -78,8 +79,24 @@ def test_doubly_linked_list():
 
 
 def test_disjoint_set():
-    djs = DisjointSet(range(10))
+    # {{0}, {1}, {2}, {3}, {4}, {5}}
+    djs = DisjointSet(*range(6))
     print('test_disjoint_set')
-    print(djs.find(3))
-    djs.merge(1, 2)
-    print(djs)
+    # {{0, 1}, {2}, {3}, {4}, {5}}
+    djs.merge(0, 1)
+    # {{0, 1}, {2}, {3, 5}, {4}}
+    djs.merge(3, 5)
+    assert(djs.roots[0] == 1 and djs.roots[1] == 1)
+    assert(djs.roots[3] == 5 and djs.roots[5] == 5)
+    assert(djs.ranks[1] == 1 and djs.ranks[5] == 1)
+
+    # {{0, 1, 3, 5}, {2}, {4}}
+    djs.merge(0, 3)
+    assert(djs.roots == [1, 5, 2, 5, 4, 5])
+    assert(djs.ranks == [0, 1, 0, 0, 0, 2])
+
+    # {{0, 2, 1, 3, 5}, {4}}
+    djs.merge(0, 2)
+    assert(djs.roots == [1, 5, 1, 5, 4, 5])
+    assert(djs.ranks == [0, 1, 0, 0, 0, 2])
+    print(repr(djs))

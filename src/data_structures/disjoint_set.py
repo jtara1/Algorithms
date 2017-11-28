@@ -18,18 +18,19 @@ class DisjointSet:
     def merge(self, a, b):
         root_a = self.find(a)
         root_b = self.find(b)
-        if self.rank[root_a] > self.rank[root_b]:
+        if self.ranks[root_a] > self.ranks[root_b]:
             self.roots[root_b] = root_a
         else:
             self.roots[root_a] = root_b
 
         # if they have the same root, they're in the same tree / set
-        if self.rank[root_a] == self.rank[root_b]:
-            self.rank[root_b] += 1
+        if self.ranks[root_a] == self.ranks[root_b]:
+            self.ranks[root_b] += 1
 
     def __repr__(self):
         string = ""
         for index, value in enumerate(self.roots):
-            string += "{: <5}, {: <5}".format(index, value)
-            string += " | " if index < len(self.roots) - 1 else ""
+            string += "i={}, r={}".format(index, value)
+            string += " | " if index < len(self.roots) - 1 else "\n"
         string += "ranks = {}".format(self.ranks)
+        return string
