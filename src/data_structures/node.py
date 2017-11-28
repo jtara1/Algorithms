@@ -15,6 +15,12 @@ class SingleLinkedNode:
     def __lt__(self, other):
         return self.datum < other.datum
 
+    def __eq__(self, other):
+        return self.datum == other.datum
+
+    def __hash__(self):
+        return hash(self.datum)
+
 
 class DoubleLinkedNode(SingleLinkedNode):
     def __init__(self, datum=None):

@@ -2,65 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48499cf5-1e9c-43c3-8e05-411ea196990c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.classpath" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/Algorithms.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.project" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_heap/MaxHeap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_heap/UnitTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_heap/UserInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_search_tree/BST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_search_tree/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_search_tree/Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_search_tree/UnitTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/binary_search_tree/UserInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/doubly_linked_list.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/edge.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/graph.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/linked_list.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/node.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/tests/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/data_structures/tests/test_all.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/minimum_spanning_tree/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/minimum_spanning_tree/kruskal.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/minimum_spanning_tree/prim.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/minimum_spanning_tree/tests/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/minimum_spanning_tree/tests/test_mst.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../src/quicksort/alt_quicksort.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Bisection0.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Bisection1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Bisection2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/False-position0.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/False-position1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/False-position2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/FuncA_Root1.ods" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Modified Secant0.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Modified Secant1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Modified Secant2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Newton-Raphson0.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Newton-Raphson1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Newton-Raphson2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Secant0.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Secant1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/Secant2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../src/calc_roots/bin/Debug/calc_roots" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/bin/Debug/polynomial_iterpolation_divided_difference_table" afterPath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/bin/Debug/polynomial_iterpolation_divided_difference_table" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.gitignore" afterPath="$PROJECT_DIR$/../../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../README.md" afterPath="$PROJECT_DIR$/../../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/dijkstra_path_finding/DirectedGraph.java" afterPath="$PROJECT_DIR$/../../src/dijkstra_path_finding/DirectedGraph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/dijkstra_path_finding/Path.java" afterPath="$PROJECT_DIR$/../../src/dijkstra_path_finding/Path.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/dijkstra_path_finding/UnitTest.java" afterPath="$PROJECT_DIR$/../../src/dijkstra_path_finding/UnitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/gaussian_elimination/UserInterface.java" afterPath="$PROJECT_DIR$/../../src/gaussian_elimination/UserInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/mergesort/mergesort.py" afterPath="$PROJECT_DIR$/../../src/mergesort/mergesort.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/assignment.txt" afterPath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/assignment.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/polynomial.cpp" afterPath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/polynomial.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/polynomial.h" afterPath="$PROJECT_DIR$/../../src/polynomial_iterpolation_divided_difference_table/polynomial.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/quicksort/quicksort.py" afterPath="$PROJECT_DIR$/../../src/quicksort/quicksort.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data_structures/disjoint_set.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data_structures/node.py" afterPath="$PROJECT_DIR$/src/data_structures/node.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,27 +13,73 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="." />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="disjoint_set.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data_structures/disjoint_set.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="700">
+              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="node.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/data_structures/node.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="850">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="builtins.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1184660488/builtins.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="106825">
+              <caret line="4273" column="6" lean-forward="false" selection-start-line="4273" selection-start-column="6" selection-end-line="4273" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../../../src/mergesort/mergesort.py" />
+        <option value="$USER_HOME$/src/mergesort/mergesort.py" />
         <option value="$PROJECT_DIR$/../../.gitignore" />
+        <option value="$PROJECT_DIR$/src/data_structures/disjoin_set.py" />
+        <option value="$PROJECT_DIR$/src/data_structures/node.py" />
+        <option value="$PROJECT_DIR$/src/data_structures/disjoint_set.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1364" />
-    <option name="height" value="736" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -111,7 +101,7 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="." />
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -121,7 +111,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="." />
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -135,7 +125,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="." />
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -147,7 +137,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mergesort" />
+              <option name="myItemId" value="data_structures" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -179,26 +169,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../src/mergesort" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/src/mergesort" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Algorithms" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../src/mergesort/mergesort.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/src/mergesort/mergesort.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="INTERPRETER_PATH" value="/bin/bash" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <module name="" />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -216,7 +194,6 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
@@ -229,6 +206,25 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Algorithms" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Algorithms" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -250,6 +246,27 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Algorithms" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -260,9 +277,40 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Algorithms" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Algorithms" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
     <list size="1">
@@ -300,26 +348,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1364" height="736" extended-state="4" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25397456" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34872612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34872612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -330,11 +379,52 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../src/mergesort/mergesort.py" />
-    <entry file="file://$PROJECT_DIR$/../../.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/data_structures/disjoint_set.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2800">
-          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_structures/node.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1184660488/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106825">
+          <caret line="4273" column="6" lean-forward="false" selection-start-line="4273" selection-start-column="6" selection-end-line="4273" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/src/mergesort/mergesort.py" />
+    <entry file="file://$PROJECT_DIR$/../../.gitignore" />
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1184660488/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106825">
+          <caret line="4273" column="6" lean-forward="false" selection-start-line="4273" selection-start-column="6" selection-end-line="4273" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_structures/disjoint_set.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_structures/node.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
         </state>
       </provider>
