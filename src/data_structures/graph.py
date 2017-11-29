@@ -1,4 +1,5 @@
 import math
+from random import randint, random, choice
 from queue import PriorityQueue
 from src.data_structures.edge import Edge
 
@@ -106,6 +107,33 @@ class Graph:
             final += '\n'
         return final
 
+    @staticmethod
+    def create_graph(size, weight_range=(1, 100), dense=False):
+        """
+
+        :param size:
+        :param weight_range:
+        :param dense:
+        :return:
+        """
+        def random_weight():
+            return randint(weight_range[0], weight_range[1])
+
+        probability = 0.8 if dense else 0.3
+        graph = Graph()
+
+        for node in range(size):
+            edge_exists = False
+            edges = set()
+            for end in range(node):
+                if random() < probability:
+                    edge_exists = True
+                    edges.add(Edge(end=end, value=random_weight()))
+
+            if not edge_exists and node > 0:
+                edges.add(Edge(end=choice(range(node)), value=random_weight()))
+            graph.add_vertex(*edges)
+        return graph
 
 if __name__ == '__main__':
     E = Edge

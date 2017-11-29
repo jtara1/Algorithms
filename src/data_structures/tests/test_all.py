@@ -24,7 +24,7 @@ def setup_graph(func):
 
 @setup_graph
 def test_graph():
-    print()
+    print('\ntest_graph')
     print(repr(graph))
 
     assert len(graph.adj_matrix) == 6
@@ -36,7 +36,7 @@ def test_graph():
 
 
 def test_graph_edge_list():
-    print("test_graph_edge_list")
+    print("\ntest_graph_edge_list")
     edges = graph.get_edge_list()
     print("size: {}".format(edges.qsize()))
     print(graph)
@@ -58,12 +58,30 @@ def test_graph_edge_list():
         previous_edge = edge
 
 
+def test_random_graph():
+    print('\ntest_random_graph')
+    g = Graph.create_graph(20)
+    print(g)
+    # make sure rand graph has no loops
+    for i in range(len(g)):
+        assert(g.adj_matrix[i][i] == math.inf)
+
+    # make sure rand graph is fully connected
+    for row in range(len(g)):
+        not_connected = True
+        for col in range(len(g)):
+            if g.adj_matrix[row][col] != math.inf:
+                not_connected = False
+                break
+        assert(not not_connected)
+
+
 def test_doubly_linked_list():
     ll = DoublyLinkedList(Node(2))
     ll.append(Node(3))
     ll.prepend(Node(1))
 
-    print("test_doubly_linked_list ")
+    print("\ntest_doubly_linked_list ")
     print(ll)
     assert(ll.first.datum == 1 and ll.last.datum == 3)
 
@@ -81,7 +99,7 @@ def test_doubly_linked_list():
 def test_disjoint_set():
     # {{0}, {1}, {2}, {3}, {4}, {5}}
     djs = DisjointSet(*range(6))
-    print('test_disjoint_set')
+    print('\ntest_disjoint_set')
     # {{0, 1}, {2}, {3}, {4}, {5}}
     djs.merge(0, 1)
     # {{0, 1}, {2}, {3, 5}, {4}}

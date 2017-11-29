@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48499cf5-1e9c-43c3-8e05-411ea196990c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data_structures/disjoint_set.py" afterPath="$PROJECT_DIR$/src/data_structures/disjoint_set.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data_structures/graph.py" afterPath="$PROJECT_DIR$/src/data_structures/graph.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data_structures/tests/test_all.py" afterPath="$PROJECT_DIR$/src/data_structures/tests/test_all.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/minimum_spanning_tree/kruskal.py" afterPath="$PROJECT_DIR$/src/minimum_spanning_tree/kruskal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/minimum_spanning_tree/tests/test_mst.py" afterPath="$PROJECT_DIR$/src/minimum_spanning_tree/tests/test_mst.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +31,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="graph.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data_structures/graph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="128" column="19" lean-forward="false" selection-start-line="128" selection-start-column="19" selection-end-line="128" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="test_all.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/data_structures/tests/test_all.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="25">
+              <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -109,11 +118,11 @@
         <option value="$PROJECT_DIR$/../../.gitignore" />
         <option value="$PROJECT_DIR$/src/data_structures/disjoin_set.py" />
         <option value="$PROJECT_DIR$/src/data_structures/node.py" />
-        <option value="$PROJECT_DIR$/src/data_structures/graph.py" />
         <option value="$PROJECT_DIR$/src/data_structures/disjoint_set.py" />
-        <option value="$PROJECT_DIR$/src/data_structures/tests/test_all.py" />
         <option value="$PROJECT_DIR$/src/minimum_spanning_tree/tests/test_mst.py" />
         <option value="$PROJECT_DIR$/src/minimum_spanning_tree/kruskal.py" />
+        <option value="$PROJECT_DIR$/src/data_structures/graph.py" />
+        <option value="$PROJECT_DIR$/src/data_structures/tests/test_all.py" />
       </list>
     </option>
   </component>
@@ -265,7 +274,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.py.test in test_mst">
+  <component name="RunManager" selected="Python tests.py.test in test_all.py">
     <configuration default="false" name="mergesort" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -283,7 +292,24 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="py.test in test_disjoint_set" type="tests" factoryName="py.test" temporary="true">
+    <configuration default="false" name="test_all" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/data_structures/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Algorithms" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/data_structures/tests/test_all.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="py.test in test_all.py" type="tests" factoryName="py.test" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -301,7 +327,7 @@
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="testToRun" value="$PROJECT_DIR$/src/data_structures/tests/test_all.py" />
-      <option name="keywords" value="test_disjoint_set" />
+      <option name="keywords" value="" />
       <option name="params" value="" />
       <option name="USE_PARAM" value="false" />
       <option name="USE_KEYWORD" value="true" />
@@ -465,16 +491,18 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.mergesort" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in test_disjoint_set" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in test_mst" />
+      <item index="1" class="java.lang.String" itemvalue="Python.test_all" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in test_all.py" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.py.test in test_mst" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in test_mst" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in test_disjoint_set" />
-        <item index="2" class="java.lang.String" itemvalue="Python.mergesort" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in test_all.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test_all" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in test_mst" />
+        <item index="3" class="java.lang.String" itemvalue="Python.mergesort" />
       </list>
     </recent_temporary>
   </component>
@@ -495,20 +523,17 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 34m 11s.xml">
-      <configuration name="py.test in test_kruskal" configurationId="tests" />
+    <history-entry file="py_test_in_test_all_py - 2017.11.28 at 17h 34m 44s.xml">
+      <configuration name="py.test in test_all.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 34m 37s.xml">
-      <configuration name="py.test in test_kruskal" configurationId="tests" />
+    <history-entry file="py_test_in_test_all_py - 2017.11.28 at 17h 36m 00s.xml">
+      <configuration name="py.test in test_all.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 35m 17s.xml">
-      <configuration name="py.test in test_kruskal" configurationId="tests" />
+    <history-entry file="py_test_in_test_all_py - 2017.11.28 at 17h 39m 31s.xml">
+      <configuration name="py.test in test_all.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 35m 25s.xml">
-      <configuration name="py.test in test_kruskal" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 36m 13s.xml">
-      <configuration name="py.test in test_kruskal" configurationId="tests" />
+    <history-entry file="py_test_in_test_disjoint_set - 2017.11.28 at 17h 34m 01s.xml">
+      <configuration name="py.test in test_disjoint_set" configurationId="tests" />
     </history-entry>
     <history-entry file="py_test_in_test_kruskal - 2017.11.28 at 16h 40m 12s.xml">
       <configuration name="py.test in test_kruskal" configurationId="tests" />
@@ -523,6 +548,9 @@
       <configuration name="py.test in test_mst" configurationId="tests" />
     </history-entry>
     <history-entry file="py_test_in_test_mst - 2017.11.28 at 16h 43m 19s.xml">
+      <configuration name="py.test in test_mst" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_mst - 2017.11.28 at 17h 33m 45s.xml">
       <configuration name="py.test in test_mst" configurationId="tests" />
     </history-entry>
   </component>
@@ -672,16 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_structures/graph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="90" column="35" lean-forward="false" selection-start-line="90" selection-start-column="35" selection-end-line="90" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/minimum_spanning_tree/prim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -726,10 +744,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_structures/graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="128" column="19" lean-forward="false" selection-start-line="128" selection-start-column="19" selection-end-line="128" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_structures/tests/test_all.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="25">
+          <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
