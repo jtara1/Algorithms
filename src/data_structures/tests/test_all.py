@@ -22,6 +22,11 @@ def setup_graph(func):
     return func
 
 
+def print_separator(func, length=70, char='-'):
+    print(''.join([char] * 70))
+    return func
+
+
 @setup_graph
 def test_graph():
     print('\ntest_graph')
