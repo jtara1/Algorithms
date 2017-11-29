@@ -97,6 +97,6 @@ def test_disjoint_set():
 
     # {{0, 2, 1, 3, 5}, {4}}
     djs.merge(0, 2)
-    assert(djs.roots == [1, 5, 1, 5, 4, 5])
+    assert(djs.roots == [1, 5, 5, 5, 4, 5])
     assert(djs.ranks == [0, 1, 0, 0, 0, 2])
     print(repr(djs))

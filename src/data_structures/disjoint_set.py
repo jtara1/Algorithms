@@ -11,9 +11,9 @@ class DisjointSet:
         self.ranks = [0] * len(args)
 
     def find(self, x):
-        if x != self.roots[x]:
-            self.find(self.roots[x])
-        return self.roots[x]
+        while x != self.roots[x]:
+            x = self.roots[x]
+        return x
 
     def merge(self, a, b):
         root_a = self.find(a)
@@ -26,6 +26,9 @@ class DisjointSet:
         # if they have the same root, they're in the same tree / set
         if self.ranks[root_a] == self.ranks[root_b]:
             self.ranks[root_b] += 1
+
+    def __len__(self):
+        return len(self.roots)
 
     def __repr__(self):
         string = ""

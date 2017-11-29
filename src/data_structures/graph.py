@@ -87,6 +87,9 @@ class Graph:
         else:
             raise Exception("not implemented")
 
+    def __len__(self):
+        return len(self.adj_matrix)
+
     def __repr__(self):
         """The direction conversion of the adj_matrix to str"""
         final = ""
