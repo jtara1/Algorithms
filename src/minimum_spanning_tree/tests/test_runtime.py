@@ -10,7 +10,7 @@ def time_it(func):
         edges = func(*args, **kwargs)
         print("{} time (seconds): {}".format(
             func.__name__,
-            (time.time() - start) / 1000))
+            time.time() - start))
         return edges
     return f
 
