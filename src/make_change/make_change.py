@@ -4,6 +4,9 @@ import json
 
 
 class MemoizeMakeChange:
+    # file path to where func calls are serialized (str should be formatted)
+    json_file_path = join(dirname(__file__), 'make_change_{denominations}.json')
+
     def __init__(self, func):
         """Save the output of calls to make_change func to save time when future
         calls are made to the func
@@ -25,9 +28,6 @@ class MemoizeMakeChange:
 
         :param func: make_change function (func this object is wrapping)
         """
-        # file path to where func calls are serialized (str should be formatted)
-        self.json_file_path = join(dirname(__file__),
-                                   'make_change_{denominations}.json')
         self.cache = None
         self.func = func
         functools.update_wrapper(self, func)  # this object now wraps the func
@@ -75,12 +75,14 @@ class MemoizeMakeChange:
         return coins
 
     def _serialize(self, denominations):
-        file_path = self.json_file_path.format(denominations=denominations)
+        file_path = MemoizeMakeChange.json_file_path.format(
+            denominations=denominations)
         with open(file_path, 'w') as file:
             json.dump(self.cache, file)
 
     def _deserialize(self, denominations):
-        file_path = self.json_file_path.format(denominations=denominations)
+        file_path = MemoizeMakeChange.json_file_path.format(
+            denominations=denominations)
         try:
             with open(file_path, 'r') as file:
                 self.cache = json.load(file)
@@ -120,6 +122,7 @@ def make_change_no_memoization(n, denominations):
 
 # memoized version of make_change_no_memoization
 make_change = MemoizeMakeChange(make_change_no_memoization)
+make_change.__name__ = "make_change"
 
 
 if __name__ == '__main__':
