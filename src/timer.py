@@ -3,15 +3,20 @@ import functools
 
 
 class TimeIt:
-    def __init__(self, func):
+    def __init__(self, func, print_after_stop=False):
         self.func = func
         functools.update_wrapper(self, func)
         self.delta_time = None
+        self.print_after = print_after_stop
 
     def __call__(self, *args, **kwargs):
         timer = Timer(True, self.func.__name__)
         val = self.func(*args, **kwargs)
-        self.delta_time = timer.stop_and_print()
+        self.delta_time = timer.stop()
+        if self.print_after:
+            timer.stop_and_print()
+        else:
+            timer.stop()
         return val, self.delta_time
 
 

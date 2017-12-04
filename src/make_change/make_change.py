@@ -127,5 +127,7 @@ make_change.__name__ = "make_change"
 
 if __name__ == '__main__':
     denom = [1, 5, 10, 25]
-    print(make_change(76, denom))
-    print(make_change(24, denom))
+    # print(make_change(76, denom))
+    # print(make_change(24, denom))
+    print(make_change_no_memoization(76, denom))
+    print(make_change_no_memoization(24, denom))

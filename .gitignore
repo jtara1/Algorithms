@@ -1,3 +1,4 @@
+*.csv
 src/calc_roots/bin
 
 *.o
