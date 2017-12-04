@@ -44,13 +44,14 @@ def runtime(func, args, json_file=None):
         total_t += t
 
     average_time = total_t / float(count)
-    try:
-        with open(json_file, 'r') as f:
-            json_data = json.load(f)
-    except (FileNotFoundError, IOError):
-        json_data = []
+    # try:
+    #     with open(json_file, 'r') as f:
+    #         json_data = json.load(f)
+    # except (FileNotFoundError, IOError):
+    #     json_data = []
+    # json_data.extend(times)
 
-    json_data.extend(times)
+    json_data = times
     with open(json_file, 'w') as file:
         json.dump(json_data, file)
 
