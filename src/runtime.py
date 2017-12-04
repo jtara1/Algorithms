@@ -19,19 +19,20 @@ import functools
 #         # return results
 
 
-def runtime(func, args, file_name=None):
+def runtime(func, args, json_file=None):
     """Measure the amount of time a function takes to run
     Get the average runtime by running func for each arg in args
 
     :param func: function we measuring the runtime of
     :param args: a list of tuples of args passed to the function
-    :param file_name: the file in which the average time and list of times the
+    :param json_file: the file in which the average time and list of times the
         program took to run are saved in (defaults to func.__name__ + '.json'
     :return: average time, list of time of each call
     :rtype: tuple of (float, list of floats)
     """
-    file_name = join(dirname(__file__), func.__name__ + '.json') \
-        if file_name is None else file_name
+    json_file = join(dirname(__file__), func.__name__ + '.json') \
+        if json_file is None else json_file
+    csv_file = json_file.replace('.json', '.csv')
 
     func_t = TimeIt(func, print_after_stop=False)
     times = []
@@ -44,14 +45,23 @@ def runtime(func, args, file_name=None):
 
     average_time = total_t / float(count)
     try:
-        with open(file_name, 'r') as f:
-            prev_data = json.load(f)
+        with open(json_file, 'r') as f:
+            json_data = json.load(f)
     except (FileNotFoundError, IOError):
-        prev_data = []
+        json_data = []
 
-    prev_data.extend(times)
-    with open(file_name, 'w') as file:
-        json.dump(prev_data, file)
+    json_data.extend(times)
+    with open(json_file, 'w') as file:
+        json.dump(json_data, file)
+
+    # try:
+    #     with open(csv_file, 'r') as f:
+    #         csv_data = json.load(f)
+    # except (FileNotFoundError, IOError):
+    #     csv_data = ''
+
+    with open(csv_file, 'w') as file:
+        file.write(',\n'.join(str(numb) for numb in times))
 
     return average_time, times
 

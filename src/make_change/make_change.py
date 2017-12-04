@@ -1,6 +1,7 @@
 import functools
 from os.path import join, dirname
 import json
+import os
 
 
 class MemoizeMakeChange:
@@ -88,6 +89,14 @@ class MemoizeMakeChange:
                 self.cache = json.load(file)
         except (FileNotFoundError, IOError):  # there is no serialized cache
             self.cache = None
+
+    @staticmethod
+    def clear_cache(denominations):
+        try:
+            os.remove(MemoizeMakeChange.json_file_path.format(
+                      denominations=denominations))
+        except (FileNotFoundError, IOError, OSError):
+            pass
 
 
 def make_change_no_memoization(n, denominations):
