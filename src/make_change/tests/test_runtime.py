@@ -1,3 +1,7 @@
+# import sys
+# from os.path import join, dirname
+# sys.path.append(dirname(__file__))
+
 from src.make_change import make_change, make_change_no_memoization
 from src.make_change.make_change import MemoizeMakeChange
 from src import runtime
@@ -11,7 +15,7 @@ def test_runtime_small_denoms(pre_build_cache=True):
         make_change(100, denominations)  # $1.00
     else:
         MemoizeMakeChange.clear_cache(denominations)
-    calls = 1000000
+    calls = 100
 
     args = [(randint(1, 101), denominations) for _ in range(calls)]
     print(type(make_change))
