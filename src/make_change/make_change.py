@@ -2,6 +2,7 @@ import functools
 from os.path import join, dirname
 import json
 import os
+from src.timer import time_it
 
 
 class MemoizeMakeChange:
@@ -42,11 +43,11 @@ class MemoizeMakeChange:
         # this object now wraps the func
         functools.update_wrapper(self, func)
 
-    def __call__(self, n, denominations):
+    def __call__(self, change, denominations):
         """Overloading () operator
         Attempts to load output if there is no self.__cache loaded yet
 
-        :param n: amount of change
+        :param change: amount of change
         :param denominations: list of denominations
         :return: self.__func(n, denominations) (# of coins of each denomination)
         :rtype: list of integers
@@ -56,20 +57,20 @@ class MemoizeMakeChange:
             self._deserialize(denominations)
 
         try:
-            return [self.__cache[i][n] for i in range(len(denominations))]
+            return [self.__cache[i][change] for i in range(len(denominations))]
         # we haven't cached values for this amount of change or larger amounts
         except IndexError:
-            return self._extend_cache(n, denominations)
+            return self._extend_cache(change, denominations)
         # self.__cache is None or non-index-able type
         # (no self.__cache.__get__(val))
         except TypeError:
             self.__cache = [[] for _ in range(len(denominations))]
-            return self.__call__(n, denominations)
+            return self.__call__(change, denominations)
 
     def _extend_cache(self, change, denominations):
         """Call self.__func(change, denominations)
-        for chg range [n+1 to change+1)
-        saving each self.__func output in column chg of self.__cache
+        for change in range [n+1 to change+1)
+        saving each self.__func output in column, change, of self.__cache
         Serializes self.__cache after all calls to self.__func complete
 
         :param change: amount of change (as integer)
@@ -110,14 +111,14 @@ class MemoizeMakeChange:
             pass
 
 
-def make_change_no_memoization(n, denominations):
+def make_change_no_memoization(change, denominations):
     """Returns the smallest amount of coins of the given denomination to total
-    n, the amount of change.
+    the amount of change.
 
     e.g.: for n = 6, denominations = [1, 5, 10, 25]
     return [1, 1, 0, 0]
 
-    :param n: amount of change (as integer)
+    :param change: amount of change (as integer)
     :param denominations: list of denominations of coins / bills from least
             to greatest
     :return: number of coins of each denomination
@@ -126,19 +127,19 @@ def make_change_no_memoization(n, denominations):
     def find_next_coin():
         # iterate from last to first
         for i in range(len(denominations) - 1, -1, -1):
-            if total + denominations[i] <= n:
+            if total + denominations[i] <= change:
                 return i
         raise Exception("no solution")
 
     total = 0
-    change = [0] * len(denominations)
+    coins = [0] * len(denominations)
 
-    while total < n:
+    while total < change:
         index = find_next_coin()
-        change[index] += 1
+        coins[index] += 1
         total += denominations[index]
 
-    return change
+    return coins
 
 
 # memoized version of make_change_no_memoization
@@ -147,8 +148,15 @@ make_change.__name__ = "make_change"
 
 
 if __name__ == '__main__':
-    denom = [1, 5, 10, 25]
-    # print(make_change(76, denom))
-    # print(make_change(24, denom))
-    print(make_change_no_memoization(76, denom))
-    print(make_change_no_memoization(24, denom))
+    @time_it
+    def test():
+        denom = [1, 5, 10, 25]
+        # print(make_change(76, denom))
+        # print(make_change(24, denom))
+        # print(make_change_no_memoization(76, denom))
+        # print(make_change_no_memoization(24, denom))
+        denom2 = denom + [100, 500, 1000, 2000]
+        print(make_change_no_memoization(4683, denom2))
+        print(type(make_change))
+        print(type(make_change_no_memoization))
+    test()

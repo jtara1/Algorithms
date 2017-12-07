@@ -19,7 +19,28 @@ import functools
 #         # return results
 
 
-def runtime(func, args, json_file=None):
+def _format_lines(times, average_time, max_time, min_time, input_values,
+                  output_values, func_name, include_header=True):
+    """Generator to format each line that gets saved in comma separated value
+    file given the input, output, and runtime data of some function.
+    """
+    # headers for columns of values
+    if include_header:
+        yield 'call number, {} runtime, inp, out,' \
+              ' min_time, max_time, average_time\n'.format(func_name)
+    yield '1, {}, {}, {}, {}, {}, {}\n'\
+        .format(times[0], input_values[0][0], output_values[0],
+                min_time, max_time, average_time)
+
+    count = 2
+    for time, in_value, out_value \
+            in zip(times[1:], input_values[1:], output_values[1:]):
+        yield '{}, {}, {}, {}\n'\
+            .format(count, time, in_value[0], out_value)
+        count += 1
+
+
+def runtime(func, args, format_line, json_file=None):
     """Measure the amount of time a function takes to run
     Get the average runtime by running func for each arg in args
 
@@ -36,54 +57,33 @@ def runtime(func, args, json_file=None):
 
     func_t = TimeIt(func, print_after_stop=False)
     times = []
+    return_values = []
     total_t = 0
 
     for count, arg in enumerate(args, start=1):
         val, t = func_t(*arg)
+        return_values.append(val)
         times.append(t)
         total_t += t
 
     average_time = total_t / float(count)
-    # try:
-    #     with open(json_file, 'r') as f:
-    #         json_data = json.load(f)
-    # except (FileNotFoundError, IOError):
-    #     json_data = []
-    # json_data.extend(times)
-
-    json_data = times
-    with open(json_file, 'w') as file:
-        json.dump(json_data, file)
-
-    # try:
-    #     with open(csv_file, 'r') as f:
-    #         csv_data = json.load(f)
-    # except (FileNotFoundError, IOError):
-    #     csv_data = ''
+    max_time = max(times)
+    min_time = min(times)
 
     with open(csv_file, 'w') as file:
-        file.write(',\n'.join(str(numb) for numb in times))
+        for line in format_line(times, average_time, max_time, min_time, args,
+                              return_values, func.__name__, True):
+            # print(line)
+            file.write(line)
 
     return average_time, times
 
 
-def average_of_averages(file_name):
-    with open(file_name, 'r') as f:
-        data = json.load(f)
-
-    total = 0
-    for index in range(0, len(data), 2):
-        total += data[index]
-    average = total / len(data) / 2.0
-    # print('average of averages: {}'.format(average))
-    return average
-
 if __name__ == '__main__':
     def counter(end=10000):
+        total = 0
         for i in range(end):
+            total += i
             print(i)
-    runtime(counter, [(i,) for i in range(50)])
-    # path1 = 'C:\\Users\\James\\Documents\\_Github-Projects\\Algorithms\\src\\make_change\\tests\\make_change.json'
-    # path2 = 'C:\\Users\\James\\Documents\\_Github-Projects\\Algorithms\\src\\make_change\\tests\\make_change_no_memoization.json'
-    # print(average_of_averages(path1))
-    # print(average_of_averages(path2))
+        return total
+    runtime(counter, [(i,) for i in range(50)], _format_lines)
