@@ -1,45 +1,54 @@
 from src.minimum_spanning_tree import prim, kruskal, Graph
 import time
 from datetime import datetime
-from multiprocessing import Process
-
-
-def time_it(func):
-    def f(*args, **kwargs):
-        start = time.time()
-        edges = func(*args, **kwargs)
-        print("{} time (seconds): {}".format(
-            func.__name__,
-            time.time() - start))
-        return edges
-    return f
-
-
-def print_separator(*print_objs):
-    print(''.join(['-'] * 70))
-    print(*print_objs)
+from src import runtime
 
 
 def test_sparse_graph():
     print('\ntest_sparse_graph')
-    size = 10
-    for m in range(3):
-        size *= 10
-        print('creating graph of size = {}'.format(size))
-        graph = Graph.create_graph(size, dense=False)
-        # print_separator(graph)
-        # print(graph)
-        print('{} using minimum spanning tree algos now'.format(datetime.now()))
-        edges1 = time_it(prim)(graph)
-        print('{} running kruskal'.format(datetime.now()))
-        edges2 = time_it(kruskal)(graph)
+    # sizes = [100, 500]
+    sizes = [100, 500, 1000, 5000, 10000]
+    args = [(Graph.create_graph(size, dense=False),) for size in sizes]
+    runtime(kruskal,
+            args=args,
+            format_line=format_line)
+    runtime(prim,
+            args=args,
+            format_line=format_line)
 
-        # run each at same time
-        # proc1 = Process(target=edges1, args=(graph,))
-        # proc2 = Process(target=edges2, args=(graph,))
-        # proc1.start()
-        # proc1.join()
-        # proc2.start()
-        # proc2.join()
-        # assert(edges1 == edges2)
-        print_separator()
+def test_dense_graph():
+    print('\ntest_sparse_graph')
+    # sizes = [100, 500]
+    sizes = [100, 500, 1000, 5000, 10000]
+    args = [(Graph.create_graph(size, dense=True),) for size in sizes]
+    runtime(kruskal,
+            args=args,
+            format_line=format_line)
+    runtime(prim,
+            args=args,
+            format_line=format_line)
+
+
+def format_line(times, average_time, max_time, min_time, input_values,
+                output_values, func_name, include_header=True):
+    """Generator to format each line that gets saved in comma separated value
+    file given the input, output, and runtime data of some function.
+    """
+    # headers for columns of values
+    if include_header:
+        yield 'call number, {} runtime, input, output,' \
+              ' min_time, max_time, average_time\n'.format(func_name)
+    yield '1, {}, {}, {}, {}, {}, {}\n'\
+        .format(times[0], len(input_values[0]), '',
+                min_time, max_time, average_time)
+
+    count = 2
+    for time, in_value, out_value \
+            in zip(times[1:], input_values[1:], output_values[1:]):
+        yield '{}, {}, {}, {}\n'\
+            .format(count, time, len(in_value), '')
+        count += 1
+
+if __name__ == '__main__':
+    # test_sparse_graph()
+    test_dense_graph()

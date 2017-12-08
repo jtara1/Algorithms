@@ -2,8 +2,9 @@ from src.data_structures.edge import Edge
 import math
 
 
-def prim(graph):
-    """Prim's minimum spanning tree algorithm: convert a connected bidirectional
+def _bad_implementation_of_prim(graph):
+    """O(k^n) or O(n^n)
+    Prim's minimum spanning tree algorithm: convert a connected bidirectional
     graph to a tree (set of Edges) with the smallest edges.
 
     :param graph: the graph that gets converted to a set of edges
@@ -38,3 +39,46 @@ def prim(graph):
 
     return tree
 
+
+def prim(graph):
+    n = len(graph)  # number of vertices in graph
+    tree = set()
+    nearest = []  # nearest vertex
+    min_distance = []  # minimum distance to each ith node
+    for row in range(n):
+        nearest.append(0)
+        min_distance.append(graph.adj_matrix[row][0])
+
+    for index in range(n):
+        min_value = math.inf
+
+        for i in range(1, n):
+            if 0 <= min_distance[i] < min_value:
+                min_value = min_distance[index]
+                index = i
+
+        tree.add(
+            Edge(
+                start=nearest[index],
+                end=index,
+                value=graph.adj_matrix[nearest[index]][index]))
+        min_distance[index] = -1
+
+        for i in range(1, n):
+            if graph.adj_matrix[i][index] < min_distance[i]:
+                min_distance[i] = graph.adj_matrix[i][index]
+                nearest[i] = index
+
+    return tree
+
+
+if __name__ == '__main__':
+    from src.data_structures.graph import Graph
+    g = Graph()
+    g.add_vertex()
+    g.add_vertex(Edge(end=0, value=3))
+    g.add_vertex(Edge(end=0, value=2), Edge(end=1, value=2))
+    g.add_vertex(Edge(end=0, value=1), Edge(end=2, value=4), Edge(end=3, value=5))
+    print(g)
+    print([str(e) for e in _bad_implementation_of_prim(g)])
+    print([str(e) for e in prim(g)])

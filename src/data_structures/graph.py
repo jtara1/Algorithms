@@ -107,6 +107,9 @@ class Graph:
             final += '\n'
         return final
 
+    def __getitem__(self, index):
+        return self.adj_matrix[index]
+
     @staticmethod
     def create_graph(size, weight_range=(1, 100), dense=False):
         """

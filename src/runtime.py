@@ -40,7 +40,7 @@ def _format_lines(times, average_time, max_time, min_time, input_values,
         count += 1
 
 
-def runtime(func, args, format_line, json_file=None):
+def runtime(func, args, format_line=_format_lines, json_file=None):
     """Measure the amount of time a function takes to run
     Get the average runtime by running func for each arg in args
 
