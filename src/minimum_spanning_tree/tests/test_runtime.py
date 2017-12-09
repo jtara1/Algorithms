@@ -10,10 +10,10 @@ def test_sparse_graph():
     args = [(Graph.create_graph(size, dense=False),) for size in sizes]
     runtime(kruskal,
             args=args,
-            format_line=format_line)
+            format_lines=_format_lines)
     runtime(prim,
             args=args,
-            format_line=format_line)
+            format_lines=_format_lines)
 
 def test_dense_graph():
     print('\ntest_sparse_graph')
@@ -22,14 +22,14 @@ def test_dense_graph():
     args = [(Graph.create_graph(size, dense=True),) for size in sizes]
     runtime(kruskal,
             args=args,
-            format_line=format_line)
+            format_lines=_format_lines)
     runtime(prim,
             args=args,
-            format_line=format_line)
+            format_lines=_format_lines)
 
 
-def format_line(times, average_time, max_time, min_time, input_values,
-                output_values, func_name, include_header=True):
+def _format_lines(times, average_time, max_time, min_time, input_values,
+                  output_values, func_name, include_header=True):
     """Generator to format each line that gets saved in comma separated value
     file given the input, output, and runtime data of some function.
     """

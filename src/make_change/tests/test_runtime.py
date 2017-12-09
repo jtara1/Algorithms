@@ -8,14 +8,14 @@ from src import runtime
 from random import randint
 
 
-def test_runtime_small_denoms(pre_build_cache=True):
+def test_runtime_small_denoms(pre_build_cache=True, calls=100):
+    print('\ntest_runtime of make_change algorithms')
     denominations = [1, 5, 10, 25]
     # do all func calls so __cache is completely filled out (for change <= 100)
     if pre_build_cache:
         make_change(100, denominations)  # $1.00
     else:
         MemoizeMakeChange.clear_cache(denominations)
-    calls = 100
 
     args = [(randint(1, 101), denominations) for _ in range(calls)]
     print(type(make_change))
@@ -36,8 +36,9 @@ def test_runtime_large_denoms(pre_build_cache=True):
 
     # random amount between [0.01, 50] USD == [1, 5000]
     args = [(randint(1, 5001), denominations) for _ in range(calls)]
+    avg2, _ = runtime(make_change_no_memoization, args,
+                      format_lines=format_line)
     avg1, _ = runtime(make_change, args, format_line)
-    avg2, _ = runtime(make_change_no_memoization, args, format_line=format_line)
     print(avg1, avg2)
 
 
@@ -61,8 +62,9 @@ def format_line(times, average_time, max_time, min_time, input_values,
             .format(count, time, in_value[0], '')
         count += 1
 
+
 if __name__ == '__main__':
     # test_runtime_slow(False)
     # test_runtime_slow(True)
-    test_runtime_small_denoms(False)
-    # test_runtime_quick(True)
+    # test_runtime_small_denoms(False)
+    test_runtime_small_denoms(True, calls=100000)

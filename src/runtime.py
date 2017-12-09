@@ -40,7 +40,7 @@ def _format_lines(times, average_time, max_time, min_time, input_values,
         count += 1
 
 
-def runtime(func, args, format_line=_format_lines, json_file=None):
+def runtime(func, args, format_lines=_format_lines, json_file=None):
     """Measure the amount of time a function takes to run
     Get the average runtime by running func for each arg in args
 
@@ -61,6 +61,8 @@ def runtime(func, args, format_line=_format_lines, json_file=None):
     total_t = 0
 
     for count, arg in enumerate(args, start=1):
+        if not isinstance(arg, tuple):
+            arg = (arg,)
         val, t = func_t(*arg)
         return_values.append(val)
         times.append(t)
@@ -71,8 +73,8 @@ def runtime(func, args, format_line=_format_lines, json_file=None):
     min_time = min(times)
 
     with open(csv_file, 'w') as file:
-        for line in format_line(times, average_time, max_time, min_time, args,
-                              return_values, func.__name__, True):
+        for line in format_lines(times, average_time, max_time, min_time, args,
+                                 return_values, func.__name__, True):
             # print(line)
             file.write(line)
 

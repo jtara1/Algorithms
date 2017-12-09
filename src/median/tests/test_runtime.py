@@ -1,67 +1,40 @@
-from src import Timer, time_it
 from random import randint
 from src.median import median, sort_and_pick_median
-from src.minimum_spanning_tree.tests.test_runtime import time_it
-from datetime import datetime
-from multiprocessing import Process, Queue, Pool
+from src import runtime
 
 
 def test_runtime():
-    queue = Queue()
-    print('\ntest_sparse_graph')
-    length = 10
-    for m in range(5):
-        length *= 10
-        print('length = {}'.format(length))
+    print('\ntest_median_runtime')
+    args = []
+    for exp in range(2, 7):
+        size = 10 ** exp
+        args.append([randint(-1000, 1000) for _ in range(size)])
 
-        l = [randint(1, 100) for _ in range(length)]
-        # print(l)
-
-        # assert(median(l) == sort_and_pick_median(l))
-        print('{} median of medians algo'.format(datetime.now()))
-        process1 = Process(target=median, args=(l,))
-        t1 = Timer().start()
-        process1.start()
-
-        # print(l)
-        print('{} sort and pick median algo'.format(datetime.now()))
-        process2 = Process(target=sort_and_pick_median, args=(l,))
-        t2 = Timer().start()
-        process2.start()
+    runtime(median, args=args, format_lines=_format_lines)
+    assert(args == args)
+    runtime(sort_and_pick_median, args=args, format_lines=_format_lines)
 
 
-# @time_it
-def run_median(seq):
-    t = Timer(True, 'median, size={}'.format(len(seq)))
-    m = median(seq)
-    t.stop_and_print()
-    return m
+def _format_lines(times, average_time, max_time, min_time, input_values,
+                  output_values, func_name, include_header=True):
+    """Generator to format each line that gets saved in comma separated value
+    file given the input, output, and runtime data of some function.
+    """
+    # headers for columns of values
+    if include_header:
+        yield 'call number, {} runtime, inp, out,' \
+              ' min_time, max_time, average_time\n'.format(func_name)
+    yield '1, {}, {}, {}, {}, {}, {}\n'\
+        .format(times[0], len(input_values[0]), output_values[0],
+                min_time, max_time, average_time)
 
-
-# @time_it
-def run_sort_and_pick_median(seq):
-    t = Timer(True, '{}, size={}'.format(sort_and_pick_median.__name__,
-                                         len(seq)))
-    m = sort_and_pick_median(seq)
-    t.stop_and_print()
-    return m
-
-
-def test_a():
-    def build_lists(max_size_exp=7):
-        for exponent in range(2, max_size_exp):
-            seq = [randint(1, 100) for _ in range(10 ** exponent)]
-            yield seq
-
-    lists = [seq for seq in build_lists(9)]
-
-    with Pool(8) as pool:
-        print(pool.map(run_median, lists))
-
-    with Pool(8) as pool:
-        print(pool.map(run_sort_and_pick_median, lists))
+    count = 2
+    for time, in_value, out_value \
+            in zip(times[1:], input_values[1:], output_values[1:]):
+        yield '{}, {}, {}, {}\n'\
+            .format(count, time, len(in_value), out_value)
+        count += 1
 
 
 if __name__ == '__main__':
-    test_a()
-    # test_runtime()
+    test_runtime()
