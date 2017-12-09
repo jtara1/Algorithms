@@ -80,10 +80,10 @@ class Graph:
                 for col, edge_weight in enumerate(
                         self.adj_matrix[row][row:],
                         start=row):
-                    # next node that'll be inserted into list i.e. it's sorted
+                    if edge_weight is math.inf:
+                        continue
                     edge = Edge(start=row, end=col, value=edge_weight)
-
-                    edge_list.put(item=edge, block=True)
+                    edge_list.put(item=edge, block=False)
             return edge_list
         else:
             raise Exception("not implemented")

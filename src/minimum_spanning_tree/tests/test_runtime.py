@@ -1,13 +1,12 @@
 from src.minimum_spanning_tree import prim, kruskal, Graph
-import time
-from datetime import datetime
 from src import runtime
 
 
 def test_sparse_graph():
     print('\ntest_sparse_graph')
     # sizes = [100, 500]
-    sizes = [100, 500, 1000, 5000, 10000]
+    sizes = [100, 500, 1000, 5000]
+    # sizes = [100, 500, 1000, 5000, 10000]
     args = [(Graph.create_graph(size, dense=False),) for size in sizes]
     runtime(kruskal,
             args=args,
@@ -50,5 +49,5 @@ def format_line(times, average_time, max_time, min_time, input_values,
         count += 1
 
 if __name__ == '__main__':
-    # test_sparse_graph()
-    test_dense_graph()
+    test_sparse_graph()
+    # test_dense_graph()

@@ -9,7 +9,7 @@ def kruskal(graph):
     """
     n = len(graph)  # number of vertices in graph
     # helps avoid creating cycles efficiently
-    disjoint_set = DisjointSet(*range(n))
+    disjoint_set = DisjointSet(*range(n))  # {{0}, {1}, ..., {n-1}}
     visited = set()  # indices of the vertices visited
     tree = set()  # edges that create the minimum spanning tree
     edges = graph.get_edge_list()  # sorted edges of the graph
