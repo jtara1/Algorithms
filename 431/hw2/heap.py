@@ -40,9 +40,9 @@ class Heap:
 if __name__ == '__main__':
     def test():
         h = Heap(init_data=[1, 2, 3])
-        # h.push(2)
-        # h.push(3)
-        # h.push(0)
+        h.push(2)
+        h.push(3)
+        h.push(0)
         print(h)
         print(list(h))
         print(h.pop())

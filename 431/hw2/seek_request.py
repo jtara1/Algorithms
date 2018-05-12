@@ -4,6 +4,7 @@ import math
 class SeekRequest(int):
     def __init__(self, cylinder):
         super(SeekRequest, self).__init__()
+        self.cylinder = cylinder
         self.start_time = None
         self.end_time = None
         self.distance_to_head = None
@@ -29,3 +30,7 @@ if __name__ == '__main__':
     a.end_time = 10
     print(a.delay)
     print(a.score)
+    l = [b, a]
+    # l.sort()
+    # print(l)
+    print(min(l))

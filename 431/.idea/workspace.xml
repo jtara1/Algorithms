@@ -12,20 +12,21 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/_$heap.coverage" NAME="heap Coverage Results" MODIFIED="1525980340044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
-    <SUITE FILE_PATH="coverage/_$seek_request.coverage" NAME="seek_request Coverage Results" MODIFIED="1525924096528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
+    <SUITE FILE_PATH="coverage/_$seek_request.coverage" NAME="seek_request Coverage Results" MODIFIED="1526091099683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
     <SUITE FILE_PATH="coverage/_$shortest_seek_first.coverage" NAME="shortest_seek_first Coverage Results" MODIFIED="1525984268420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
     <SUITE FILE_PATH="coverage/431$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1525911947685" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/hw2" />
     <SUITE FILE_PATH="coverage/_$first_come_first_serve.coverage" NAME="first_come_first_serve Coverage Results" MODIFIED="1525984036415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
+    <SUITE FILE_PATH="coverage/_$elevator_seek.coverage" NAME="elevator_seek Coverage Results" MODIFIED="1526089105314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
     <SUITE FILE_PATH="coverage/_$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1525981605173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/hw2" />
-    <SUITE FILE_PATH="coverage/_$__main____1_.coverage" NAME="__main__ (1) Coverage Results" MODIFIED="1525984630292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
+    <SUITE FILE_PATH="coverage/_$__main____1_.coverage" NAME="__main__ (1) Coverage Results" MODIFIED="1526092140283" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hw2" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="seek_algorithm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../hw2/seek_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="675">
+              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -33,35 +34,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="first_come_first_serve.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hw2/first_come_first_serve.py">
+      <file leaf-file-name="elevator_seek.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hw2/elevator_seek.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="960">
+              <caret line="64" column="42" lean-forward="true" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shortest_seek_first.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="clook_seek.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hw2/clook_seek.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-449">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shortest_seek_first.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../hw2/shortest_seek_first.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="54" selection-start-line="54" selection-end-line="56" />
+            <state relative-caret-position="270">
+              <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="heap.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hw2/heap.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
         </entry>
@@ -69,20 +67,8 @@
       <file leaf-file-name="seek_request.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../hw2/seek_request.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__main__.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../hw2/__main__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#58#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="525">
+              <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -138,12 +124,14 @@
         <option value="$PROJECT_DIR$/hw2/seek_algorithm.py" />
         <option value="$PROJECT_DIR$/hw2/first_come_first_serve.py" />
         <option value="$PROJECT_DIR$/hw2/__main__.py" />
-        <option value="$PROJECT_DIR$/../hw2/heap.py" />
-        <option value="$PROJECT_DIR$/../hw2/seek_request.py" />
-        <option value="$PROJECT_DIR$/../hw2/shortest_seek_first.py" />
         <option value="$PROJECT_DIR$/../hw2/first_come_first_serve.py" />
-        <option value="$PROJECT_DIR$/../hw2/seek_algorithm.py" />
+        <option value="$PROJECT_DIR$/../hw2/shortest_seek_first.py" />
+        <option value="$PROJECT_DIR$/../hw2/heap.py" />
         <option value="$PROJECT_DIR$/../hw2/__main__.py" />
+        <option value="$PROJECT_DIR$/../hw2/seek_request.py" />
+        <option value="$PROJECT_DIR$/../hw2/elevator_seek.py" />
+        <option value="$PROJECT_DIR$/../hw2/seek_algorithm.py" />
+        <option value="$PROJECT_DIR$/../hw2/clook_seek.py" />
       </list>
     </option>
   </component>
@@ -221,17 +209,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.__main__ (1)">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="hw1.Main" />
-      <module name="431" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="hw1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
     <configuration name="__main__ (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="431" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -251,7 +228,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="__main__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="elevator_seek" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="431" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -259,12 +236,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/hw2" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../hw2" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hw2/__main__.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../hw2/elevator_seek.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -289,7 +266,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="heap" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="seek_request" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="431" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,7 +279,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../hw2/heap.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../hw2/seek_request.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -369,19 +346,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Python.__main__" />
-      <item itemvalue="Python.heap" />
       <item itemvalue="Python.shortest_seek_first" />
       <item itemvalue="Python.first_come_first_serve" />
       <item itemvalue="Python.__main__ (1)" />
+      <item itemvalue="Python.seek_request" />
+      <item itemvalue="Python.elevator_seek" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.__main__ (1)" />
+        <item itemvalue="Python.seek_request" />
+        <item itemvalue="Python.elevator_seek" />
         <item itemvalue="Python.shortest_seek_first" />
         <item itemvalue="Python.first_come_first_serve" />
-        <item itemvalue="Python.__main__" />
-        <item itemvalue="Python.heap" />
       </list>
     </recent_temporary>
   </component>
@@ -411,6 +388,7 @@
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.3304813" />
+      <window_info anchor="right" x="0" y="0" width="430" height="844" id="Documentation" order="11" sideWeight="0.50717705" side_tool="true" visible="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32941177" />
@@ -434,7 +412,6 @@
       <window_info anchor="right" id="Capture Analysis" order="2" />
       <window_info anchor="bottom" id="Inspection Results" order="8" weight="0.32941177" />
       <window_info anchor="bottom" id="Messages" order="7" />
-      <window_info anchor="right" x="0" y="0" width="430" height="844" id="Documentation" order="11" sideWeight="0.50717705" side_tool="true" visible="true" weight="0.3296875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
@@ -454,80 +431,44 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../hw2/first_come_first_serve.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../hw2/shortest_seek_first.py</url>
           <line>35</line>
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../hw2/shortest_seek_first.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../hw2/first_come_first_serve.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../hw2/first_come_first_serve.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="23" />
+          <url>file://$PROJECT_DIR$/../hw2/elevator_seek.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="24" />
+      <option name="time" value="32" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
       <expression>
+        <expression-string>len(self.cylinder_list) == 503</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>len(self.cylinder_list) == 503
+    return self.run()         else:
+    pass</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>cpu.time &gt; 29</expression-string>
-        <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
         <expression-string>cpu.time &gt; 19</expression-string>
-        <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_trace_dispatch_regular.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1410">
-          <caret line="109" selection-start-line="109" selection-end-line="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/heap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/seek_request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/__main__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../hw2/shortest_seek_first.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -648,13 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/seek_request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -669,37 +603,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/heap.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="412">
+          <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hw2/shortest_seek_first.py">
+    <entry file="file://$PROJECT_DIR$/../hw2/heap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="54" selection-start-line="54" selection-end-line="56" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
+          <caret line="45" column="13" lean-forward="true" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../hw2/first_come_first_serve.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../hw2/seek_request.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hw2/clook_seek.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-449">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hw2/elevator_seek.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="42" lean-forward="true" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hw2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/../hw2/seek_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="675">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
@@ -708,10 +663,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../hw2/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+        <state relative-caret-position="466">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hw2/shortest_seek_first.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>

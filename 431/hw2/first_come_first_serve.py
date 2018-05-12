@@ -17,4 +17,4 @@ if __name__ == '__main__':
 
     fcfs = FirstComeFirstServe(cylinders)
     fcfs.run()
-    print(fcfs)
+    print(fcfs, '\n')

@@ -1,7 +1,11 @@
 from hw2.first_come_first_serve import FirstComeFirstServe
 from hw2.shortest_seek_first import ShortestSeekFirst
-import random
+from hw2.elevator_seek import ElevatorSeek
+from hw2.clook_seek import ClookSeek
+
 from hw2.seek_request import SeekRequest
+
+import random
 
 
 if __name__ == '__main__':
@@ -10,8 +14,8 @@ if __name__ == '__main__':
         cylinders = [SeekRequest(value) for value in cylinders]
         print('cylinders = {}'.format(cylinders))
 
-        fcfs = FirstComeFirstServe(cylinders)
-        ssf = ShortestSeekFirst(cylinders)
+        fcfs = FirstComeFirstServe(cylinders, head=11)
+        ssf = ShortestSeekFirst(cylinders, head=11)
 
         fcfs.run()
         print(fcfs)
@@ -19,4 +23,20 @@ if __name__ == '__main__':
         ssf.run()
         print(ssf)
 
-    test1()
+    def test_homework():
+        cylinders = [SeekRequest(random.randint(1, 100)) for _ in range(1000)]
+        print('cylinders = {}'.format(cylinders))
+
+        algos = [
+            FirstComeFirstServe(cylinders[:]),
+            ShortestSeekFirst(cylinders[:]),
+            ElevatorSeek(cylinders[:]),
+            ClookSeek(cylinders[:]),
+        ]
+
+        for algo in algos:
+            algo.run()
+            print(algo, '\n')
+
+    # test1()
+    test_homework()
