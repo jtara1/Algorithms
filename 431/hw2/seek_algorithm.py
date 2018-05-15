@@ -15,17 +15,17 @@ class SeekAlgorithm:
         raise NotImplementedException()
 
     def update_measurements(self, cylinder):
-        """
+        """Update scores and delays
 
         :param cylinder: <SeekRequest>
         :return:
         """
-        self.time += cylinder.distance_to_head
         self.scores.append(cylinder.score)
         self.delays.append(cylinder.delay)
 
     def results(self):
         return {
+            'name': self.__class__.__name__,
             'time': self.time,
             'average_delay': statistics.mean(self.delays) if self.delays else None,
             'max_delay': max(self.delays) if self.delays else None,
@@ -34,12 +34,9 @@ class SeekAlgorithm:
         }
 
     def __str__(self):
-        results = self.results()
-        results.update({'name': self.__class__.__name__})
-
         return '---- {name} ----\n' \
                'time = {time}\naverage delay = {average_delay}\n' \
                'maximum delay = {max_delay}\n' \
                'average score = {average_score}\nmaximum score = {max_score}' \
-               .format(**results)
+               .format(**self.results())
 

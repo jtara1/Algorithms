@@ -11,6 +11,8 @@ class SeekRequest(int):
 
     @property
     def delay(self):
+        if self.end_time < self.start_time:
+            raise Exception(str(self))
         return self.end_time - self.start_time
 
     @property
@@ -18,7 +20,14 @@ class SeekRequest(int):
         return self.delay * math.sqrt(self.delay)
 
     def __lt__(self, other):
+        """Used by heapq functions from python std lib"""
         return self.distance_to_head < other.distance_to_head
+
+    def __repr__(self):
+        return str(self.cylinder)
+
+    def __str__(self):
+        return 'value: {}, start_t: {}, end_t: {}\n'.format(self.cylinder, self.start_time, self.end_time)
     
 
 if __name__ == '__main__':

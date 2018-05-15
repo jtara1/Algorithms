@@ -1,65 +1,41 @@
 from hw2.seek_algorithm import SeekAlgorithm
+from hw2.elevator_list import ElevatorList
 
 
 class ElevatorSeek(SeekAlgorithm):
     def run(self, init_direction='up'):
-        comparators = {
-            'up': lambda a, b: a >= b,
-            'down': lambda a, b: a <= b,
-        }
-
+        head_history = []
         direction = init_direction
-        comparator = comparators[direction]
-
-        # all the cylinders from the main list that are ahead of the
-        # head cylinder based on it's direction
-        cylinders_ahead = list(filter(
-            lambda cyl: comparator(cyl, self.head),
-            self.cylinder_list))
-
-        cylinders_ahead.sort(key=lambda cyl: cyl.cylinder, reverse=direction == 'down')
 
         def get_next_cylinders():
-            cylinders = cylinders_ahead[:10]
-            [setattr(cyl, 'start_time', self.time) for cyl in cylinders]
-            return cylinders
+            cyls = self.cylinder_list[:10]
+            del self.cylinder_list[:10]
+            [setattr(cyl, 'start_time', self.time) for cyl in cyls]
+            return cyls
 
-        def calculate_distance():
-            [setattr(cyl, 'distance_to_head', abs(cyl - self.head))
-             for cyl in cylinders]
-
-        cylinders = get_next_cylinders()
-        calculate_distance()
+        cylinders = ElevatorList(*get_next_cylinders())
+        cylinders.calculate_distance(self.head)
+        cylinders = cylinders.partition_and_sort(self.head, direction)
 
         # iterate until all cylinders have been seeked to
         while len(self.cylinder_list) != 0:
 
             # iterate over cylinders to seek to until the list becomes small
-            while len(cylinders) > 4 or (len(cylinders) > 0 and len(cylinders) < 10):
-                cylinder = cylinders_ahead[0]
+            while len(cylinders) > 4 or (len(self.cylinder_list) > 0 and len(self.cylinder_list) < 10):
+                head_history.append(self.head)
+                cylinder, direction, dir_changed = cylinders.get_next(
+                    head=self.head, direction=direction)
 
-                self.time += cylinder.distance_to_head
-                cylinder.end_time = self.time
+                if not dir_changed:
+                    cylinder.end_time = self.time
+                    self.time += cylinder.distance_to_head
 
-                cylinders.remove(cylinder)
-                cylinders_ahead.remove(cylinder)
-                self.cylinder_list.remove(cylinder)
-
-                self.update_measurements(cylinder)
+                    self.update_measurements(cylinder)
+                else:
+                    self.time += abs(self.head - cylinder)
 
                 self.head = cylinder
-                calculate_distance()
+                cylinders.calculate_distance(self.head)
 
             cylinders += get_next_cylinders()
-            if len(cylinders) == 0 and len(self.cylinder_list) > 0:
-                def key(cyl):
-                    return cyl.cylinder
-
-                if direction == 'up':
-                    direction = 'down'
-                    self.head = 100
-                else:
-                    direction = 'up'
-                    self.head = 1
-
-                return self.run(direction)
+            cylinders = cylinders.partition_and_sort(self.head, direction)

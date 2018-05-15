@@ -1,7 +1,6 @@
 from hw2.seek_algorithm import SeekAlgorithm
 from hw2.heap import Heap
 from hw2.seek_request import SeekRequest
-from multiprocessing import Queue
 
 
 class ShortestSeekFirst(SeekAlgorithm):
@@ -15,26 +14,23 @@ class ShortestSeekFirst(SeekAlgorithm):
             cylinders = self.cylinder_list[:10]
 
             def put_cylinders_in_queue(init=False):
-                for cylinder in cylinders:
-                    cylinder.distance_to_head = abs(self.head - cylinder)
+                for cyl in cylinders:
+                    cyl.distance_to_head = abs(self.head - cyl)
                     if init:
-                        setattr(cylinder, 'start_time', self.time)
+                        setattr(cyl, 'start_time', self.time)
 
                 heap = Heap()
-                [heap.push(cylinder) for cylinder in cylinders]
+                [heap.push(cyl) for cyl in cylinders]
                 return heap
 
             queue = put_cylinders_in_queue(True)
 
             while len(queue) >= 5 or (len(self.cylinder_list) > 0 and len(
                     self.cylinder_list) < 10):
-                self.cylinder_index += 1
 
                 cylinder = queue.pop()
-                # cylinder = queue.get()
                 if not cylinder:
-                    raise Exception('what')
-                    # break
+                    break
 
                 self.time += cylinder.distance_to_head
                 cylinder.end_time = self.time
@@ -42,8 +38,7 @@ class ShortestSeekFirst(SeekAlgorithm):
                 self.cylinder_list.remove(cylinder)
                 cylinders.remove(cylinder)
 
-                self.delays.append(cylinder.delay)
-                self.scores.append(cylinder.score)
+                self.update_measurements(cylinder)
 
                 self.head = cylinder
                 queue = put_cylinders_in_queue()
