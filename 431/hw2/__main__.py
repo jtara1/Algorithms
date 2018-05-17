@@ -92,6 +92,9 @@ def report(trials=100):
         new_ax.set_title(processed_algos[0][i].__class__.__name__)
         ax = frame.boxplot(ax=new_ax, figsize=(5, 5))
 
+        print('--- {} ---'.format(algo_name))
+        print(frame.describe())
+
         # only the ssf, elevator, and my algo are similar in runtimes
         if i > 1:
             ax.set_ylim(0, 10000)
