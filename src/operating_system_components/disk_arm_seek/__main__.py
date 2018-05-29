@@ -7,8 +7,13 @@ from hw2.seek_request import SeekRequest
 
 import random
 from multiprocessing import Pool
-import pandas as pd
-import matplotlib.pyplot as plt
+
+try:
+    import pandas as pd
+    import matplotlib.pyplot as plt
+except ImportError:
+    print('Warning: you don\'t have pandas and matplotlib installed. They\'re '
+          'used to create graphs showing the results of the algorithms run')
 
 
 def test1():
@@ -107,7 +112,10 @@ def run():
     size = input('Enter number of cylinders per trial: ')
     print('<< Single Trial Results >>')
     test(int(size))
-    report()
+    try:
+        report()
+    except:
+        pass
 
 
 if __name__ == '__main__':
