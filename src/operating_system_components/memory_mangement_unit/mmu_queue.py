@@ -1,6 +1,6 @@
 import math
-from memory_mangement_unit.page_table import PageTable
-from memory_mangement_unit.page_table_page import PageTablePage
+from src.operating_system_components.memory_mangement_unit.page_table import PageTable
+from src.operating_system_components.memory_mangement_unit.page_table_page import PageTablePage
 
 
 class MMUQueue:

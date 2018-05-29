@@ -1,6 +1,6 @@
-from memory_mangement_unit.mmu_queue import MMUQueue
-from memory_mangement_unit.mmu_not_recently_used import MMUNotRecentlyUsed
-from memory_mangement_unit.mmu_least_recently_used import MMULeastRecentlyUsed
+from src.operating_system_components.memory_mangement_unit.mmu_queue import MMUQueue
+from src.operating_system_components.memory_mangement_unit.mmu_not_recently_used import MMUNotRecentlyUsed
+from src.operating_system_components.memory_mangement_unit.mmu_least_recently_used import MMULeastRecentlyUsed
 
 
 def phase1():
@@ -57,9 +57,6 @@ def phase3():
 
 
 if __name__ == '__main__':
-    # for phase in [phase1, phase2, phase3]:
-    #     phase()
-    #     print()
-    # phase1()
-    # phase2()
+    phase1()
+    phase2()
     phase3()

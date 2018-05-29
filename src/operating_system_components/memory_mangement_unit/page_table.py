@@ -1,4 +1,4 @@
-from memory_mangement_unit.page_table_page import PageTablePage
+from src.operating_system_components.memory_mangement_unit.page_table_page import PageTablePage
 
 
 class PageTable(list):

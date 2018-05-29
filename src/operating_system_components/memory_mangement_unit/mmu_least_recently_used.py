@@ -1,7 +1,7 @@
 import math
 from random import randrange
-from memory_mangement_unit.mmu_not_recently_used import MMUNotRecentlyUsed
-from memory_mangement_unit.page_table_page import PageTablePage
+from src.operating_system_components.memory_mangement_unit.mmu_not_recently_used import MMUNotRecentlyUsed
+from src.operating_system_components.memory_mangement_unit.page_table_page import PageTablePage
 
 
 class MMULeastRecentlyUsed(MMUNotRecentlyUsed):
