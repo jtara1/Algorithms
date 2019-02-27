@@ -78,7 +78,7 @@ public class MaxHeap<T extends Comparable<T>> {
 	
 	/**
 	 * Insert a value / key into the heap
-	 * @param key Value to be inserted
+	 * @param key TransitionCost to be inserted
 	 */
 	public void insert(T key) {
 		// avoid incrementing lastIndex when root is null
