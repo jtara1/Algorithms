@@ -22,12 +22,22 @@ public class Graph {
 	public Path aStarExpansion() {
 		// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
 		Path bestPath = frontier.remove();
-		if (bestPath.getLeafVertex().isSolution()) return bestPath;
+		Vertex leaf = bestPath.getLeafVertex();
+
+		if (leaf.isSolution()) return bestPath;
 
 		// generate the neighbors of this leaf, add these [2, 4] paths to the frontier, repeat
+		generatePaths(bestPath, leaf);
+
+		return aStarExpansion();
 	}
 
-	private void generateNeighbors(Vertex vertex) {
+	private void generatePaths(Path existingPath, Vertex leaf) {
+		leaf.generateNeighbors(vertices);
+		byte index = 0;
 
+		for (Vertex neighbor : leaf.neighbors) {
+			frontier.add(new Path(rootVertex, existingPath, index++));
+		}
 	}
 }

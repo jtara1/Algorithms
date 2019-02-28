@@ -51,7 +51,7 @@ public class GameState extends Vertex {
 	public GameState(ArrayList<Byte> board) {
 		assert(board.size() == 9);
 		this.board = board;
-		neighbors = new ArrayList<>(4);
+		neighbors = new ArrayList<GameState>(Arrays.asList(null, null, null, null));
 	}
 
 	public GameState(ArrayList<Byte> board, Heuristic heuristic) {
@@ -59,15 +59,15 @@ public class GameState extends Vertex {
 		this.heuristic = heuristic;
 	}
 
-//	public GameState(Heuristic heuristic, int... board) {
-//		this.board = new ArrayList<>(9);
-//		for (int tileState: board) {
-//			this.board.add((byte)tileState);
-//		}
-//
-//		this.heuristic = heuristic;
-//		assert(this.board.size() == 9);
-//	}
+	public GameState(Heuristic heuristic, int... board) {
+		this.board = new ArrayList<>(9);
+		for (int tileState: board) {
+			this.board.add((byte)tileState);
+		}
+
+		this.heuristic = heuristic;
+		assert(this.board.size() == 9);
+	}
 
 	// methods
 	/* for the 8 puzzle problem, this'll generate the 2-4 neighbors of the vertex & the neighbors */
@@ -196,7 +196,7 @@ public class GameState extends Vertex {
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 
-		for (byte i = 1; i < board.size(); ++i) {
+		for (byte i = 1; i < board.size() + 1; ++i) {
 			String tile = board.get(i - 1) + " ";
 			if (i % 3 == 0)
 				tile = tile.replace(" ", "\n");

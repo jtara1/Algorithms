@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public abstract class Vertex {
 	// attributes
-	protected ArrayList<Vertex> neighbors;
+	public ArrayList<Vertex> neighbors;
 
 	// methods
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);
