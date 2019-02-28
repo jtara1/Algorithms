@@ -15,7 +15,7 @@ public class Path extends ArrayList<Byte> {
 		this.add(nextNeighborIndex);
 	}
 
-	public float getCost() {
+	public int getCost() {
 		Vertex currentVertex = rootVertex;
 		float cost = currentVertex.getHeuristicCost();
 
@@ -24,6 +24,16 @@ public class Path extends ArrayList<Byte> {
 			cost += vertex.getHeuristicCost();
 		}
 
-		return cost;
+		return (int)cost;
+	}
+
+	public Vertex getLeafVertex() {
+		Vertex currentVertex = rootVertex;
+
+		for (Byte edgeIndex : this) { // iterate over all vertices from the root, but not the root
+			Vertex vertex = currentVertex.neighbors.get((int)edgeIndex);
+		}
+
+		return currentVertex;
 	}
 }

@@ -2,12 +2,21 @@ package eight_puzzle_a_star;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 
-public class GameState<H extends Heuristic> extends Vertex {
+public class GameState extends Vertex {
+	// attrs
 	private ArrayList<Byte> board;
 	private Heuristic heuristic;
 
-	public static Boolean isSolveableBoard(ArrayList<Integer> board) {
+	// getters & setters
+	public ArrayList<Byte> getBoard() {
+		return board;
+	}
+
+	// static
+	public static Boolean isSolveableBoard(ArrayList<Byte> board) {
 		assert(board.size() == 9);
 		int inversions = 0;
 
@@ -31,6 +40,7 @@ public class GameState<H extends Heuristic> extends Vertex {
 			)
 	);
 
+	// constructors
 	public GameState(ArrayList<Byte> board) {
 		assert(board.size() == 9);
 		this.board = board;
@@ -41,12 +51,21 @@ public class GameState<H extends Heuristic> extends Vertex {
 		this.heuristic = heuristic;
 	}
 
+	// methods
 	/* for the 8 puzzle problem, this'll generate the 2-4 neighbors of the vertex & the neighbors */
-	public void generateNeighbors() {
+	public void generateNeighbors(HashMap<String, Vertex> vertices) {
+		// up
+		// right
+		// down
+		// left
+	}
 
+	public boolean isSolution() {
+		return goalGameState.board.equals(board);
 	}
 
 	public float getMisplacedTileCost() {
+		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
 		byte misplaced = 0;
 		for (byte i = 0; i < board.size(); ++i) {
 			// board tile state is different than the tile in the goal state, it's misplaced
@@ -58,6 +77,8 @@ public class GameState<H extends Heuristic> extends Vertex {
 	}
 
 	public float getDistanceCost() {
+		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+
 		byte totalDistance = 0;
 
 		for (byte i = 0; i < board.size(); ++i) {
@@ -104,5 +125,24 @@ public class GameState<H extends Heuristic> extends Vertex {
 
 	public float getHeuristicCost() {
 		return this.heuristic.getCost(this);
+	}
+
+	public boolean equals(Object object) {
+		return ((GameState)object).getBoard().equals(board);
+	}
+
+	public int hashCode() {
+		return board.hashCode();
+	}
+
+	public String toString() {
+		String str = "";
+		for (byte i = 1; i < board.size(); ++i) {
+			str += board.get(i - 1) + " ";
+			if (i % 3 == 0)
+				str = str.replace(" ", "\n");
+		}
+
+		return str;
 	}
 }
