@@ -4,6 +4,10 @@ public abstract class Edge {
 	protected Vertex source;
 	protected Vertex destination;
 
-	/* the cost to transition from src to dest */
-	protected TransitionCost transitionCost;
+	public Edge(Vertex src, Vertex dest) {
+		source = src;
+		destination = dest;
+	}
+
+	public abstract float getTransitionCost();
 }
