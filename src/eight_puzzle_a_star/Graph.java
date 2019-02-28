@@ -26,4 +26,8 @@ public class Graph {
 
 		// generate the neighbors of this leaf, add these [2, 4] paths to the frontier, repeat
 	}
+
+	private void generateNeighbors(Vertex vertex) {
+
+	}
 }

@@ -1,16 +1,23 @@
 package eight_puzzle_a_star;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class GameState extends Vertex {
 	// attrs
 	private ArrayList<Byte> board;
 	private Heuristic heuristic;
 
+	protected ArrayList<GameState> neighbors;
+
 	// getters & setters
+	public ArrayList<GameState> getNeighbors() {
+		return neighbors;
+	}
+
+	public void setNeighbors(ArrayList<GameState> neighbors) {
+		this.neighbors = neighbors;
+	}
+
 	public ArrayList<Byte> getBoard() {
 		return board;
 	}
@@ -44,6 +51,7 @@ public class GameState extends Vertex {
 	public GameState(ArrayList<Byte> board) {
 		assert(board.size() == 9);
 		this.board = board;
+		neighbors = new ArrayList<>(4);
 	}
 
 	public GameState(ArrayList<Byte> board, Heuristic heuristic) {
@@ -51,13 +59,49 @@ public class GameState extends Vertex {
 		this.heuristic = heuristic;
 	}
 
+//	public GameState(Heuristic heuristic, int... board) {
+//		this.board = new ArrayList<>(9);
+//		for (int tileState: board) {
+//			this.board.add((byte)tileState);
+//		}
+//
+//		this.heuristic = heuristic;
+//		assert(this.board.size() == 9);
+//	}
+
 	// methods
 	/* for the 8 puzzle problem, this'll generate the 2-4 neighbors of the vertex & the neighbors */
 	public void generateNeighbors(HashMap<String, Vertex> vertices) {
-		// up
-		// right
-		// down
-		// left
+		int indexOfBlank = board.indexOf((byte)0);
+		GameState up, right, down, left;
+		GameState existingUp, existingRight, existingDown, existingLeft;
+
+		int upIndex = indexOfBlank - 3;
+		int rightIndex = indexOfBlank + 1;
+		int downIndex = indexOfBlank + 3;
+		int leftIndex = indexOfBlank - 1;
+
+		up = new GameState(swapTileStates(indexOfBlank, indexOfBlank - 3), heuristic);
+		existingUp = (GameState)vertices.get(up.toString());
+		if (existingUp != null) up = existingUp;
+		up.getNeighbors().set(downIndex, this);
+
+		right = new GameState(swapTileStates(indexOfBlank, indexOfBlank + 1), heuristic);
+		existingRight = (GameState)vertices.get(right.toString());
+		if (existingRight != null) right = existingRight;
+		right.getNeighbors().set(leftIndex, this);
+
+		down = new GameState(swapTileStates(indexOfBlank, indexOfBlank + 3), heuristic);
+		existingDown = (GameState)vertices.get(down.toString());
+		if (existingDown != null) up = existingDown;
+		down.getNeighbors().set(upIndex, this);
+
+		left = new GameState(swapTileStates(indexOfBlank, indexOfBlank - 1), heuristic);
+		existingLeft = (GameState)vertices.get(left.toString());
+		if (existingLeft != null) up = existingLeft;
+		left.getNeighbors().set(rightIndex, this);
+
+		neighbors = new ArrayList<>(Arrays.asList(up, right, down, left));
 	}
 
 	public boolean isSolution() {
@@ -127,6 +171,20 @@ public class GameState extends Vertex {
 		return this.heuristic.getCost(this);
 	}
 
+	public ArrayList<Byte> swapTileStates(int index1, int index2) {
+		try {
+			int diff = Math.abs(index1 - index2);
+			if ((diff != 3) && (diff != 1)) return null; // diff of indices is not 1 and not 3
+			if (!isValidHorizontalMove((byte)index1, (byte)index2)) return null;
+
+			ArrayList<Byte> newBoard = new ArrayList<>(board);
+			Collections.swap(newBoard, index1, index2);
+			return newBoard;
+		} catch (IndexOutOfBoundsException exception) {
+			return null;
+		}
+	}
+
 	public boolean equals(Object object) {
 		return ((GameState)object).getBoard().equals(board);
 	}
@@ -136,13 +194,16 @@ public class GameState extends Vertex {
 	}
 
 	public String toString() {
-		String str = "";
+		StringBuilder str = new StringBuilder();
+
 		for (byte i = 1; i < board.size(); ++i) {
-			str += board.get(i - 1) + " ";
+			String tile = board.get(i - 1) + " ";
 			if (i % 3 == 0)
-				str = str.replace(" ", "\n");
+				tile = tile.replace(" ", "\n");
+
+			str.append(tile);
 		}
 
-		return str;
+		return str.toString();
 	}
 }

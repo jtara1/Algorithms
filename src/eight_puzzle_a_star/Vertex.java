@@ -7,8 +7,10 @@ import java.util.HashMap;
  * Represents a vertex in a graph. It must implement a method to get a value to
  */
 public abstract class Vertex {
+	// attributes
 	protected ArrayList<Vertex> neighbors;
 
+	// methods
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);
 
 	public abstract float getHeuristicCost(Heuristic heuristic);
