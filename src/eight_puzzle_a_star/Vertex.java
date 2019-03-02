@@ -10,6 +10,9 @@ public abstract class Vertex {
 	// attributes
 	public ArrayList<Vertex> neighbors;
 
+	// getters & setters
+	public abstract int getNeighborsSize();
+
 	// methods
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);
 

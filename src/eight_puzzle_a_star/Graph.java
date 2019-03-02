@@ -20,24 +20,35 @@ public class Graph {
 	}
 
 	public Path aStarExpansion() {
-		// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
-		Path bestPath = frontier.remove();
-		Vertex leaf = bestPath.getLeafVertex();
+		Vertex leaf;
+		Character iterationCount = 0;
 
-		if (leaf.isSolution()) return bestPath;
+		do {
+			iterationCount++;
 
-		// generate the neighbors of this leaf, add these [2, 4] paths to the frontier, repeat
-		generatePaths(bestPath, leaf);
+			// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
+			Path bestPath = frontier.remove();
+			leaf = bestPath.getLeafVertex();
 
-		return aStarExpansion();
+			if (leaf.isSolution()) return bestPath;
+
+			// generate the neighbors of this leaf, add these [2, 4] paths to the frontier, repeat
+			generatePaths(bestPath, leaf);
+		} while (iterationCount < 30000);
+
+		return null;
 	}
 
 	private void generatePaths(Path existingPath, Vertex leaf) {
 		leaf.generateNeighbors(vertices);
-		byte index = 0;
 
-		for (Vertex neighbor : leaf.neighbors) {
-			frontier.add(new Path(rootVertex, existingPath, index++));
+		for (int index = 0; index < leaf.getNeighborsSize(); ++index) {
+			Vertex neighbor = leaf.neighbors.get(index);
+			if (neighbor == null || neighbor.getHeuristicCost() == Float.POSITIVE_INFINITY)
+				continue;
+
+			Path newPath = new Path(rootVertex, existingPath, index);
+			frontier.add(newPath);
 		}
 	}
 }

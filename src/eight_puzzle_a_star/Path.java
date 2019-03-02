@@ -1,26 +1,39 @@
 package eight_puzzle_a_star;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
-public class Path extends ArrayList<Byte> {
+public class Path {
 	private Vertex rootVertex;
+	private Integer totalCost = null;
+
+	public ArrayList<Integer> getNeighborIndicesSequence() {
+		return neighborIndicesSequence;
+	}
+
+	private ArrayList<Integer> neighborIndicesSequence = new ArrayList<>();
 
 	public Path(Vertex startVertex) {
 		rootVertex = startVertex;
+		totalCost = getCost();
 	}
 
-	public Path(Vertex startVertex, Path previousPath, Byte nextNeighborIndex) {
-		super(previousPath);
+	public Path(Vertex startVertex, Path previousPath, int nextNeighborIndex) {
+		this.neighborIndicesSequence = new ArrayList<Integer>(previousPath.getNeighborIndicesSequence());
 		rootVertex = startVertex;
-		this.add(nextNeighborIndex);
+		this.neighborIndicesSequence.add(nextNeighborIndex);
+		totalCost = getCost();
 	}
 
 	public int getCost() {
+		if (totalCost != null) return totalCost;
+
 		Vertex currentVertex = rootVertex;
 		float cost = currentVertex.getHeuristicCost();
 
-		for (Byte edgeIndex : this) { // iterate over all vertices from the root, but not the root
+		for (int edgeIndex : neighborIndicesSequence) { // iterate over all vertices from the root, but not the root
 			Vertex vertex = currentVertex.neighbors.get((int)edgeIndex);
+			if (vertex == null) return Integer.MAX_VALUE;
 			cost += vertex.getHeuristicCost();
 		}
 
@@ -30,10 +43,23 @@ public class Path extends ArrayList<Byte> {
 	public Vertex getLeafVertex() {
 		Vertex currentVertex = rootVertex;
 
-		for (Byte edgeIndex : this) { // iterate over all vertices from the root, but not the root
-			Vertex vertex = currentVertex.neighbors.get((int)edgeIndex);
+		for (int edgeIndex : neighborIndicesSequence) { // iterate over all vertices from the root, but not the root
+			currentVertex = currentVertex.neighbors.get((int)edgeIndex);
 		}
 
 		return currentVertex;
+	}
+
+	// Object overrides
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(totalCost.toString() + ": [ ");
+
+		for (Integer value : neighborIndicesSequence) {
+			stringBuilder.append(value.toString() + " ");
+		}
+
+		stringBuilder.append("]");
+		return stringBuilder.toString();
 	}
 }
