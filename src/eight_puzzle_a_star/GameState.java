@@ -7,14 +7,6 @@ public class GameState extends Vertex {
 	private ArrayList<Byte> board;
 	private Heuristic heuristic;
 
-//	public ArrayList<GameState> neighbors;
-
-	// getters & setters
-
-//	public void setNeighbors(ArrayList<GameState> neighbors) {
-//		this.neighbors = neighbors;
-//	}
-
 	public ArrayList<Byte> getBoard() {
 		return board;
 	}
@@ -25,7 +17,9 @@ public class GameState extends Vertex {
 		int inversions = 0;
 
 		for (int i = 0; i < board.size() - 1; ++i) {
-			if (board.get(i) > board.get(i + 1))
+			Byte nextTileValue = board.get(i + 1);
+
+			if (board.get(i) > nextTileValue)
 				inversions++;
 		}
 
@@ -53,7 +47,6 @@ public class GameState extends Vertex {
 		assert(board.size() == 9);
 		this.board = board;
 		neighbors = new ArrayList<Vertex>(Arrays.asList(null, null, null, null));
-//		neighbors = new ArrayList<GameState>(Arrays.asList(null, null, null, null));
 	}
 
 	public GameState(ArrayList<Byte> board, Heuristic heuristic) {
@@ -121,7 +114,6 @@ public class GameState extends Vertex {
 		}
 
 		neighbors = new ArrayList<Vertex>(Arrays.asList(up, right, down, left));
-//		neighbors = new ArrayList<GameState>(Arrays.asList(up, right, down, left));
 	}
 
 	public boolean isSolution() {

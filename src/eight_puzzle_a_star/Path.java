@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class Path implements Enumeration<Vertex> {
+	// attributes
 	private Vertex rootVertex;
 	private Integer totalCost = null;
 
 	private int enumerationIndex = 0;
 	private Vertex enumerationVertex = null;
+
+	// static
+	public static Path nullPath = new NullPath();
 
 	public ArrayList<Integer> getNeighborIndicesSequence() {
 		return neighborIndicesSequence;
@@ -28,8 +32,9 @@ public class Path implements Enumeration<Vertex> {
 		totalCost = getCost();
 	}
 
-	public int getCost() {
+	public Integer getCost() {
 		if (totalCost != null) return totalCost;
+		if (rootVertex == null) return null;
 
 		Vertex currentVertex = rootVertex;
 		float cost = currentVertex.getHeuristicCost();
@@ -85,7 +90,6 @@ public class Path implements Enumeration<Vertex> {
 
 		int neighborIndex = neighborIndicesSequence.get(enumerationIndex);
 		return enumerationVertex.neighbors.get(neighborIndex) != null;
-//		return enumerationIndex < neighborIndicesSequence.size();
 	}
 
 	public Vertex nextElement() {
@@ -98,14 +102,5 @@ public class Path implements Enumeration<Vertex> {
 		enumerationVertex = enumerationVertex.neighbors.get(neighborIndex);
 
 		return enumerationVertex;
-
-//		Vertex next = rootVertex;
-//		for (int i = 0; i < enumerationIndex; ++i) {
-//			int neighborIndex = neighborIndicesSequence.get(i);
-//			next = next.neighbors.get(neighborIndex);
-//		}
-//
-//		++enumerationIndex;
-//		return next;
 	}
 }

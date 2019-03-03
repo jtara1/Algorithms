@@ -27,7 +27,8 @@ public class Graph {
 			iterationCount++;
 
 			// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
-			Path bestPath = frontier.remove();
+			Path bestPath = frontier.poll();
+			if (bestPath == null) return new NullPath(rootVertex);
 			leaf = bestPath.getLeafVertex();
 
 			if (leaf.isSolution()) return bestPath;
@@ -36,7 +37,7 @@ public class Graph {
 			generatePaths(bestPath, leaf);
 		} while (iterationCount < 30000);
 
-		return null;
+		return new NullPath(rootVertex, "max depth for generating graph reached");
 	}
 
 	private void generatePaths(Path existingPath, Vertex leaf) {
