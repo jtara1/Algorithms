@@ -136,7 +136,8 @@ public class GameState extends Vertex {
 	}
 
 	public float getMisplacedTileCost() {
-		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+
 		byte misplaced = 0;
 		for (byte i = 0; i < board.size(); ++i) {
 			// board tile state is different than the tile in the goal state, it's misplaced
@@ -148,7 +149,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getDistanceCost() {
-		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
 
 		byte totalDistance = 0;
 

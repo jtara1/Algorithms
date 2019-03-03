@@ -36,27 +36,24 @@ public class UserInterface {
 
 	public String randomBoardSolver() {
 		StringBuilder stringBuilder = new StringBuilder();
-		ArrayList<Byte> board = GameState.generateBoard();
-		if (!GameState.isSolveableBoard(board)) return randomBoardSolver();
+		System.out.println("beginning to find valid board & solve with heuristic 1");
+		GraphAndPathCollection collection = Graph.solveSolveable8Puzzle(misplacedTilesHeuristic);
 
-		System.out.println(board.toString());
-		System.out.println("beginning to solve with heuristic 1");
-		Graph graph = new Graph(new GameState(board, misplacedTilesHeuristic));
-		Path path = graph.aStarExpansion();
-		stringBuilder.append("optimal path, misplaced titles heuristc");
+		System.out.println("initial board: " + collection.board.toString());
 
 		System.out.println("beginning to solve with heuristic 2");
-		Graph graph2 = new Graph(new GameState(board, distanceHeuristic));
+		Graph graph2 = new Graph(new GameState(collection.board, distanceHeuristic));
 		Path path2 = graph2.aStarExpansion();
-		stringBuilder.append("optimal path, distance heuristc");
 
-		stringBuilder.append(path.toStringFullPath());
-		stringBuilder.append(graph.toString());
-		stringBuilder.append("Path Cost: " + path.getTotalCost());
+		stringBuilder.append("optimal path, misplaced titles heuristc\n");
+		stringBuilder.append(collection.path.toStringFullPath());
+		stringBuilder.append(collection.graph.toString());
+		stringBuilder.append("Path Cost: " + collection.path.getTotalCost() + "\n");
 
+		stringBuilder.append("optimal path, distance heuristc\n");
 		stringBuilder.append(path2.toStringFullPath());
 		stringBuilder.append(graph2.toString());
-		stringBuilder.append("Path Cost: " + path2.getTotalCost());
+		stringBuilder.append("Path Cost: " + path2.getTotalCost() + "\n");
 
 		return stringBuilder.toString();
 	}

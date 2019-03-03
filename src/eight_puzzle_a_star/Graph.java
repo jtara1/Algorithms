@@ -2,6 +2,7 @@ package eight_puzzle_a_star;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -17,6 +18,23 @@ public class Graph {
 
 	// gettters & setters
 	public Character getDepth() { return depth; }
+	public Vertex getRootVertex() { return rootVertex; }
+
+	// static
+	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic) {
+		ArrayList<Byte> board = GameState.generateBoard();
+		if (!GameState.isSolveableBoard(board)) return solveSolveable8Puzzle(heuristic);
+//		System.out.println(board.toString());
+
+		Graph graph = new Graph(new GameState(board, heuristic));
+		Path path = graph.aStarExpansion();
+
+		if (path.getClass() == NullPath.class) {
+			return solveSolveable8Puzzle(heuristic);
+		}
+
+		return new GraphAndPathCollection(graph, path, board);
+	}
 
 	// constructors
 	public Graph(Vertex startVertex) {
@@ -51,7 +69,7 @@ public class Graph {
 			generatePaths(bestPath, leaf);
 
 			depth++;
-		} while (depth < 100000); // 100,000
+		} while (depth < 50); // 100,000
 
 		return new NullPath(rootVertex, "max depth for generating graph reached");
 	}
@@ -74,9 +92,9 @@ public class Graph {
 	// Object overrides
 	public String toString() {
 		return String.format(
-				"Heuristic: %s\nDepth: %d\nVertices: %d\nRuntime (seconds): %d\n",
+				"\nHeuristic: %s\nDepth: %d\nVertices: %d\nRuntime (seconds): %d\n",
 				rootVertex.getHeuristic().getClass().toString(),
-				depth,
+				(int)depth,
 				vertices.size(),
 				runtimeDuration
 		);
