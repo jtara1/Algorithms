@@ -7,6 +7,7 @@ public class Path implements Enumeration<Vertex> {
 	// attributes
 	private Vertex rootVertex;
 	private Integer totalCost = null;
+	private Vertex leafVertex = null;
 
 	private int enumerationIndex = 0;
 	private Vertex enumerationVertex = null;
@@ -23,9 +24,11 @@ public class Path implements Enumeration<Vertex> {
 	// static
 	public static Path nullPath = new NullPath();
 
+	// constructors
 	public Path(Vertex startVertex) {
 		rootVertex = startVertex;
 		totalCost = calculateCost();
+		leafVertex = rootVertex;
 	}
 
 	public Path(Vertex startVertex, Path previousPath, int nextNeighborIndex) {
@@ -33,6 +36,7 @@ public class Path implements Enumeration<Vertex> {
 		rootVertex = startVertex;
 		this.neighborIndicesSequence.add(nextNeighborIndex);
 		totalCost = calculateCost();
+		leafVertex = getLeafVertex();
 	}
 
 	public Integer calculateCost() {
@@ -40,18 +44,20 @@ public class Path implements Enumeration<Vertex> {
 		if (rootVertex == null) return null;
 
 		Vertex currentVertex = rootVertex;
-		float cost = currentVertex.getHeuristicCost();
+		float cost = 0f;
 
 		for (int edgeIndex : neighborIndicesSequence) { // iterate over all vertices from the root, but not the root
-			Vertex vertex = currentVertex.neighbors.get((int)edgeIndex);
-			if (vertex == null) return Integer.MAX_VALUE;
-			cost += vertex.getHeuristicCost();
+			currentVertex = currentVertex.neighbors.get(edgeIndex);
+			if (currentVertex == null) return Integer.MAX_VALUE;
+			cost += currentVertex.getHeuristicCost();
 		}
 
 		return (int)cost;
 	}
 
 	public Vertex getLeafVertex() {
+		if (leafVertex != null) return leafVertex;
+
 		Vertex currentVertex = rootVertex;
 
 		for (int edgeIndex : neighborIndicesSequence) { // iterate over all vertices from the root, but not the root

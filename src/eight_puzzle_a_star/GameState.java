@@ -19,16 +19,30 @@ public class GameState extends Vertex {
 	// static
 	public static Boolean isSolveableBoard(ArrayList<Byte> board) {
 		assert(board.size() == 9);
+
+		Set<Byte> tileStates = new HashSet<>(GameState.goalGameState.getBoard());
+		tileStates.remove(0);
 		int inversions = 0;
 
 		for (int i = 0; i < board.size() - 1; ++i) {
+			Byte tileState = board.get(i);
 			Byte nextTileValue = board.get(i + 1);
 
-			if (board.get(i) > nextTileValue)
-				inversions++;
+			if (tileState > nextTileValue)
+				inversions += getInversions(tileState, tileStates);
+			tileStates.remove(tileState);
 		}
 
 		return inversions % 2 == 0;
+	}
+
+	public static int getInversions(Byte tileState, Set<Byte> tileStates) {
+		int inversions = 0;
+		for (int i = 1; i < tileState; ++i) {
+			if (tileStates.contains(i))
+				++inversions;
+		}
+		return inversions;
 	}
 
 	public static ArrayList<Byte> generateBoard() {
@@ -65,6 +79,12 @@ public class GameState extends Vertex {
 		this.heuristic = heuristic;
 	}
 
+
+	public GameState(ArrayList<Byte> board, Heuristic heuristic, float pathCost) {
+		this(board, heuristic);
+		this.pathCost = pathCost + getHeuristicCost();
+	}
+
 	public GameState(Heuristic heuristic, int... board) {
 		this.board = new ArrayList<>(9);
 		for (int tileState: board) {
@@ -94,7 +114,7 @@ public class GameState extends Vertex {
 
 		newBoard = swapTileStates(indexOfBlank, upIndex);
 		if (newBoard != null) {
-			up = new GameState(newBoard, heuristic);
+			up = new GameState(newBoard, heuristic, pathCost);
 			existingUp = (GameState)vertices.get(up.toString());
 			up.neighbors.set(2, this);
 			if (existingUp != null) up = null;
@@ -102,7 +122,7 @@ public class GameState extends Vertex {
 
 		newBoard = swapTileStates(indexOfBlank, rightIndex);
 		if (newBoard != null) {
-			right = new GameState(newBoard, heuristic);
+			right = new GameState(newBoard, heuristic, pathCost);
 			existingRight = (GameState)vertices.get(right.toString());
 			right.neighbors.set(3, this);
 			if (existingRight != null) right = null;
@@ -110,7 +130,7 @@ public class GameState extends Vertex {
 
 		newBoard = swapTileStates(indexOfBlank, downIndex);
 		if (newBoard != null) {
-			down = new GameState(newBoard, heuristic);
+			down = new GameState(newBoard, heuristic, pathCost);
 			existingDown = (GameState) vertices.get(down.toString());
 			down.neighbors.set(0, this);
 			if (existingDown != null) down = null;
@@ -118,7 +138,7 @@ public class GameState extends Vertex {
 
 		newBoard = swapTileStates(indexOfBlank, leftIndex);
 		if (newBoard != null) {
-			left = new GameState(newBoard, heuristic);
+			left = new GameState(newBoard, heuristic, pathCost);
 			existingLeft = (GameState)vertices.get(left.toString());
 			left.neighbors.set(1, this);
 			if (existingLeft != null) left = null;
@@ -136,7 +156,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getMisplacedTileCost() {
-//		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
 
 		byte misplaced = 0;
 		for (byte i = 0; i < board.size(); ++i) {
@@ -149,7 +169,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getDistanceCost() {
-//		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
 
 		byte totalDistance = 0;
 
@@ -195,10 +215,6 @@ public class GameState extends Vertex {
 
 	private boolean isValidVerticalMove(int index1, int index2) {
 		return Math.abs(index1 - index2) == 3;
-	}
-
-	public float getHeuristicCost(Heuristic heuristic) {
-		return heuristic.getCost(this);
 	}
 
 	public float getHeuristicCost() {

@@ -9,6 +9,7 @@ import java.util.HashMap;
 public abstract class Vertex {
 	// attributes
 	public ArrayList<Vertex> neighbors;
+	public float pathCost = 0;
 
 	// getters & setters
 	public abstract int getNeighborsSize();
@@ -16,10 +17,7 @@ public abstract class Vertex {
 
 	// methods
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);
-
-	public abstract float getHeuristicCost(Heuristic heuristic);
 	public abstract float getHeuristicCost();
-
 	public abstract boolean isSolution();
 
 	/**

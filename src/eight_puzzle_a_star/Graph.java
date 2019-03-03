@@ -23,17 +23,22 @@ public class Graph {
 	// static
 	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic) {
 		ArrayList<Byte> board = GameState.generateBoard();
-		if (!GameState.isSolveableBoard(board)) return solveSolveable8Puzzle(heuristic);
-//		System.out.println(board.toString());
+		Path path = new NullPath();
 
-		Graph graph = new Graph(new GameState(board, heuristic));
-		Path path = graph.aStarExpansion();
+		do {
+			if (!GameState.isSolveableBoard(board)) continue;
 
-		if (path.getClass() == NullPath.class) {
-			return solveSolveable8Puzzle(heuristic);
-		}
+			Graph graph = new Graph(new GameState(board, heuristic));
+			path = graph.aStarExpansion();
 
-		return new GraphAndPathCollection(graph, path, board);
+			if (path.getClass() == NullPath.class) {
+				continue;
+			}
+
+			return new GraphAndPathCollection(graph, path, board);
+		} while (!GameState.isSolveableBoard(board) && path.getClass() == NullPath.class);
+
+		return null;
 	}
 
 	// constructors
@@ -69,7 +74,7 @@ public class Graph {
 			generatePaths(bestPath, leaf);
 
 			depth++;
-		} while (depth < 50); // 100,000
+		} while (depth < 100000); // 100,000
 
 		return new NullPath(rootVertex, "max depth for generating graph reached");
 	}
