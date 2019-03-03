@@ -12,6 +12,7 @@ public abstract class Vertex {
 
 	// getters & setters
 	public abstract int getNeighborsSize();
+	public abstract Heuristic getHeuristic();
 
 	// methods
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);

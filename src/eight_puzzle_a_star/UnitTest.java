@@ -7,7 +7,8 @@ public class UnitTest {
 	public static void main(String[] args) {
 		UnitTest suite = new UnitTest();
 //		suite.case1();
-		suite.unsolveableBoardCase2();
+//		suite.unsolveableBoardCase2();
+		suite.case3();
 	}
 
 	public void case1() {
@@ -27,5 +28,15 @@ public class UnitTest {
 		System.out.println(path.toStringFullPath());
 
 		assert(path.getClass() == NullPath.class);
+	}
+
+	public void case3() {
+		// {1, 5, 7, 0, 4, 8, 6, 2, 3}
+		Graph graph = new Graph(new GameState(distanceHeuristic, 1, 5, 7, 0, 4, 8, 6, 2, 3));
+		Path path = graph.aStarExpansion();
+
+		System.out.println(path.toStringFullPath());
+
+
 	}
 }

@@ -28,19 +28,36 @@ public class UserInterface {
 
 			switch(option) {
 				case(0):
-					randomBoardSolver();
+					System.out.println(randomBoardSolver());
+					break;
 			}
 		}
 	}
 
-	public String randomBoardSolve() {
+	public String randomBoardSolver() {
+		StringBuilder stringBuilder = new StringBuilder();
 		ArrayList<Byte> board = GameState.generateBoard();
+		if (!GameState.isSolveableBoard(board)) return randomBoardSolver();
+
+		System.out.println(board.toString());
+		System.out.println("beginning to solve with heuristic 1");
 		Graph graph = new Graph(new GameState(board, misplacedTilesHeuristic));
 		Path path = graph.aStarExpansion();
+		stringBuilder.append("optimal path, misplaced titles heuristc");
 
+		System.out.println("beginning to solve with heuristic 2");
 		Graph graph2 = new Graph(new GameState(board, distanceHeuristic));
 		Path path2 = graph2.aStarExpansion();
+		stringBuilder.append("optimal path, distance heuristc");
 
+		stringBuilder.append(path.toStringFullPath());
+		stringBuilder.append(graph.toString());
+		stringBuilder.append("Path Cost: " + path.getTotalCost());
 
+		stringBuilder.append(path2.toStringFullPath());
+		stringBuilder.append(graph2.toString());
+		stringBuilder.append("Path Cost: " + path2.getTotalCost());
+
+		return stringBuilder.toString();
 	}
 }

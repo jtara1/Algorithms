@@ -1,5 +1,7 @@
 package eight_puzzle_a_star;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -10,6 +12,8 @@ public class Graph {
 	private PriorityQueue<Path> frontier;
 	private HashMap<String, Vertex> vertices;
 	private Character depth;
+
+	private long runtimeDuration;
 
 	// gettters & setters
 	public Character getDepth() { return depth; }
@@ -31,13 +35,17 @@ public class Graph {
 		Vertex leaf;
 		Character iterationCount = 0;
 
+		Instant runtimeStart = Instant.now();
 		do {
 			// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
 			Path bestPath = frontier.poll();
 			if (bestPath == null) return new NullPath(rootVertex);
 			leaf = bestPath.getLeafVertex();
 
-			if (leaf.isSolution()) return bestPath;
+			if (leaf.isSolution()) {
+				runtimeDuration = Duration.between(runtimeStart, Instant.now()).toSeconds();
+				return bestPath;
+			}
 
 			// generate the neighbors of this leaf, add these [0, 4] paths to the frontier, repeat
 			generatePaths(bestPath, leaf);
@@ -61,5 +69,16 @@ public class Graph {
 
 			vertices.put(neighbor.toString(), neighbor);
 		}
+	}
+
+	// Object overrides
+	public String toString() {
+		return String.format(
+				"Heuristic: %s\nDepth: %d\nVertices: %d\nRuntime (seconds): %d\n",
+				rootVertex.getHeuristic().getClass().toString(),
+				depth,
+				vertices.size(),
+				runtimeDuration
+		);
 	}
 }

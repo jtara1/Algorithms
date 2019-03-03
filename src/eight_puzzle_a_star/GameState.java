@@ -7,8 +7,13 @@ public class GameState extends Vertex {
 	private ArrayList<Byte> board;
 	private Heuristic heuristic;
 
+	// getters & setters
 	public ArrayList<Byte> getBoard() {
 		return board;
+	}
+
+	public Heuristic getHeuristic() {
+		return heuristic;
 	}
 
 	// static
@@ -151,14 +156,15 @@ public class GameState extends Vertex {
 			byte tileState = board.get(i);
 			byte distance = 0;
 			byte index = i;
+			byte difference = (byte)Math.abs(tileState - index);
 
 			// each action will have a step cost of 1; total steps to get any tile state to goal is [0, 4]
 			while (tileState != index) {
-				if (Math.abs(tileState - index) < 3 && isValidHorizontalMove(index, (byte)(tileState - index))) {
+				if (difference < 3 && isValidHorizontalMove(index, (byte)(tileState - index))) {
 					distance += Math.abs(tileState - index);
 					index += tileState - index;
 				}
-				else { // add xor sub 3
+				else if (difference > 3) { // add xor sub 3
 					if (tileState > index)
 						index += (byte)3;
 					else

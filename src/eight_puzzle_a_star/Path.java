@@ -11,28 +11,31 @@ public class Path implements Enumeration<Vertex> {
 	private int enumerationIndex = 0;
 	private Vertex enumerationVertex = null;
 
-	// static
-	public static Path nullPath = new NullPath();
+	private ArrayList<Integer> neighborIndicesSequence = new ArrayList<>();
 
+	// getters & setters
 	public ArrayList<Integer> getNeighborIndicesSequence() {
 		return neighborIndicesSequence;
 	}
 
-	private ArrayList<Integer> neighborIndicesSequence = new ArrayList<>();
+	public int getTotalCost() { return totalCost; }
+
+	// static
+	public static Path nullPath = new NullPath();
 
 	public Path(Vertex startVertex) {
 		rootVertex = startVertex;
-		totalCost = getCost();
+		totalCost = calculateCost();
 	}
 
 	public Path(Vertex startVertex, Path previousPath, int nextNeighborIndex) {
 		this.neighborIndicesSequence = new ArrayList<Integer>(previousPath.getNeighborIndicesSequence());
 		rootVertex = startVertex;
 		this.neighborIndicesSequence.add(nextNeighborIndex);
-		totalCost = getCost();
+		totalCost = calculateCost();
 	}
 
-	public Integer getCost() {
+	public Integer calculateCost() {
 		if (totalCost != null) return totalCost;
 		if (rootVertex == null) return null;
 
