@@ -229,6 +229,10 @@ public class GameState extends Vertex {
 	}
 
 	public String toString() {
+		return toFlattenedString();
+	}
+
+	public String toGridString() {
 		StringBuilder str = new StringBuilder();
 
 		for (byte i = 1; i < board.size() + 1; ++i) {
@@ -240,5 +244,9 @@ public class GameState extends Vertex {
 		}
 
 		return str.toString();
+	}
+
+	public String toFlattenedString() {
+		return toGridString().replace("\n", " ");
 	}
 }
