@@ -156,15 +156,16 @@ public class GameState extends Vertex {
 			byte tileState = board.get(i);
 			byte distance = 0;
 			byte index = i;
-			byte difference = (byte)Math.abs(tileState - index);
 
 			// each action will have a step cost of 1; total steps to get any tile state to goal is [0, 4]
 			while (tileState != index) {
-				if (difference < 3 && isValidHorizontalMove(index, (byte)(tileState - index))) {
-					distance += Math.abs(tileState - index);
+				byte difference = (byte)Math.abs(tileState - index);
+
+				if (difference < 3 && isValidHorizontalMove(index, tileState)) {
+					distance += difference;
 					index += tileState - index;
 				}
-				else if (difference > 3) { // add xor sub 3
+				else { // add xor sub 3
 					if (tileState > index)
 						index += (byte)3;
 					else
