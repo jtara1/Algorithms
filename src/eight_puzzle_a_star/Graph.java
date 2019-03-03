@@ -5,10 +5,16 @@ import java.util.PriorityQueue;
 
 /* the vertices itself implement a method to expand its neighbors */
 public class Graph {
+	// attrs
 	private Vertex rootVertex;
 	private PriorityQueue<Path> frontier;
 	private HashMap<String, Vertex> vertices;
+	private Character depth;
 
+	// gettters & setters
+	public Character getDepth() { return depth; }
+
+	// constructors
 	public Graph(Vertex startVertex) {
 		rootVertex = startVertex;
 
@@ -17,6 +23,8 @@ public class Graph {
 
 		vertices = new HashMap<String, Vertex>();
 		vertices.put(rootVertex.toString(), rootVertex);
+
+		depth = 0;
 	}
 
 	public Path aStarExpansion() {
@@ -24,8 +32,6 @@ public class Graph {
 		Character iterationCount = 0;
 
 		do {
-			iterationCount++;
-
 			// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
 			Path bestPath = frontier.poll();
 			if (bestPath == null) return new NullPath(rootVertex);
@@ -33,9 +39,11 @@ public class Graph {
 
 			if (leaf.isSolution()) return bestPath;
 
-			// generate the neighbors of this leaf, add these [2, 4] paths to the frontier, repeat
+			// generate the neighbors of this leaf, add these [0, 4] paths to the frontier, repeat
 			generatePaths(bestPath, leaf);
-		} while (iterationCount < 30000);
+
+			depth++;
+		} while (depth < 100000); // 100,000
 
 		return new NullPath(rootVertex, "max depth for generating graph reached");
 	}
@@ -50,6 +58,8 @@ public class Graph {
 
 			Path newPath = new Path(rootVertex, existingPath, index);
 			frontier.add(newPath);
+
+			vertices.put(neighbor.toString(), neighbor);
 		}
 	}
 }

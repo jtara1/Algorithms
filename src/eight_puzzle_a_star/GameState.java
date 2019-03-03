@@ -26,6 +26,12 @@ public class GameState extends Vertex {
 		return inversions % 2 == 0;
 	}
 
+	public static ArrayList<Byte> generateBoard() {
+		ArrayList<Byte> board = new ArrayList<Byte>(GameState.goalGameState.board);
+		Collections.shuffle(board);
+		return board;
+	}
+
 	public static GameState unsolveableGameState = new GameState(
 			new ArrayList<Byte>(
 					Arrays.asList((byte)8, (byte)7, (byte)6, (byte)5, (byte)4, (byte)3, (byte)2, (byte)1, (byte)0)
