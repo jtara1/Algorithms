@@ -85,6 +85,16 @@ public class GameState extends Vertex {
 		this.pathCost = pathCost + getHeuristicCost();
 	}
 
+	public GameState(String board, Heuristic heuristic) {
+		ArrayList<Byte> realBoard = new ArrayList<>();
+		for (String numb: board.split(" ")) {
+			realBoard.add(Byte.parseByte(numb));
+		}
+		this.board = realBoard;
+		neighbors = new ArrayList<>(Arrays.asList(null, null, null, null));
+		this.heuristic = heuristic;
+	}
+
 	public GameState(Heuristic heuristic, int... board) {
 		this.board = new ArrayList<>(9);
 		for (int tileState: board) {
