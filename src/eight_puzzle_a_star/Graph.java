@@ -19,9 +19,15 @@ public class Graph {
 	// gettters & setters
 	public Character getDepth() { return depth; }
 	public Vertex getRootVertex() { return rootVertex; }
+	public long getRuntimeDuration() { return runtimeDuration; }
+	public HashMap<String, Vertex> getVertices() { return vertices; }
 
 	// static
+	public static int randomBoardGeneratedCount = 0;
+
 	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic) {
+		++randomBoardGeneratedCount;
+
 		ArrayList<Byte> board = GameState.generateBoard();
 		Path path = new NullPath();
 
@@ -35,9 +41,15 @@ public class Graph {
 				continue;
 			}
 
+			System.out.println("generated solveable random board, # " + randomBoardGeneratedCount);
 			return new GraphAndPathCollection(graph, path, board);
 		} while (true);
+	}
 
+	public static GraphAndPathCollection solveBoard(Heuristic heuristic, ArrayList<Byte> board) {
+		Graph graph = new Graph(new GameState(board, heuristic));
+		Path path = graph.aStarExpansion();
+		return new GraphAndPathCollection(graph, path, board);
 	}
 
 	// constructors
