@@ -27,10 +27,16 @@ public class Graph {
 	public static boolean debug = true;
 
 	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic) {
-		++randomBoardGeneratedCount;
+		return solveSolveable8Puzzle(heuristic, true);
+	}
 
-		ArrayList<Byte> board = GameState.generateBoard();
-		Path path = new NullPath();
+	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic, Boolean randomBoard) {
+		if (randomBoard == null) randomBoard = true;
+
+//		++randomBoardGeneratedCount;
+
+		ArrayList<Byte> board = randomBoard ? GameState.generateRandomBoard() : GameState.generateBoard();
+		Path path;
 
 		do {
 			if (!GameState.isSolveableBoard(board)) continue;
@@ -42,7 +48,7 @@ public class Graph {
 				continue;
 			}
 
-			System.out.println("generated solveable random board, # " + randomBoardGeneratedCount);
+//			System.out.println("generated solveable random board, # " + randomBoardGeneratedCount);
 			return new GraphAndPathCollection(graph, path, board);
 		} while (true);
 	}
@@ -80,7 +86,7 @@ public class Graph {
 			leaf = path.getLeafVertex();
 
 			if (leaf.isSolution()) {
-				runtimeDuration = Duration.between(runtimeStart, Instant.now()).toSeconds();
+				runtimeDuration = Duration.between(runtimeStart, Instant.now()).getSeconds();
 				return path;
 			}
 

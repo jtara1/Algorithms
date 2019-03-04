@@ -46,6 +46,10 @@ public class GameState extends Vertex {
 	}
 
 	public static ArrayList<Byte> generateBoard() {
+		return UnitTestFixedDepth.getRandomBoard(null).getBoard();
+	}
+
+	public static ArrayList<Byte> generateRandomBoard() {
 		ArrayList<Byte> board = new ArrayList<Byte>(GameState.goalGameState.board);
 		Collections.shuffle(board);
 		return board;

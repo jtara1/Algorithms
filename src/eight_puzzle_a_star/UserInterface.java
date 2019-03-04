@@ -27,7 +27,7 @@ public class UserInterface {
 		System.out.println("Sliding 8-Puzzle Solver AI");
 
 		// 0: random board, 1: user enters board, 2: exit
-		String prompt = "Select an option:\n[0] generate random board & solve using both heuristics\n[1] enter an initial game state\n[2] exit";
+		String prompt = "Select an option:\n[0] generate random board with depth == 20 & solve using both heuristics\n[1] enter an initial game state\n[2] generate random board & solve\n[3] exit";
 
 		while (!exit) {
 			System.out.println(prompt);
@@ -35,12 +35,15 @@ public class UserInterface {
 
 			switch(option) {
 				case(0):
-					System.out.println(randomBoardSolver());
+					System.out.println(randomBoardSolver(false));
 					break;
 				case(1):
 					System.out.println(getBoardFromUser());
 					break;
 				case(2):
+					System.out.println(randomBoardSolver(true));
+					break;
+				case(3):
 					return;
 			}
 		}
@@ -60,9 +63,9 @@ public class UserInterface {
 		return stringBuilder.toString();
 	}
 
-	private String randomBoardSolver() {
+	private String randomBoardSolver(boolean randomBoard) {
 		System.out.println("beginning to find valid board & solve with heuristic 1");
-		GraphAndPathCollection collection = Graph.solveSolveable8Puzzle(misplacedTilesHeuristic);
+		GraphAndPathCollection collection = Graph.solveSolveable8Puzzle(misplacedTilesHeuristic, randomBoard);
 
 		System.out.println("initial board: " + collection.board.toString());
 
