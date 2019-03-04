@@ -36,9 +36,8 @@ public class Graph {
 			}
 
 			return new GraphAndPathCollection(graph, path, board);
-		} while (!GameState.isSolveableBoard(board) && path.getClass() == NullPath.class);
+		} while (true);
 
-		return null;
 	}
 
 	// constructors
@@ -55,8 +54,8 @@ public class Graph {
 	}
 
 	public Path aStarExpansion() {
+		if (!rootVertex.isValidVertex()) return new NullPath(rootVertex, "invalid vertex given");
 		Vertex leaf;
-		Character iterationCount = 0;
 
 		Instant runtimeStart = Instant.now();
 		do {

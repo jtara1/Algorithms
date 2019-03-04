@@ -68,6 +68,7 @@ public class Path implements Enumeration<Vertex> {
 	}
 
 	// Object overrides
+	/* str with total cost and sequence of neighbor indices to get from root to leaf */
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(totalCost.toString() + ": [ ");
@@ -80,6 +81,7 @@ public class Path implements Enumeration<Vertex> {
 		return stringBuilder.toString();
 	}
 
+	/* the vertex.toString() for each vertex in this path */
 	public String toStringFullPath() {
 		StringBuilder stringBuilder = new StringBuilder();
 		Vertex vertex;
@@ -89,6 +91,14 @@ public class Path implements Enumeration<Vertex> {
 			stringBuilder.append(vertex.toString() + "\n");
 		}
 
+		return stringBuilder.toString();
+	}
+
+	/* the total cost and size / length of this path */
+	public String toStringResults() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Path Cost: " + getTotalCost() + "\n");
+		stringBuilder.append("Depth to Solution: " + neighborIndicesSequence.size() + "\n");
 		return stringBuilder.toString();
 	}
 

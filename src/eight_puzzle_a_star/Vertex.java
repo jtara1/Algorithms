@@ -16,6 +16,7 @@ public abstract class Vertex {
 	public abstract Heuristic getHeuristic();
 
 	// methods
+	public abstract boolean isValidVertex();
 	public abstract void generateNeighbors(HashMap<String, Vertex> vertices);
 	public abstract float getHeuristicCost();
 	public abstract boolean isSolution();

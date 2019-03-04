@@ -12,4 +12,11 @@ public class GraphAndPathCollection {
 		this.path = path;
 		this.board = board;
 	}
+
+	public String toStringResults() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(graph.toString());
+		stringBuilder.append(path.toStringResults() + "\n");
+		return stringBuilder.toString();
+	}
 }

@@ -156,7 +156,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getMisplacedTileCost() {
-		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
 
 		byte misplaced = 0;
 		for (byte i = 0; i < board.size(); ++i) {
@@ -169,7 +169,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getDistanceCost() {
-		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
 
 		byte totalDistance = 0;
 
@@ -240,6 +240,10 @@ public class GameState extends Vertex {
 
 	public boolean isSolveable() {
 		return isSolveableBoard(board);
+	}
+
+	public boolean isValidVertex() {
+		return GameState.isSolveableBoard(board);
 	}
 
 	public boolean equals(Object object) {

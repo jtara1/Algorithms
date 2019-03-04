@@ -11,7 +11,8 @@ public class UnitTest {
 //		suite.case1();
 //		suite.unsolveableBoardCase2();
 //		suite.case3();
-		suite.case4();
+//		suite.case4();
+//		suite.case5();
 	}
 
 	public void case1() {
@@ -30,7 +31,7 @@ public class UnitTest {
 
 		System.out.println(path.toStringFullPath());
 
-		assert(path.getClass() == NullPath.class);
+//		assert(path.getClass() == NullPath.class);
 	}
 
 	public void case3() {
@@ -44,6 +45,10 @@ public class UnitTest {
 	public void case4() {
 		// [4, 7, 1, 5, 2, 0, 6, 8, 3]
 		Path path = runTest(misplacedTilesHeuristic, 4, 7, 1, 5, 2, 0, 6, 8, 3);
+	}
+
+	private void case5() {
+		Path path = runTest(misplacedTilesHeuristic, 0, 1, 2, 3, 4, 5, 6, 8, 7);
 	}
 
 	private Path runTest(Heuristic heuristic, int... tileStates) {
