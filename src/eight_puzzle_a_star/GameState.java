@@ -38,7 +38,7 @@ public class GameState extends Vertex {
 
 	public static int getInversions(Byte tileState, Set<Byte> tileStates) {
 		int inversions = 0;
-		for (int i = 1; i < tileState; ++i) {
+		for (int i = 0; i < tileState; ++i) {
 			if (tileStates.contains((byte)i))
 				++inversions;
 		}
@@ -156,7 +156,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getMisplacedTileCost() {
-		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
 
 		byte misplaced = 0;
 		for (byte i = 0; i < board.size(); ++i) {
@@ -169,7 +169,7 @@ public class GameState extends Vertex {
 	}
 
 	public float getDistanceCost() {
-		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
 
 		byte totalDistance = 0;
 
@@ -273,6 +273,6 @@ public class GameState extends Vertex {
 	}
 
 	public String toFlattenedString() {
-		return toGridString().replace("\n", " ");
+		return toGridString().replace("\n", " ").trim();
 	}
 }

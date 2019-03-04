@@ -24,6 +24,7 @@ public class Graph {
 
 	// static
 	public static int randomBoardGeneratedCount = 0;
+	public static boolean debug = true;
 
 	public static GraphAndPathCollection solveSolveable8Puzzle(Heuristic heuristic) {
 		++randomBoardGeneratedCount;
@@ -68,25 +69,29 @@ public class Graph {
 	public Path aStarExpansion() {
 		if (!rootVertex.isValidVertex()) return new NullPath(rootVertex, "invalid vertex given");
 		Vertex leaf;
+		Path path;
 
 		Instant runtimeStart = Instant.now();
 		do {
 			// of all paths to leaf vertices in the frontier, pop top (smallest path cost given by f(n))
-			Path bestPath = frontier.poll();
-			if (bestPath == null) return new NullPath(rootVertex);
-			leaf = bestPath.getLeafVertex();
+			path = frontier.poll();
+			if (path == null)
+				return new NullPath(rootVertex);
+			leaf = path.getLeafVertex();
 
 			if (leaf.isSolution()) {
 				runtimeDuration = Duration.between(runtimeStart, Instant.now()).toSeconds();
-				return bestPath;
+				return path;
 			}
 
 			// generate the neighbors of this leaf, add these [0, 4] paths to the frontier, repeat
-			generatePaths(bestPath, leaf);
+			generatePaths(path, leaf);
 
 			depth++;
+//		} while (path.getNeighborIndicesSequence().size() <= 25);
 		} while (depth < 100000); // 100,000
 
+		System.out.println("warning: very large depth reached when generating tree for solution search");
 		return new NullPath(rootVertex, "max depth for generating graph reached");
 	}
 

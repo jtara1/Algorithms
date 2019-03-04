@@ -18,11 +18,9 @@ public class Path implements Enumeration<Vertex> {
 	public ArrayList<Integer> getNeighborIndicesSequence() {
 		return neighborIndicesSequence;
 	}
-
 	public int getTotalCost() { return totalCost; }
 
 	// static
-	public static Path nullPath = new NullPath();
 
 	// constructors
 	public Path(Vertex startVertex) {

@@ -13,6 +13,7 @@ public class UnitTest {
 //		suite.case3();
 //		suite.case4();
 //		suite.case5();
+		suite.case6();
 	}
 
 	public void case1() {
@@ -49,6 +50,10 @@ public class UnitTest {
 
 	private void case5() {
 		Path path = runTest(misplacedTilesHeuristic, 0, 1, 2, 3, 4, 5, 6, 8, 7);
+	}
+
+	private void case6() {
+		runTest(misplacedTilesHeuristic, 1, 0, 2, 3, 5, 4, 6, 7, 8);
 	}
 
 	private Path runTest(Heuristic heuristic, int... tileStates) {

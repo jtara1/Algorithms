@@ -13,7 +13,7 @@ public class HeuristicComparison {
 
 	public static void main(String[] args) {
 		HeuristicComparison cmp = new HeuristicComparison();
-		cmp.generateReport(2000);
+		cmp.generateReport(1);
 	}
 
 	/**
@@ -24,7 +24,9 @@ public class HeuristicComparison {
 	private ArrayList<ArrayList<String>> compare(int testCount) {
 		for (int i = 0; i < testCount; ++i) {
 			GraphAndPathCollection collection = Graph.solveSolveable8Puzzle(misplacedTilesH);
+			System.out.println("solved for misplaced tiles heuristic");
 			GraphAndPathCollection collection2 = Graph.solveBoard(distanceH, collection.board);
+			System.out.println("solved for distance heuristic");
 
 			addToResults(
 					resultsHeuristic1,

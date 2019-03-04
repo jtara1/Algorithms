@@ -10,6 +10,12 @@ public class UserInterface {
 	private MisplacedTilesHeuristic misplacedTilesHeuristic = new MisplacedTilesHeuristic();
 	private DistanceHeuristic distanceHeuristic = new DistanceHeuristic();
 
+	// static
+	public static void main(String[] args) {
+		UserInterface ui = new UserInterface();
+		ui.start();
+	}
+
 	/**
 	 * user gets two options
 	 * 1: run algo using both heuristics & output path, the solution depth,
