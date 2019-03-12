@@ -10,6 +10,10 @@ public class Tile {
 		return row;
 	}
 
+	public void setRow(int value) {
+		row = value;
+	}
+
 	public int getCol() {
 		return col;
 	}

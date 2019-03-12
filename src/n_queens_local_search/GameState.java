@@ -109,14 +109,20 @@ public class GameState implements State {
 
 	// methods
 	@Override
-	/* select random Tile in board columns, move to a random spot in the same column */
+	/* select random Tile in board columns, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
 	public State getRandomNeighbor() {
-		return null;
+		int index = random.nextInt(this.size);
+		int newRow = random.nextInt(this.size);
+
+		Tile[] newColumns = Arrays.copyOf(columns, this.size);
+		newColumns[index].setRow(newRow);
+
+		return new GameState(newColumns);
 	}
 
 	@Override
 	public float temperatureScheduling(int step) {
-		return 0;
+		return (float)this.size / (step <= 0 ? 1 : step);
 	}
 
 	@Override

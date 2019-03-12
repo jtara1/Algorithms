@@ -4,4 +4,5 @@ interface State {
 	State getRandomNeighbor();
 	float temperatureScheduling(int step);
 	int energy();
+	boolean isSolution();
 }
