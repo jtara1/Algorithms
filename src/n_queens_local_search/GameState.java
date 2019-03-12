@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class GameState<T extends Tile> implements State {
+public class GameState implements State {
 	// attrs
 	private int size;
-	private T[] columns;
+	private Tile[] columns;
 
 	// get & set
 
 	// static
 	static Random random = new Random();
 
-	static GameState<Tile> randomState(int size) {
+	static GameState randomState(int size) {
 		ArrayList<Integer> rowIndices = new ArrayList<>();
 		ArrayList<Integer> currentRowIndices; // copies rowIndices at ea iteration to use with each creation of next tile on column
 		Tile[] columns = new Tile[0];
@@ -51,7 +51,7 @@ public class GameState<T extends Tile> implements State {
 			}
 		}
 
-		return new GameState<Tile>(columns);
+		return new GameState(columns);
 	}
 
 	static boolean isSolution(Tile[] columns) {
@@ -98,9 +98,13 @@ public class GameState<T extends Tile> implements State {
 	}
 
 	// constructors
-	public GameState(T... columns) {
+	public GameState(Tile... columns) {
 		this.columns = columns;
 		this.size = columns.length;
+	}
+
+	public GameState(int ... rowIndices) {
+		this(Tile.rowSequenceToTileArray(rowIndices));
 	}
 
 	// methods
@@ -130,7 +134,7 @@ public class GameState<T extends Tile> implements State {
 	public String toStringListOfRowIndices() {
 		StringBuilder stringBuilder = new StringBuilder();
 
-		for (T tile : columns) {
+		for (Tile tile : columns) {
 			stringBuilder.append(tile.getRow());
 			stringBuilder.append(" ");
 		}
