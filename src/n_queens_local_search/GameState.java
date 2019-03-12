@@ -16,20 +16,46 @@ public class GameState<T extends Tile> implements State {
 
 	static GameState<Tile> randomState(int size) {
 		ArrayList<Integer> rowIndices = new ArrayList<>();
+		ArrayList<Integer> currentRowIndices; // copies rowIndices at ea iteration to use with each creation of next tile on column
+		Tile[] columns = new Tile[0];
+
 		// row indices will be 0, 1, 2, ..., size - 1
 		for (int i = 0; i < size; ++i) {
-			rowIndices.set(i, i);
+			rowIndices.add(i);
 		}
 
 		for (int i = 0; i < size; ++i) {
-			// select a random row index, if it breaks the rules of n-queen, discard the value from the indices & pick another
-			int index = random.nextInt(rowIndices.size());
-			
+			currentRowIndices = new ArrayList<>(rowIndices);
+			boolean searchForPlacement = true;
+
+			while (searchForPlacement) {
+				if (currentRowIndices.isEmpty()) {
+					 break;
+				}
+				// select a random row index, if it breaks the rules of n-queen, discard the value from the indices & pick another
+				int index = random.nextInt(currentRowIndices.size());
+				Tile[] columns2 = Arrays.copyOf(columns, i + 1);
+
+				int row = currentRowIndices.get(index);
+				columns2[i] = new Tile(row, i);
+				currentRowIndices.remove(index);
+
+				boolean isSolution = queensOnSameLines(columns2, true) < 1;
+				if (currentRowIndices.isEmpty()) searchForPlacement = false; // there is no tile for this queen such that it will not be attacked by another queen
+
+				if (!searchForPlacement || isSolution) {
+					columns = columns2;
+					rowIndices.remove(Integer.valueOf(row));
+					searchForPlacement = false;
+				}
+			}
 		}
+
+		return new GameState<Tile>(columns);
 	}
 
 	static boolean isSolution(Tile[] columns) {
-
+		return queensOnSameLines(columns, true) == 0;
 	}
 
 	/**
@@ -40,7 +66,7 @@ public class GameState<T extends Tile> implements State {
 	 * @param onlyCheckIfSolution
 	 * @return
 	 */
-	static int queensOnSameLine(Tile[] columns, boolean onlyCheckIfSolution) {
+	static int queensOnSameLines(Tile[] columns, boolean onlyCheckIfSolution) {
 		int attackable = 0;
 		int columnIndex = 0;
 
@@ -91,6 +117,24 @@ public class GameState<T extends Tile> implements State {
 
 	@Override
 	public int energy() {
-		return queensOnSameLine(columns, false);
+		return queensOnSameLines(columns, false);
+	}
+
+	// meta methods
+	@Override
+	public String toString() {
+		return toStringListOfRowIndices();
+	}
+
+	/* eg: 3 5 6 8 0 1 2 4 indicates queens on tiles: (0, 3), (1, 5), (2, 6), ... */
+	public String toStringListOfRowIndices() {
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (T tile : columns) {
+			stringBuilder.append(tile.getRow());
+			stringBuilder.append(" ");
+		}
+
+		return stringBuilder.toString().trim();
 	}
 }

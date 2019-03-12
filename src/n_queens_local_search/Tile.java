@@ -4,7 +4,6 @@ public class Tile {
 	private int row; // y
 	private int col; // x
 
-
 	public int getRow() {
 		return row;
 	}
