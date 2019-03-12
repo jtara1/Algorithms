@@ -29,9 +29,9 @@ public class GameState implements State {
 			boolean searchForPlacement = true;
 
 			while (searchForPlacement) {
-				if (currentRowIndices.isEmpty()) {
-					 break;
-				}
+//				if (currentRowIndices.isEmpty()) {
+//					 break;
+//				}
 				// select a random row index, if it breaks the rules of n-queen, discard the value from the indices & pick another
 				int index = random.nextInt(currentRowIndices.size());
 				Tile[] columns2 = Arrays.copyOf(columns, i + 1);
@@ -103,7 +103,7 @@ public class GameState implements State {
 		this.size = columns.length;
 	}
 
-	public GameState(int ... rowIndices) {
+	public GameState(int... rowIndices) {
 		this(Tile.rowSequenceToTileArray(rowIndices));
 	}
 
@@ -122,6 +122,10 @@ public class GameState implements State {
 	@Override
 	public int energy() {
 		return queensOnSameLines(columns, false);
+	}
+
+	public boolean isSolution() {
+		return queensOnSameLines(columns, true) == 0;
 	}
 
 	// meta methods
