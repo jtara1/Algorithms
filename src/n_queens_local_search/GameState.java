@@ -14,6 +14,7 @@ public class GameState implements State {
 	// static
 	static Random random = new Random();
 
+	/* TODO: generate a truly random game state */
 	static GameState randomState(int size) {
 		ArrayList<Integer> rowIndices = new ArrayList<>();
 		ArrayList<Integer> currentRowIndices; // copies rowIndices at ea iteration to use with each creation of next tile on column
@@ -29,9 +30,6 @@ public class GameState implements State {
 			boolean searchForPlacement = true;
 
 			while (searchForPlacement) {
-//				if (currentRowIndices.isEmpty()) {
-//					 break;
-//				}
 				// select a random row index, if it breaks the rules of n-queen, discard the value from the indices & pick another
 				int index = random.nextInt(currentRowIndices.size());
 				Tile[] columns2 = Arrays.copyOf(columns, i + 1);
@@ -97,6 +95,34 @@ public class GameState implements State {
 		return attackable;
 	}
 
+	static int queensOnSameLines(Tile[] columns, int columnIndex) {
+		int attackable = 0;
+
+		LinearEquation horizon, diagonal, diagonal2;
+		Tile tile = columns[columnIndex];
+
+		horizon = new LinearEquation(0, tile.getCol(), tile.getRow());
+		diagonal = new LinearEquation(tile.getCol(), tile.getRow());
+		diagonal2 = new LinearEquation(-1, tile.getCol(), tile.getRow()); // negative slope
+
+		// for each piece placed after the current tile
+		for (int i = 0; i < columns.length; ++i) {
+			if (i == columnIndex) continue;
+
+			int x = columns[i].getCol();
+			int y = columns[i].getRow();
+
+			// horizontal line
+			attackable += horizon.intersects(x, y);
+			// pos slope diagonal
+			attackable += diagonal.intersects(x, y);
+			// neg slope diagonal
+			attackable += diagonal2.intersects(x, y);
+		}
+
+		return attackable;
+	}
+
 	// constructors
 	public GameState(Tile... columns) {
 		this.columns = columns;
@@ -109,20 +135,61 @@ public class GameState implements State {
 
 	// methods
 	@Override
-	/* select random Tile in board columns, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
 	public State getRandomNeighbor() {
-		int index = random.nextInt(this.size);
-		int newRow = random.nextInt(this.size);
+		int largestAmountOfAttacks = 0;
+		Tile worstQueen = columns[0];
+		ArrayList<Tile> worstQueens = new ArrayList<>();
 
+		int index = 0;
+		// iterate over columns
+		for (Tile tile : columns) {
+			int attackingCount = queensOnSameLines(columns, index);
+			if (attackingCount > largestAmountOfAttacks) {
+				largestAmountOfAttacks = attackingCount;
+				worstQueen = tile;
+				worstQueens = new ArrayList<>();
+				worstQueens.add(worstQueen);
+			}
+			else if (attackingCount == largestAmountOfAttacks) {
+				worstQueens.add(worstQueen);
+			}
+		}
+
+		if (worstQueens.size() > 1) {
+			worstQueen = worstQueens.get(random.nextInt(worstQueens.size()));
+		}
+
+		// get queen that's attacking the largest amount of queens
+		int rowIndex = worstQueen.getRow();
+		int newRowIndex;
+
+		do {
+			newRowIndex = random.nextInt(this.size);
+		} while (newRowIndex == rowIndex);
+
+		return createNewState(worstQueen.getCol(), newRowIndex);
+	}
+
+	/* select random Tile in board columns, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
+	private State getTrulyRandomNeighbor() {
+		int column = random.nextInt(this.size);
+		int newRow = random.nextInt(this.size);
+		return createNewState(column, newRow);
+	}
+
+	private State createNewState(int col, int newRow) {
 		Tile[] newColumns = Arrays.copyOf(columns, this.size);
-		newColumns[index].setRow(newRow);
+		newColumns[col].setRow(newRow);
 
 		return new GameState(newColumns);
 	}
 
 	@Override
 	public float temperatureScheduling(int step) {
-		return (float)this.size / (step <= 0 ? 1 : step);
+		float temp = (float)this.size / (step <= 0 ? 1 : step);
+
+		if (temp < 0f) return 0;
+		return temp;
 	}
 
 	@Override

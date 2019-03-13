@@ -37,10 +37,14 @@ public class SimulatedAnnealing {
 	 */
 	public State start() {
 		State current = initialState;
+		System.out.println("start simulated annealing\n" + initialState.toString());
 
 		for (int i = 0; i < iterationLimit; ++i) {
 			float temperature = initialState.temperatureScheduling(i);
-			System.out.println(current.energy());
+			if (i % 50000 == 0) {
+				System.out.println(current.energy());
+				System.out.println(current);
+			}
 			if (temperature == 0f || current.isSolution()) return current;
 
 			State next = current.getRandomNeighbor();
