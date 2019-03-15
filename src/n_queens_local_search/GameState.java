@@ -10,6 +10,7 @@ public class GameState implements State {
 	private Tile[] columns;
 
 	// get & set
+	public Tile[] getColumns() { return columns; }
 
 	// static
 	static Random random = new Random();
@@ -47,6 +48,16 @@ public class GameState implements State {
 					searchForPlacement = false;
 				}
 			}
+		}
+
+		return new GameState(columns);
+	}
+
+	static GameState trulyRandomState(int size) {
+		Tile[] columns = new Tile[size];
+
+		for (int col = 0; col < size; ++col) {
+			columns[col] = new Tile(random.nextInt(size), col);
 		}
 
 		return new GameState(columns);
@@ -136,6 +147,13 @@ public class GameState implements State {
 	// methods
 	@Override
 	public State getRandomNeighbor() {
+//		return getTrulyRandomNeighbor();
+//		return getNeighborOfMostCostlyTile();
+		return getRandomNeighborWhoseCostIsNotZero();
+	}
+
+	/* TODO: just change state starting from right side going left, skipping those whose cost (energy) == 0 */
+	private State getNeighborOfMostCostlyTile() {
 		int largestAmountOfAttacks = 0;
 		Tile worstQueen = columns[0];
 		ArrayList<Tile> worstQueens = new ArrayList<>();
@@ -170,6 +188,31 @@ public class GameState implements State {
 		return createNewState(worstQueen.getCol(), newRowIndex);
 	}
 
+	private State getRandomNeighborWhoseCostIsNotZero() {
+		Tile[] columns = ArrayUtils.filter(this, ArrayUtils::filterOutZeroCostTiles);
+		Tile tileToChange;
+
+		if (columns.length > 0) tileToChange = ArrayUtils.sample(columns);
+		else tileToChange = ArrayUtils.sample(this.columns);
+
+		return createNewState(tileToChange.getCol(), random.nextInt(this.size));
+
+//		GameState neighbor = null;
+//		Tile tile = null;
+//		int cost = 0;
+//		do {
+//			neighbor = (GameState)getTrulyRandomNeighbor();
+//			ArrayList<Tile> disjoinRightSet = disjoinRightSet(neighbor.getColumns());
+//
+//			if (disjoinRightSet.size() > 0) tile = disjoinRightSet.get(0);
+//			else tile = null;
+//
+//			cost = queensOnSameLines(neighbor.getColumns(), tile.getRow());
+//		} while (cost == 0);
+//
+//		return neighbor;
+	}
+
 	/* select random Tile in board columns, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
 	private State getTrulyRandomNeighbor() {
 		int column = random.nextInt(this.size);
@@ -186,19 +229,35 @@ public class GameState implements State {
 
 	@Override
 	public float temperatureScheduling(int step) {
-		float temp = (float)this.size / (step <= 0 ? 1 : step);
+//		float temp = (float)this.size / (step <= 0 ? 1 : step);
+		float temp = 5000f / (step <= 0 ? 1 : step);
 
 		if (temp < 0f) return 0;
 		return temp;
 	}
 
 	@Override
+	/* todo: give lower (better) score for boards with queens that have 1 or 2 pieces in it's L path (size 3) */
 	public int energy() {
+//		if (queensOnSameLines(columns, false) == 0)
+//			return -Integer.MAX_VALUE;
 		return queensOnSameLines(columns, false);
 	}
 
 	public boolean isSolution() {
 		return queensOnSameLines(columns, true) == 0;
+	}
+
+	public ArrayList<Tile> disjoinRightSet(Tile[] tiles) {
+		ArrayList<Tile> disjointSet = new ArrayList<>();
+		assert(tiles.length == this.size);
+
+		for (int i = 0; i < this.size; ++i) {
+			if (tiles[i].compareTo(columns[i]) == 0) continue;
+			disjointSet.add(tiles[i]);
+		}
+
+		return disjointSet;
 	}
 
 	// meta methods

@@ -7,6 +7,9 @@ public class SimulatedAnnealing {
 	private int iterationLimit = Integer.MAX_VALUE;
 	private State initialState;
 
+	// get and set
+	public State getInitialState() { return initialState; }
+
 	// static
 	private static Random random = new Random();
 
@@ -41,21 +44,29 @@ public class SimulatedAnnealing {
 
 		for (int i = 0; i < iterationLimit; ++i) {
 			float temperature = initialState.temperatureScheduling(i);
-			if (i % 50000 == 0) {
-				System.out.println(current.energy());
-				System.out.println(current);
-			}
-			if (temperature == 0f || current.isSolution()) return current;
+
+			int currentEnergy = current.energy();
+			if (temperature == 0f || currentEnergy == 0) return current;
 
 			State next = current.getRandomNeighbor();
-			int deltaEnergy = next.energy() - current.energy();
+			int deltaEnergy = next.energy() - currentEnergy;
 
-			if (deltaEnergy > 0) current = next;
-			else if (Math.exp(deltaEnergy / temperature) >= random.nextFloat()) {
+			float probability = (float)Math.exp(-deltaEnergy / temperature);
+
+			if (deltaEnergy < 0) current = next;
+			else if (probability >= random.nextFloat()) {
 				current = next;
+			}
+
+			if (i % 100000 == 0) {
+				System.out.println("---------------------------------");
+				System.out.println("deltaE: " + deltaEnergy);
+				System.out.println("energy: " + currentEnergy);
+				System.out.println("currnt: " + current);
+				System.out.println("probab: " + probability);
 			}
 		}
 
-		return null;
+		return current;
 	}
 }

@@ -1,6 +1,8 @@
 package n_queens_local_search;
 
-public class Tile {
+import java.util.ArrayList;
+
+public class Tile implements Comparable<Tile> {
 	// attrs
 	private int row; // y
 	private int col; // x
@@ -35,5 +37,11 @@ public class Tile {
 	public Tile(int row, int col) {
 		this.row = row;
 		this.col = col;
+	}
+
+	// method Object overrides
+	@Override
+	public int compareTo(Tile other) {
+		return row - other.getRow();
 	}
 }
