@@ -4,8 +4,10 @@ import java.util.Random;
 
 public class SimulatedAnnealing {
 	// attrs
-	private int iterationLimit = Integer.MAX_VALUE;
+	private int iterationLimit = 2000000000; // 2b
 	private State initialState;
+	private State bestState;
+	private int bestEnergy = Integer.MAX_VALUE;
 
 	// get and set
 	public State getInitialState() { return initialState; }
@@ -15,6 +17,7 @@ public class SimulatedAnnealing {
 
 	// constructors
 	public SimulatedAnnealing(State initialState) {
+		this.bestState = initialState;
 		this.initialState = initialState;
 	}
 
@@ -40,33 +43,48 @@ public class SimulatedAnnealing {
 	 */
 	public State start() {
 		State current = initialState;
+		bestEnergy = current.energy();
+
 		System.out.println("start simulated annealing\n" + initialState.toString());
 
+		iterationLimit = 1000000; // 50m
 		for (int i = 0; i < iterationLimit; ++i) {
 			float temperature = initialState.temperatureScheduling(i);
 
 			int currentEnergy = current.energy();
-			if (temperature == 0f || currentEnergy == 0) return current;
+			if (temperature == 0f || currentEnergy == -Integer.MAX_VALUE) return current;
 
 			State next = current.getRandomNeighbor();
-			int deltaEnergy = next.energy() - currentEnergy;
+			int nextEnergy = next.energy();
+			if (nextEnergy < bestEnergy) {
+				bestState = next;
+				bestEnergy = nextEnergy;
+			}
 
-			float probability = (float)Math.exp(-deltaEnergy / temperature);
+			int deltaEnergy = nextEnergy - currentEnergy;
 
-			if (deltaEnergy < 0) current = next;
+//			float probability = (float)Math.exp((deltaEnergy > 0 ? -1 : 1) * deltaEnergy / temperature);
+			// sigmoid function to allow domain (-inf, inf) and range (0, 1)
+			float deltaE = (deltaEnergy > 0 ? -1 : 1) * deltaEnergy;
+			deltaE = deltaE == 0 ? -15 : deltaE;
+			float probability = (float)(1 / (1 + Math.exp(deltaE / temperature))); // sigmoid: 1 / (1 + e^-x)
+
+			if (nextEnergy < currentEnergy) current = next;
 			else if (probability >= random.nextFloat()) {
 				current = next;
 			}
 
-			if (i % 100000 == 0) {
+			if (i % 100000 == 0 || i == iterationLimit - 1) {
 				System.out.println("---------------------------------");
 				System.out.println("deltaE: " + deltaEnergy);
 				System.out.println("energy: " + currentEnergy);
 				System.out.println("currnt: " + current);
 				System.out.println("probab: " + probability);
+				System.out.println("step  : " + i);
 			}
 		}
 
-		return current;
+		System.out.println(bestEnergy);
+		return bestState;
 	}
 }

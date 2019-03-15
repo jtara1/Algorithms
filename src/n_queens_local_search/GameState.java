@@ -202,9 +202,9 @@ public class GameState implements State {
 //		int cost = 0;
 //		do {
 //			neighbor = (GameState)getTrulyRandomNeighbor();
-//			ArrayList<Tile> disjoinRightSet = disjoinRightSet(neighbor.getColumns());
+//			ArrayList<Tile> disjointRightSet = disjointRightSet(neighbor.getColumns());
 //
-//			if (disjoinRightSet.size() > 0) tile = disjoinRightSet.get(0);
+//			if (disjointRightSet.size() > 0) tile = disjointRightSet.get(0);
 //			else tile = null;
 //
 //			cost = queensOnSameLines(neighbor.getColumns(), tile.getRow());
@@ -227,28 +227,105 @@ public class GameState implements State {
 		return new GameState(newColumns);
 	}
 
+	/**
+	 * @return some negative int to decrement the score / energy further for having
+	 * 1-2 queens on its L (1 vertical dist & 2 horizon dist, xor, 2 vertical dist & 1 horizon dist)
+	 */
+	private int getReducedCostForQueensOnLOfAnotherQueen() {
+		int reducedCost = 0;
+		for (Tile tile : columns) {
+			int queensOnItsL = getNumberOfQueensOnItsL(tile);
+			if (queensOnItsL == 1 || queensOnItsL == 2)
+				reducedCost -= 5 * queensOnItsL;
+		}
+
+		return reducedCost;
+	}
+
+	private int getNumberOfQueensOnItsL(Tile tile) {
+		int inRange = 0;
+
+		int x = tile.getCol();
+		int y = tile.getRow();
+
+		int start = tile.getCol() - 2;
+		if (start < 0) start = 0;
+
+		int end = tile.getCol() + 2;
+		if (end > this.size) end = this.size - 1;
+
+		for (int i = start; i < end; ++i) {
+			if (i == tile.getCol()) continue;
+			int otherX = columns[i].getCol();
+			int otherY = columns[i].getRow();
+			int distX = Math.abs(otherX - x);
+			int distY = Math.abs(otherY - y);
+
+			if (3 == distY + distX &&
+				distY < 3 &&
+				distX < 3 &&
+				inSameQuadrant(x, y, otherX, otherY)
+			) {
+				++inRange;
+			}
+		}
+
+		return inRange;
+	}
+
+	private boolean inSameQuadrant(int x1, int y1, int x2, int y2) {
+		int boundary = (int)Math.ceil((double)this.size / 2);
+
+		boolean sameLeftXorRight = x1 < boundary == x2 < boundary;
+		boolean sameTopXorBottom = y1 < boundary == y2 < boundary;
+
+		return sameLeftXorRight && sameTopXorBottom;
+	}
+
+	/**
+	 * delta energy is expected to be in [-15, 0]
+	 * sigmoid domain can be [-inf, inf] but is ideally [-4, 4]
+	 * init temps should start around -4 and go to 4
+	 * so we're going to just use a linear equation
+	 * y = 0.000004 * (x - 1000000)
+	 * @param step the iteration count for simulated annealing. so it's 0, 1, 2, 3, ..., inf
+	 */
 	@Override
 	public float temperatureScheduling(int step) {
-//		float temp = (float)this.size / (step <= 0 ? 1 : step);
-		float temp = 5000f / (step <= 0 ? 1 : step);
+//		float temp = 5000f / (step <= 0 ? 1 : step);
+//
+//		if (temp < 0f) return 0;
+//		return temp;
 
-		if (temp < 0f) return 0;
-		return temp;
+//		return (float)(5000f / Math.log1p(step));
+
+		// y = -x + 5000f
+//		return -step + 2000000000; // init 2b
+//		return (float)(Math.pow(step - 2000000000f, 2f));
+
+		step -= 1000000000; // 1E9
+		if (step == 0) ++step;
+		else if (step > 2000000000) return 0;
+
+		return (float)0.000000004 * (step); // m = 4E-9
 	}
 
 	@Override
 	/* todo: give lower (better) score for boards with queens that have 1 or 2 pieces in it's L path (size 3) */
 	public int energy() {
-//		if (queensOnSameLines(columns, false) == 0)
-//			return -Integer.MAX_VALUE;
-		return queensOnSameLines(columns, false);
+		int queenAttacks = queensOnSameLines(columns, false);
+		if (queenAttacks == 0)
+			return -Integer.MAX_VALUE;
+		int energy = queenAttacks + getReducedCostForQueensOnLOfAnotherQueen();
+
+		return energy == 0 ? 1 : energy;
 	}
 
 	public boolean isSolution() {
 		return queensOnSameLines(columns, true) == 0;
 	}
 
-	public ArrayList<Tile> disjoinRightSet(Tile[] tiles) {
+	public ArrayList<Tile> disjointRightSet(Tile[] tiles) {
 		ArrayList<Tile> disjointSet = new ArrayList<>();
 		assert(tiles.length == this.size);
 
