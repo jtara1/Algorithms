@@ -282,6 +282,21 @@ public class GameState implements State {
 		return sameLeftXorRight && sameTopXorBottom;
 	}
 
+	private boolean hasFewEnoughQueensInQuadrant(boolean leftSection, boolean topSection) {
+		int boundary = (int)Math.ceil((double)this.size / 2);
+		int start = leftSection ? 0 : boundary;
+		int end = leftSection ? boundary : this.size;
+
+		int piecesInSection = 0;
+		for (int i = start; i < end; ++i) {
+			Tile tile = columns[i];
+			if (tile.getRow() < boundary == topSection)
+				++piecesInSection;
+		}
+
+		
+	}
+
 	/**
 	 * delta energy is expected to be in [-15, 0]
 	 * sigmoid domain can be [-inf, inf] but is ideally [-4, 4]
