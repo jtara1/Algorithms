@@ -9,14 +9,16 @@ public class GameState implements State {
 	private int size;
 	private Tile[] columns;
 	private int maxFitness;
+	private Integer fitness = null;
 
 	// get & set
 	public Tile[] getColumns() { return columns; }
+	public int getMaxFitness() { return maxFitness; }
+	public int getFitness() { return fitness; }
 
 	// static
 	static Random random = new Random();
 
-	/* TODO: generate a truly random game state */
 	static GameState randomState(int size) {
 		ArrayList<Integer> rowIndices = new ArrayList<>();
 		ArrayList<Integer> currentRowIndices; // copies rowIndices at ea iteration to use with each creation of next tile on column
@@ -324,8 +326,34 @@ public class GameState implements State {
 	@Override
 	/* a measure of how close we are to solution. higher number means we're closer */
 	public int fitness() {
+		if (fitness != null) return fitness;
+
 		int attacks = queensOnSameLines(columns, false, true);
 		return maxFitness - attacks; // non-attacking pairs
+	}
+
+	@Override
+	public State reproduce(State state) {
+		GameState board = (GameState)state;
+		assert(board.getColumns().length == size);
+
+		int dividingIndex = random.nextInt(size - 1) + 1;
+		Tile[] newColumns = new Tile[size];
+
+		Tile tile;
+		for (int i = 0; i < size; ++i) {
+			if (i < dividingIndex) tile = columns[i];
+			else tile = board.getColumns()[i];
+
+			newColumns[i] = tile;
+		}
+
+		return new GameState(newColumns);
+	}
+
+	@Override
+	public State mutate() {
+		return createNewState(random.nextInt(size), random.nextInt(size));
 	}
 
 	@Override
