@@ -38,7 +38,7 @@ public class Job
     // Is this job done?
     private boolean _done;
 
-    // At what time did this job start?
+    // At what time did this job simulatedAnnealing?
     private int _startTime;
 
     // At what time did this job complete?
@@ -171,7 +171,7 @@ public class Job
         _queue = null;
     }
 
-    // Add the job to the start of a queue
+    // Add the job to the simulatedAnnealing of a queue
     public void enqueueStart(Queue queue)
     {
         // If already in a queue, remove it

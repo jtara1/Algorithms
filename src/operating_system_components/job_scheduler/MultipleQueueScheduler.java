@@ -62,7 +62,7 @@ public class MultipleQueueScheduler extends Scheduler
             }
         }
 
-        // If the CPU is ready for a new job, start that job
+        // If the CPU is ready for a new job, simulatedAnnealing that job
         if (cpu.currentJob.empty())
         {
             // Find the highest priority job in the ready queue

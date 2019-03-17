@@ -5,7 +5,8 @@ public class UnitTest {
 		UnitTest suite = new UnitTest();
 		suite.testSolutionChecker();
 		suite.testSolutionChecker2();
-		suite.testSimulatedAnnealing();
+		suite.testSolutionChecker3();
+//		suite.testSimulatedAnnealing();
 	}
 
 	public void testSolutionChecker() {
@@ -20,11 +21,9 @@ public class UnitTest {
 		assert(gs.isSolution()); // this is a solution to n queens
 	}
 
-	public void testSimulatedAnnealing() {
-//		SimulatedAnnealing sa = new SimulatedAnnealing(); // game state of random n queens state of size 8
-		SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(8));
-		State finalState = sa.start();
-		System.out.println(finalState);
-		System.out.println(sa.getInitialState());
+	public void testSolutionChecker3() {
+		GameState gs = new GameState(0, 4, 3, 6, 4, 7, 0, 3);
+		gs.energy();
+		assert(!gs.isSolution());
 	}
 }

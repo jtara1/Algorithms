@@ -44,4 +44,8 @@ public class Tile implements Comparable<Tile> {
 	public int compareTo(Tile other) {
 		return row - other.getRow();
 	}
+
+	public String toString() {
+		return new Integer(row).toString();
+	}
 }

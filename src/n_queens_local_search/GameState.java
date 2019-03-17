@@ -87,6 +87,8 @@ public class GameState implements State {
 			diagonal = new LinearEquation(tile.getCol(), tile.getRow());
 			diagonal2 = new LinearEquation(-1, tile.getCol(), tile.getRow()); // negative slope
 
+			columnIndex = tile.getCol();
+
 			// for each piece placed after the current tile
 			for (int i = columnIndex + 1; i < columns.length; ++i) {
 				int x = columns[i].getCol();
@@ -232,11 +234,13 @@ public class GameState implements State {
 	 * 1-2 queens on its L (1 vertical dist & 2 horizon dist, xor, 2 vertical dist & 1 horizon dist)
 	 */
 	private int getReducedCostForQueensOnLOfAnotherQueen() {
+		int reductionPerQueenOnL = (int)(this.size / 2f); // truncate / Math.floor
+
 		int reducedCost = 0;
 		for (Tile tile : columns) {
 			int queensOnItsL = getNumberOfQueensOnItsL(tile);
 			if (queensOnItsL == 1 || queensOnItsL == 2)
-				reducedCost -= 5 * queensOnItsL;
+				reducedCost -= reductionPerQueenOnL * queensOnItsL;
 		}
 
 		return reducedCost;
@@ -294,13 +298,16 @@ public class GameState implements State {
 				++piecesInSection;
 		}
 
-		
+		if (this.size % 2 == 0) {
+			return Math.ceil(this.size / 4f) <= piecesInSection;
+		}
+		return Math.ceil(this.size / 3f) <= piecesInSection;
 	}
 
 	/**
 	 * delta energy is expected to be in [-15, 0]
 	 * sigmoid domain can be [-inf, inf] but is ideally [-4, 4]
-	 * init temps should start around -4 and go to 4
+	 * init temps should simulatedAnnealing around -4 and go to 4
 	 * so we're going to just use a linear equation
 	 * y = 0.000004 * (x - 1000000)
 	 * @param step the iteration count for simulated annealing. so it's 0, 1, 2, 3, ..., inf
@@ -333,7 +340,7 @@ public class GameState implements State {
 			return -Integer.MAX_VALUE;
 		int energy = queenAttacks + getReducedCostForQueensOnLOfAnotherQueen();
 
-		return energy == 0 ? 1 : energy;
+		return energy == 0 ? -1 : energy;
 	}
 
 	public boolean isSolution() {

@@ -154,7 +154,7 @@ public class Processor
             count++;
             turnaround += job.elapsedTime();
             System.out.println("Job " + job.id() + ": priority " + job.priority() + ", estimated length " + job.estimatedLength() +
-                    ", start time " + job.startTime() + ", end time " + job.endTime() + ", compute time " + job.computeTime() +
+                    ", simulatedAnnealing time " + job.startTime() + ", end time " + job.endTime() + ", compute time " + job.computeTime() +
                     ", turnaround " + job.elapsedTime());
         }
         if (count > 0)
@@ -174,7 +174,7 @@ public class Processor
             count++;
             turnaround += job.elapsedTime();
             System.out.print("Job " + job.id() + ": priority " + job.priority() + ", estimated length " + job.estimatedLength() +
-                    ", start time " + job.startTime() + ", end time " + job.endTime() + ", compute time " + job.computeTime() +
+                    ", simulatedAnnealing time " + job.startTime() + ", end time " + job.endTime() + ", compute time " + job.computeTime() +
                     ", turnaround " + job.elapsedTime());
             if (job.endTime() == job.answerEndTime())
             {

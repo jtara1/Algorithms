@@ -57,7 +57,7 @@ public class RoundRobinScheduler extends Scheduler
             }
         }
 
-        // If the CPU is ready for a new job, start that job
+        // If the CPU is ready for a new job, simulatedAnnealing that job
         if (cpu.currentJob.empty())
         {
             job = cpu.readyQueue.first();
