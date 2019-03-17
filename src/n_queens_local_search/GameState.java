@@ -110,6 +110,8 @@ public class GameState implements State {
 
 			// for each piece placed after the current tile
 			for (int i = checkLeftAndRight ? 0 : columnIndex + 1; i < columns.length; ++i) {
+				if (i == columnIndex) continue;
+
 				int x = columns[i].getCol();
 				int y = columns[i].getRow();
 
@@ -131,7 +133,8 @@ public class GameState implements State {
 	public GameState(Tile... columns) {
 		this.columns = columns;
 		this.size = columns.length;
-		this.maxFitness = (int)(this.size * (this.size / 2f));
+//		this.maxFitness = (int)(size * ((size - 1) / 2f));
+		this.maxFitness = size * (size - 1);
 	}
 
 	public GameState(int... rowIndices) {
@@ -329,7 +332,9 @@ public class GameState implements State {
 		if (fitness != null) return fitness;
 
 		int attacks = queensOnSameLines(columns, false, true);
-		return maxFitness - attacks; // non-attacking pairs
+		fitness = maxFitness - attacks; // non-attacking pairs
+
+		return fitness;
 	}
 
 	@Override

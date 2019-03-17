@@ -1,9 +1,10 @@
 package n_queens_local_search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm implements Runnable {
     // attrs
     private int boardSize;
     private int populationSize;
@@ -13,6 +14,7 @@ public class GeneticAlgorithm {
     private State bestState;
 
     private Random random = new Random();
+    private Thread thread;
 
     // get and set
 
@@ -41,7 +43,7 @@ public class GeneticAlgorithm {
      *
      * @return
      */
-    public State start() {
+    public State geneticAlgorithm() {
         ArrayList<State> population = createPopulation(populationSize);
         ArrayList<State> newPopulation;
 
@@ -84,6 +86,8 @@ public class GeneticAlgorithm {
     /* selects a state from the list at random with the weighted biases being based on fitness */
     private State randomSelection(ArrayList<State> population) {
         float randomFloat = random.nextFloat();
+        Collections.shuffle(population);
+
         int fitnessSum = 0;
         float probability = 0f;
 
@@ -98,7 +102,18 @@ public class GeneticAlgorithm {
             if (randomFloat <= probability) return state;
         }
 
-        System.out.println("warning: randomSelection failed, picked last element in population");
+//        System.out.println("warning: randomSelection failed, picked last element in population " + probability);
         return population.get(population.size() - 1); // shouldnn't ever occur
+    }
+
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(this, toString());
+            thread.start();
+        }
+    }
+
+    public void run() {
+        geneticAlgorithm();
     }
 }
