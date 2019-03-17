@@ -9,7 +9,7 @@ public class UnitTestSimulatedAnnealing {
 
     public void testSimulatedAnnealing() {
 //		SimulatedAnnealing sa = new SimulatedAnnealing(); // game state of random n queens state of size 8
-        SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(25));
+        SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(24));
         State finalState = sa.simulatedAnnealing();
         System.out.println(finalState);
         System.out.println(sa.getInitialState());

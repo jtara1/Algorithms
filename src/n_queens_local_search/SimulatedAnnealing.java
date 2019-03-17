@@ -51,7 +51,7 @@ public class SimulatedAnnealing implements Runnable {
 
 		System.out.println("simulatedAnnealing simulated annealing\n" + initialState.toString());
 
-		iterationLimit = 50000000; // 50m
+		iterationLimit = 1000000; // 50m
 		for (int iteration = 0; iteration < iterationLimit; ++iteration) {
 			float temperature = initialState.temperatureScheduling(iteration);
 

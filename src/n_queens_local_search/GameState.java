@@ -8,6 +8,7 @@ public class GameState implements State {
 	// attrs
 	private int size;
 	private Tile[] columns;
+	private int maxFitness;
 
 	// get & set
 	public Tile[] getColumns() { return columns; }
@@ -76,13 +77,29 @@ public class GameState implements State {
 	 * @return
 	 */
 	static int queensOnSameLines(Tile[] columns, boolean onlyCheckIfSolution) {
+		return queensOnSameLines(columns, onlyCheckIfSolution, false, null);
+	}
+
+	static int queensOnSameLines(Tile[] columns, boolean onlyCheckIfSolution, boolean checkLeftAndRight) {
+		return queensOnSameLines(columns, onlyCheckIfSolution, checkLeftAndRight, null);
+	}
+
+	static int queensOnSameLines(Tile[] columns, int columnIndex) {
+		return queensOnSameLines(columns, false, true, columnIndex);
+	}
+
+	static int queensOnSameLines(Tile[] columns, boolean onlyCheckIfSolution, boolean checkLeftAndRight, Integer onlyCheckThisIndex) {
 		int attackable = 0;
 		int columnIndex = 0;
 
 		LinearEquation horizon, diagonal, diagonal2;
 
 		// for each column
-		for (Tile tile : columns) {
+		for (int tileIndex = 0; tileIndex < columns.length; ++tileIndex) {
+			if (onlyCheckThisIndex != null && tileIndex != onlyCheckThisIndex) continue;
+
+			Tile tile = columns[tileIndex];
+
 			horizon = new LinearEquation(0, tile.getCol(), tile.getRow());
 			diagonal = new LinearEquation(tile.getCol(), tile.getRow());
 			diagonal2 = new LinearEquation(-1, tile.getCol(), tile.getRow()); // negative slope
@@ -90,7 +107,7 @@ public class GameState implements State {
 			columnIndex = tile.getCol();
 
 			// for each piece placed after the current tile
-			for (int i = columnIndex + 1; i < columns.length; ++i) {
+			for (int i = checkLeftAndRight ? 0 : columnIndex + 1; i < columns.length; ++i) {
 				int x = columns[i].getCol();
 				int y = columns[i].getRow();
 
@@ -108,38 +125,11 @@ public class GameState implements State {
 		return attackable;
 	}
 
-	static int queensOnSameLines(Tile[] columns, int columnIndex) {
-		int attackable = 0;
-
-		LinearEquation horizon, diagonal, diagonal2;
-		Tile tile = columns[columnIndex];
-
-		horizon = new LinearEquation(0, tile.getCol(), tile.getRow());
-		diagonal = new LinearEquation(tile.getCol(), tile.getRow());
-		diagonal2 = new LinearEquation(-1, tile.getCol(), tile.getRow()); // negative slope
-
-		// for each piece placed after the current tile
-		for (int i = 0; i < columns.length; ++i) {
-			if (i == columnIndex) continue;
-
-			int x = columns[i].getCol();
-			int y = columns[i].getRow();
-
-			// horizontal line
-			attackable += horizon.intersects(x, y);
-			// pos slope diagonal
-			attackable += diagonal.intersects(x, y);
-			// neg slope diagonal
-			attackable += diagonal2.intersects(x, y);
-		}
-
-		return attackable;
-	}
-
 	// constructors
 	public GameState(Tile... columns) {
 		this.columns = columns;
 		this.size = columns.length;
+		this.maxFitness = (int)(this.size * (this.size / 2f));
 	}
 
 	public GameState(int... rowIndices) {
@@ -314,17 +304,6 @@ public class GameState implements State {
 	 */
 	@Override
 	public float temperatureScheduling(int step) {
-//		float temp = 5000f / (step <= 0 ? 1 : step);
-//
-//		if (temp < 0f) return 0;
-//		return temp;
-
-//		return (float)(5000f / Math.log1p(step));
-
-		// y = -x + 5000f
-//		return -step + 2000000000; // init 2b
-//		return (float)(Math.pow(step - 2000000000f, 2f));
-
 		step -= 1000000000; // 1E9
 		if (step == 0) ++step;
 		else if (step > 2000000000) return 0;
@@ -333,7 +312,6 @@ public class GameState implements State {
 	}
 
 	@Override
-	/* todo: give lower (better) score for boards with queens that have 1 or 2 pieces in it's L path (size 3) */
 	public int energy() {
 		int queenAttacks = queensOnSameLines(columns, false);
 		if (queenAttacks == 0)
@@ -343,6 +321,14 @@ public class GameState implements State {
 		return energy == 0 ? -1 : energy;
 	}
 
+	@Override
+	/* a measure of how close we are to solution. higher number means we're closer */
+	public int fitness() {
+		int attacks = queensOnSameLines(columns, false, true);
+		return maxFitness - attacks; // non-attacking pairs
+	}
+
+	@Override
 	public boolean isSolution() {
 		return queensOnSameLines(columns, true) == 0;
 	}
