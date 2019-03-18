@@ -1,5 +1,6 @@
 package n_queens_local_search;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ public class GameState2 extends GameState {
     /* current column index that needs a queen placed here */
     private int columnIndex = 0;
 
-    private HashSet<String> solutionAttempts = new HashSet<String>();
+    public static HashSet<String> solutionAttempts = new HashSet<String>();
 
     // get and set
     @Override
@@ -19,7 +20,7 @@ public class GameState2 extends GameState {
     public int getColumnIndex() { return columnIndex; }
     public void setColumnIndex(int value) { columnIndex = value; }
 
-    public Set<String> getSolutionAttempts() { return solutionAttempts; }
+    public Set<String> getSolutionAttempts() { return Collections.synchronizedSet(solutionAttempts); }
 
     // static
 
@@ -45,7 +46,7 @@ public class GameState2 extends GameState {
 
     public GameState2(int size, HashSet<String> solutionAttempts, Tile... columns) {
         this(size, columns);
-        this.solutionAttempts = solutionAttempts;
+//        this.solutionAttempts = solutionAttempts;
     }
 
     public GameState2(int size, int... rowIndices) {

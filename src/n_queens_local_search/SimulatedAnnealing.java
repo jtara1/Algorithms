@@ -96,7 +96,7 @@ public class SimulatedAnnealing implements Runnable {
 //				System.out.println("---------------------------------");
 //				System.out.println("deltaE: " + deltaEnergy);
 //				System.out.println("curntE: " + currentEnergy);
-//				System.out.println("currnt: " + current);
+				System.out.println("currnt: " + current);
 //				System.out.println("next  : " + next);
 //				System.out.println("probab: " + probability);
 //				System.out.println("step  : " + iteration);
