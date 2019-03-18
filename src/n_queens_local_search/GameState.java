@@ -6,18 +6,20 @@ import java.util.Random;
 
 public class GameState implements State {
 	// attrs
-	private int size;
-	private Tile[] columns;
-	private int maxFitness;
-	private Integer fitness = null;
+	protected int size;
+	protected Tile[] columns;
+	protected int maxFitness;
+	protected Integer fitness = null; // cached fitness
+	protected Integer energy = null; // cached energy
 
 	// get & set
 	public Tile[] getColumns() { return columns; }
 	public int getMaxFitness() { return maxFitness; }
 	public int getFitness() { return fitness; }
+	public int getSize() { return size; }
 
 	// static
-	static Random random = new Random();
+	protected static Random random = new Random();
 
 	static GameState randomState(int size) {
 		ArrayList<Integer> rowIndices = new ArrayList<>();
@@ -101,6 +103,7 @@ public class GameState implements State {
 			if (onlyCheckThisIndex != null && tileIndex != onlyCheckThisIndex) continue;
 
 			Tile tile = columns[tileIndex];
+			if (tile == null) continue;
 
 			horizon = new LinearEquation(0, tile.getCol(), tile.getRow());
 			diagonal = new LinearEquation(tile.getCol(), tile.getRow());
@@ -112,8 +115,11 @@ public class GameState implements State {
 			for (int i = checkLeftAndRight ? 0 : columnIndex + 1; i < columns.length; ++i) {
 				if (i == columnIndex) continue;
 
-				int x = columns[i].getCol();
-				int y = columns[i].getRow();
+				Tile tile2 = columns[i];
+				if (tile2 == null) continue;
+
+				int x = tile2.getCol();
+				int y = tile2.getRow();
 
 				// horizontal line
 				attackable += horizon.intersects(x, y);
@@ -217,8 +223,9 @@ public class GameState implements State {
 		return createNewState(column, newRow);
 	}
 
-	private State createNewState(int col, int newRow) {
+	protected State createNewState(int col, int newRow) {
 		Tile[] newColumns = Arrays.copyOf(columns, this.size);
+		if (newColumns[col] == null) newColumns[col] = new Tile(newRow, col);
 		newColumns[col].setRow(newRow);
 
 		return new GameState(newColumns);
@@ -228,7 +235,7 @@ public class GameState implements State {
 	 * @return some negative int to decrement the score / energy further for having
 	 * 1-2 queens on its L (1 vertical dist & 2 horizon dist, xor, 2 vertical dist & 1 horizon dist)
 	 */
-	private int getReducedCostForQueensOnLOfAnotherQueen() {
+	protected int getReducedCostForQueensOnLOfAnotherQueen() {
 		int reductionPerQueenOnL = (int)(this.size / 2f); // truncate / Math.floor
 
 		int reducedCost = 0;
@@ -243,6 +250,7 @@ public class GameState implements State {
 
 	private int getNumberOfQueensOnItsL(Tile tile) {
 		int inRange = 0;
+		if (tile == null) return inRange;
 
 		int x = tile.getCol();
 		int y = tile.getRow();
@@ -255,8 +263,11 @@ public class GameState implements State {
 
 		for (int i = start; i < end; ++i) {
 			if (i == tile.getCol()) continue;
-			int otherX = columns[i].getCol();
-			int otherY = columns[i].getRow();
+			Tile tile2 = columns[i];
+			if (tile2 == null) continue;
+
+			int otherX = tile2.getCol();
+			int otherY = tile2.getRow();
 			int distX = Math.abs(otherX - x);
 			int distY = Math.abs(otherY - y);
 
@@ -318,12 +329,14 @@ public class GameState implements State {
 
 	@Override
 	public int energy() {
-		int queenAttacks = queensOnSameLines(columns, false);
-		if (queenAttacks == 0)
-			return -Integer.MAX_VALUE;
-		int energy = queenAttacks + getReducedCostForQueensOnLOfAnotherQueen();
+		if (energy != null) return energy;
 
-		return energy == 0 ? -1 : energy;
+		int queenAttacks = queensOnSameLines(columns, false);
+		if (queenAttacks == 0) energy = -Integer.MAX_VALUE;
+		else energy = queenAttacks + getReducedCostForQueensOnLOfAnotherQueen();
+
+		energy = energy == 0 ? -1 : energy;
+		return energy;
 	}
 
 	@Override
@@ -389,10 +402,15 @@ public class GameState implements State {
 		StringBuilder stringBuilder = new StringBuilder();
 
 		for (Tile tile : columns) {
-			stringBuilder.append(tile.getRow());
+			if (tile == null) stringBuilder.append("null");
+			else stringBuilder.append(tile.getRow());
 			stringBuilder.append(" ");
 		}
 
 		return stringBuilder.toString().trim();
+	}
+
+	public int hashCode() {
+		return toString().hashCode();
 	}
 }

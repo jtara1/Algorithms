@@ -14,4 +14,6 @@ interface State {
 	State mutate();
 
 	boolean isSolution();
+
+	int hashCode();
 }

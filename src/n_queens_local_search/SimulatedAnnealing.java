@@ -1,5 +1,6 @@
 package n_queens_local_search;
 
+import java.util.HashSet;
 import java.util.Random;
 
 public class SimulatedAnnealing implements Runnable {
@@ -8,6 +9,7 @@ public class SimulatedAnnealing implements Runnable {
 	private State initialState;
 	private State bestState;
 	private int bestEnergy = Integer.MAX_VALUE;
+	private HashSet<String> solutions;
 
 	private Thread thread;
 
@@ -15,6 +17,9 @@ public class SimulatedAnnealing implements Runnable {
 	public State getInitialState() { return initialState; }
 	public State getBestState() {
 		return bestState;
+	}
+	public HashSet<String> getSolutions() {
+		return solutions;
 	}
 
 	// static
@@ -46,22 +51,28 @@ public class SimulatedAnnealing implements Runnable {
 	 * return current
 	 */
 	public State simulatedAnnealing() {
+		return simulatedAnnealing(false);
+	}
+
+	public State simulatedAnnealing(boolean continueToCheckForOtherSolutions) {
 		State current = initialState;
 		bestEnergy = current.energy();
+		boolean solutionFound = false;
 
-		System.out.println("simulatedAnnealing simulated annealing\n" + initialState.toString());
+		System.out.println("starting simulated annealing\n" + initialState.toString());
 
-		iterationLimit = 1000000; // 50m
+		iterationLimit = 1000000000; // 50m
 		for (int iteration = 0; iteration < iterationLimit; ++iteration) {
 			float temperature = initialState.temperatureScheduling(iteration);
 
 			int currentEnergy = current.energy();
-//			if (temperature == 0f || currentEnergy == -Integer.MAX_VALUE) return current;
-			if (temperature == 0f || currentEnergy == -Integer.MAX_VALUE) bestState = current;
+			solutionFound = current.isSolution();
+//			if (temperature == 0f || currentEnergy == -Integer.MAX_VALUE) bestState = current;
+			if (temperature == 0f || solutionFound) bestState = current;
 
 			State next = current.getRandomNeighbor();
 			int nextEnergy = next.energy();
-			if (nextEnergy < bestEnergy) {
+			if (nextEnergy <= bestEnergy) {
 				bestState = next;
 				bestEnergy = nextEnergy;
 			}
@@ -73,13 +84,17 @@ public class SimulatedAnnealing implements Runnable {
 			deltaE = deltaE == 0 ? -15 : deltaE;
 			float probability = (float)(1 / (1 + Math.exp(deltaE / temperature))); // sigmoid: 1 / (1 + e^-x)
 
-			if (nextEnergy < currentEnergy) current = next;
-			else if (probability >= random.nextFloat()) {
-				current = next;
+			if (nextEnergy <= currentEnergy) current = next;
+			else {
+				if (probability >= random.nextFloat()) {
+					current = next;
+				}
 			}
 
 //			if (iteration % 500000 == 0 || iteration == iterationLimit - 1) {
-			if (currentEnergy == -Integer.MAX_VALUE || iteration == iterationLimit - 1) {
+//			if (currentEnergy == -Integer.MAX_VALUE || iteration == iterationLimit - 1) {
+			if (solutionFound) solutions.add(current.toString());
+			if (solutionFound || iteration == iterationLimit - 1 || iteration % 500000 == 0) {
 				System.out.println("---------------------------------");
 				System.out.println("deltaE: " + deltaEnergy);
 				System.out.println("curntE: " + currentEnergy);
@@ -88,7 +103,8 @@ public class SimulatedAnnealing implements Runnable {
 				System.out.println("probab: " + probability);
 				System.out.println("step  : " + iteration);
 
-				return bestState;
+				if ((solutionFound || iteration == iterationLimit - 1) && !continueToCheckForOtherSolutions)
+					return bestState;
 			}
 		}
 

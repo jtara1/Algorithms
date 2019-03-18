@@ -4,7 +4,9 @@ public class UnitTestSimulatedAnnealing {
     public static void main(String[] args) {
         UnitTestSimulatedAnnealing suite = new UnitTestSimulatedAnnealing();
 //        suite.testSimulatedAnnealing();
-        suite.batchTest(500);
+        suite.testsSimulatedAnnealing2(25);
+
+//        suite.batchTest(500);
     }
 
     public void testSimulatedAnnealing() {
@@ -13,6 +15,13 @@ public class UnitTestSimulatedAnnealing {
         State finalState = sa.simulatedAnnealing();
         System.out.println(finalState);
         System.out.println(sa.getInitialState());
+    }
+
+    public void testsSimulatedAnnealing2(int boardSize) {
+        SimulatedAnnealing sa = new SimulatedAnnealing(new GameState2(boardSize));
+        State finalState = sa.simulatedAnnealing();
+        System.out.println(sa.getInitialState());
+        System.out.println(finalState);
     }
 
     public void batchTest(int testCases) {
