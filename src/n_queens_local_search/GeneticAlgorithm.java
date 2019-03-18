@@ -1,5 +1,7 @@
 package n_queens_local_search;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -8,15 +10,26 @@ public class GeneticAlgorithm implements Runnable {
     // attrs
     private int boardSize;
     private int populationSize;
-    private float chanceToMutateChild = 0.05f;
+    private float chanceToMutateChild = 0.10f;
 
     private int iterationLimit = 1000000; // 1m
     private State bestState;
+    private int iterations = 0;
 
     private Random random = new Random();
     private Thread thread;
+    private long runtime;
 
     // get and set
+    public State getBestState() {
+        return bestState;
+    }
+    public Thread getThread() {
+        return thread;
+    }
+    public long getRuntime() {
+        return runtime;
+    }
 
     // static
 
@@ -46,10 +59,12 @@ public class GeneticAlgorithm implements Runnable {
     public State geneticAlgorithm() {
         ArrayList<State> population = createPopulation(populationSize);
         ArrayList<State> newPopulation;
+        Instant runtimeStart = Instant.now();
 
         bestState = population.get(0);
+        System.out.println("starting GE for n queens k = " + this.populationSize + " mutationChance = " + chanceToMutateChild);
 
-        for (int generation = 0; generation < iterationLimit; ++generation) {
+        for (iterations = 0; iterations < iterationLimit; ++iterations) {
             newPopulation = new ArrayList<>();
 
             for (int i = 0; i < population.size(); ++i) {
@@ -63,6 +78,8 @@ public class GeneticAlgorithm implements Runnable {
 
                 if (child.fitness() > bestState.fitness()) bestState = child;
                 if (child.fitness() == child.getMaxFitness()) {
+                    runtime = Duration.between(runtimeStart, Instant.now()).getSeconds();
+                    bestState = child;
                     return child;
                 }
             }
@@ -103,7 +120,11 @@ public class GeneticAlgorithm implements Runnable {
         }
 
 //        System.out.println("warning: randomSelection failed, picked last element in population " + probability);
-        return population.get(population.size() - 1); // shouldnn't ever occur
+        return population.get(population.size() - 1); // shouldn't ever occur
+    }
+
+    public double getSearchCost() {
+        return Math.pow(populationSize, iterations);
     }
 
     public void start() {

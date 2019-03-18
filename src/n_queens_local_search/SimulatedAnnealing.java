@@ -1,5 +1,8 @@
 package n_queens_local_search;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -10,8 +13,10 @@ public class SimulatedAnnealing implements Runnable {
 	private State bestState;
 	private int bestEnergy = Integer.MAX_VALUE;
 	private HashSet<String> solutions;
+	private int iterations = 0;
 
 	private Thread thread;
+	private Float runtime;
 
 	// get and set
 	public State getInitialState() { return initialState; }
@@ -23,6 +28,9 @@ public class SimulatedAnnealing implements Runnable {
 	}
 	public Thread getThread() {
 		return thread;
+	}
+	public float getRuntime() {
+		return runtime;
 	}
 
 	// static
@@ -62,12 +70,13 @@ public class SimulatedAnnealing implements Runnable {
 		State current = initialState;
 		bestEnergy = current.energy();
 		boolean solutionFound = false;
+		Instant runtimeStart = Instant.now();
 
-		System.out.println("starting simulated annealing\n" + initialState.toString());
+//		System.out.println("starting simulated annealing\n" + initialState.toString());
 
 		iterationLimit = 1000000000; // 50m
-		for (int iteration = 0; iteration < iterationLimit; ++iteration) {
-			float temperature = initialState.temperatureScheduling(iteration);
+		for (iterations = 0; iterations < iterationLimit; ++iterations) {
+			float temperature = initialState.temperatureScheduling(iterations);
 
 			int currentEnergy = current.energy();
 			solutionFound = current.isSolution();
@@ -92,22 +101,30 @@ public class SimulatedAnnealing implements Runnable {
 
 			if (solutionFound) solutions.add(current.toString());
 //			if (solutionFound || iteration == iterationLimit - 1 || iteration % 500000 == 0) {
-			if (solutionFound || iteration == iterationLimit - 1) {
+			if (solutionFound || iterations == iterationLimit - 1) {
 //				System.out.println("---------------------------------");
 //				System.out.println("deltaE: " + deltaEnergy);
 //				System.out.println("curntE: " + currentEnergy);
-				System.out.println("currnt: " + current);
+//				System.out.println("currnt: " + current);
 //				System.out.println("next  : " + next);
 //				System.out.println("probab: " + probability);
 //				System.out.println("step  : " + iteration);
 
-				if ((solutionFound || iteration == iterationLimit - 1) && !continueToCheckForOtherSolutions)
+				if ((solutionFound || iterations == iterationLimit - 1) && !continueToCheckForOtherSolutions) {
+//					System.out.println("solution: " + current);
+					Duration duration = Duration.between(runtimeStart, Instant.now());
+					runtime = duration.getSeconds() + (duration.getNano() / 100000000f);
 					return bestState;
+				}
 			}
 		}
 
 //		System.out.println(bestEnergy);
 		return bestState;
+	}
+
+	public double getSearchCost() {
+		return iterations;
 	}
 
 	public void start() {
