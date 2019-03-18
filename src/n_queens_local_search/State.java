@@ -1,6 +1,6 @@
 package n_queens_local_search;
 
-interface State {
+interface State extends Comparable<State> {
 	// get and set
 	int getMaxFitness();
 

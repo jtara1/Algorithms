@@ -12,6 +12,9 @@ public class ArrayUtils {
 	public static Tile sample(Tile[] objects) {
 		return objects[random.nextInt(objects.length)];
 	}
+	public static State sample(ArrayList<State> objects) {
+		return objects.get(random.nextInt(objects.size()));
+	}
 
 	public static Tile[] filter(GameState state, Function<Integer, Boolean> function) {
 		ArrayList<Tile> list = new ArrayList<>();

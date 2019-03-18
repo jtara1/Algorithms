@@ -1,6 +1,9 @@
 package n_queens_local_search;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TestGeneticAlgorithm {
     public static void main(String[] args) {
@@ -8,7 +11,8 @@ public class TestGeneticAlgorithm {
 //        suite.checkFitness();
 //        suite.testGE();
 //        suite.testGEBiggerBoard();
-        suite.batchTest(5);
+//        suite.batchTest(5);
+        suite.batchTest2(5);
     }
 
     public void checkFitness() {
@@ -35,7 +39,7 @@ public class TestGeneticAlgorithm {
         for (int i = 0; i < testCases; ++i) {
 //            SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(25));
 //            GeneticAlgorithm sa = new GeneticAlgorithm(new GameState2(25));
-            GeneticAlgorithm sa = new GeneticAlgorithm(8, 100);
+            GeneticAlgorithm sa = new GeneticAlgorithm(25, 5);
             sa.start();
             algos.add(sa);
         }
@@ -58,9 +62,58 @@ public class TestGeneticAlgorithm {
 
         System.out.println("done");
 
-        for (GeneticAlgorithm sa : algos) {
-            System.out.println(sa.getBestState());
-            System.out.println(sa.getRuntime());
+        for (int i = 0; i < algos.size(); ++i) {
+            GeneticAlgorithm sa = algos.get(i);
+            System.out.println(sa.getBestState() + "," + sa.getRuntime() + "," + sa.getSearchCost() + "," + i + "," + sa.getBestState().isSolution() + "," + sa.getBestState().fitness());
+        }
+    }
+
+    public void batchTest2(int testCases) {
+        ArrayList<GeneticAlgorithm2> algos = new ArrayList<>();
+        int boardSize = 8;
+
+        for (int i = 0; i < 3; ++i) {
+            GameState2 state = new GameState2(boardSize);
+
+            while (!state.isSolution()) {
+                state = (GameState2)state.getRandomNeighbor();
+            }
+
+            System.out.println("created one part of the population");
+            GeneticAlgorithm2.solutions.add(state);
+//            population.add(state);
+//            population.add(GameState.trulyRandomState(boardSize));
+        }
+
+        for (int i = 0; i < testCases; ++i) {
+//            SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(25));
+//            GeneticAlgorithm sa = new GeneticAlgorithm(new GameState2(25));
+            GeneticAlgorithm2 sa = new GeneticAlgorithm2(boardSize, 5);
+            sa.start();
+            algos.add(sa);
+        }
+
+        boolean done = false;
+        while (!done) {
+            try {
+                Thread.sleep(10000);
+                boolean maybeDone = true;
+
+                for (GeneticAlgorithm2 sa : algos) {
+                    if (sa.getThread().isAlive()) maybeDone = false;
+                }
+
+                done = maybeDone;
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+
+        System.out.println("done");
+
+        for (int i = 0; i < algos.size(); ++i) {
+            GeneticAlgorithm2 sa = algos.get(i);
+            System.out.println(sa.getBestState() + "," + sa.getRuntime() + "," + sa.getSearchCost() + "," + i + "," + sa.getBestState().isSolution() + "," + sa.getBestState().fitness());
         }
     }
 }

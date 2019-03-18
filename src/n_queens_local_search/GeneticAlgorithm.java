@@ -8,17 +8,17 @@ import java.util.Random;
 
 public class GeneticAlgorithm implements Runnable {
     // attrs
-    private int boardSize;
+    protected int boardSize;
     private int populationSize;
-    private float chanceToMutateChild = 0.10f;
+    private float chanceToMutateChild = 0.05f;
 
-    private int iterationLimit = 1000000; // 1m
+    private int iterationLimit = 1500000; // 1m
     private State bestState;
     private int iterations = 0;
 
     private Random random = new Random();
     private Thread thread;
-    private long runtime;
+    private Float runtime;
 
     // get and set
     public State getBestState() {
@@ -27,7 +27,7 @@ public class GeneticAlgorithm implements Runnable {
     public Thread getThread() {
         return thread;
     }
-    public long getRuntime() {
+    public Float getRuntime() {
         return runtime;
     }
 
@@ -58,6 +58,10 @@ public class GeneticAlgorithm implements Runnable {
      */
     public State geneticAlgorithm() {
         ArrayList<State> population = createPopulation(populationSize);
+        return geneticAlgorithm(population);
+    }
+
+    protected State geneticAlgorithm(ArrayList<State> population) {
         ArrayList<State> newPopulation;
         Instant runtimeStart = Instant.now();
 
@@ -78,7 +82,8 @@ public class GeneticAlgorithm implements Runnable {
 
                 if (child.fitness() > bestState.fitness()) bestState = child;
                 if (child.fitness() == child.getMaxFitness()) {
-                    runtime = Duration.between(runtimeStart, Instant.now()).getSeconds();
+                    Duration duration = Duration.between(runtimeStart, Instant.now());
+                    runtime = duration.getSeconds() + (duration.getNano() / 100000000f);
                     bestState = child;
                     return child;
                 }
@@ -87,6 +92,8 @@ public class GeneticAlgorithm implements Runnable {
             population = newPopulation;
         }
 
+        Duration duration = Duration.between(runtimeStart, Instant.now());
+        runtime = duration.getSeconds() + (duration.getNano() / 100000000f);
         return bestState;
     }
 
@@ -103,7 +110,8 @@ public class GeneticAlgorithm implements Runnable {
     /* selects a state from the list at random with the weighted biases being based on fitness */
     private State randomSelection(ArrayList<State> population) {
         float randomFloat = random.nextFloat();
-        Collections.shuffle(population);
+//        Collections.shuffle(population);
+        Collections.sort(population);
 
         int fitnessSum = 0;
         float probability = 0f;
@@ -124,7 +132,7 @@ public class GeneticAlgorithm implements Runnable {
     }
 
     public double getSearchCost() {
-        return Math.pow(populationSize, iterations);
+        return iterations;
     }
 
     public void start() {

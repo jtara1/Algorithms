@@ -8,13 +8,21 @@ public class GameState implements State {
 	// attrs
 	protected int size;
 	protected Tile[] columns;
-	protected int maxFitness;
+	protected Integer maxFitness;
 	protected Integer fitness = null; // cached fitness
 	protected Integer energy = null; // cached energy
 
 	// get & set
 	public Tile[] getColumns() { return columns; }
-	public int getMaxFitness() { return maxFitness; }
+	public int getMaxFitness() {
+		if (maxFitness != null) return maxFitness;
+//		maxFitness = 0
+//		for (int i = size - 1; i > 0; --i) {
+//			maxFitness += i;
+//		}
+		maxFitness = size * (size - 1) / 2;
+		return maxFitness;
+	}
 	public int getFitness() { return fitness; }
 	public int getSize() { return size; }
 
@@ -140,7 +148,8 @@ public class GameState implements State {
 		this.columns = columns;
 		this.size = columns.length;
 //		this.maxFitness = (int)(size * ((size - 1) / 2f));
-		this.maxFitness = size * (size - 1);
+//		this.maxFitness = size * (size - 1);
+		this.maxFitness = getMaxFitness();
 	}
 
 	public GameState(int... rowIndices) {
@@ -344,7 +353,7 @@ public class GameState implements State {
 	public int fitness() {
 		if (fitness != null) return fitness;
 
-		int attacks = queensOnSameLines(columns, false, true);
+		int attacks = queensOnSameLines(columns, false, false);
 		fitness = maxFitness - attacks; // non-attacking pairs
 
 		return fitness;
@@ -412,5 +421,10 @@ public class GameState implements State {
 
 	public int hashCode() {
 		return toString().hashCode();
+	}
+
+	@Override
+	public int compareTo(State o) {
+		return o.fitness() - fitness();
 	}
 }
