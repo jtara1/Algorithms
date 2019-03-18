@@ -21,6 +21,9 @@ public class SimulatedAnnealing implements Runnable {
 	public HashSet<String> getSolutions() {
 		return solutions;
 	}
+	public Thread getThread() {
+		return thread;
+	}
 
 	// static
 	private static Random random = new Random();
@@ -29,6 +32,7 @@ public class SimulatedAnnealing implements Runnable {
 	public SimulatedAnnealing(State initialState) {
 		this.bestState = initialState;
 		this.initialState = initialState;
+		this.solutions = new HashSet<>();
 	}
 
 	public SimulatedAnnealing() {
@@ -67,7 +71,6 @@ public class SimulatedAnnealing implements Runnable {
 
 			int currentEnergy = current.energy();
 			solutionFound = current.isSolution();
-//			if (temperature == 0f || currentEnergy == -Integer.MAX_VALUE) bestState = current;
 			if (temperature == 0f || solutionFound) bestState = current;
 
 			State next = current.getRandomNeighbor();
@@ -85,30 +88,25 @@ public class SimulatedAnnealing implements Runnable {
 			float probability = (float)(1 / (1 + Math.exp(deltaE / temperature))); // sigmoid: 1 / (1 + e^-x)
 
 			if (nextEnergy <= currentEnergy) current = next;
-			else {
-				if (probability >= random.nextFloat()) {
-					current = next;
-				}
-			}
+			else if (probability >= random.nextFloat()) current = next;
 
-//			if (iteration % 500000 == 0 || iteration == iterationLimit - 1) {
-//			if (currentEnergy == -Integer.MAX_VALUE || iteration == iterationLimit - 1) {
 			if (solutionFound) solutions.add(current.toString());
-			if (solutionFound || iteration == iterationLimit - 1 || iteration % 500000 == 0) {
-				System.out.println("---------------------------------");
-				System.out.println("deltaE: " + deltaEnergy);
-				System.out.println("curntE: " + currentEnergy);
-				System.out.println("currnt: " + current);
-				System.out.println("next  : " + next);
-				System.out.println("probab: " + probability);
-				System.out.println("step  : " + iteration);
+//			if (solutionFound || iteration == iterationLimit - 1 || iteration % 500000 == 0) {
+			if (solutionFound || iteration == iterationLimit - 1) {
+//				System.out.println("---------------------------------");
+//				System.out.println("deltaE: " + deltaEnergy);
+//				System.out.println("curntE: " + currentEnergy);
+//				System.out.println("currnt: " + current);
+//				System.out.println("next  : " + next);
+//				System.out.println("probab: " + probability);
+//				System.out.println("step  : " + iteration);
 
 				if ((solutionFound || iteration == iterationLimit - 1) && !continueToCheckForOtherSolutions)
 					return bestState;
 			}
 		}
 
-		System.out.println(bestEnergy);
+//		System.out.println(bestEnergy);
 		return bestState;
 	}
 

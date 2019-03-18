@@ -1,12 +1,13 @@
 package n_queens_local_search;
 
+import java.util.ArrayList;
+
 public class UnitTestSimulatedAnnealing {
     public static void main(String[] args) {
         UnitTestSimulatedAnnealing suite = new UnitTestSimulatedAnnealing();
 //        suite.testSimulatedAnnealing();
-        suite.testsSimulatedAnnealing2(25);
-
-//        suite.batchTest(500);
+//        suite.testsSimulatedAnnealing2(25);
+        suite.batchTest(5);
     }
 
     public void testSimulatedAnnealing() {
@@ -25,9 +26,35 @@ public class UnitTestSimulatedAnnealing {
     }
 
     public void batchTest(int testCases) {
+        ArrayList<SimulatedAnnealing> algos = new ArrayList<>();
+
         for (int i = 0; i < testCases; ++i) {
-            SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(25));
+//            SimulatedAnnealing sa = new SimulatedAnnealing(GameState.trulyRandomState(25));
+            SimulatedAnnealing sa = new SimulatedAnnealing(new GameState2(25));
             sa.start();
+            algos.add(sa);
+        }
+
+        boolean done = false;
+        while (!done) {
+            try {
+                Thread.sleep(10000);
+                boolean maybeDone = true;
+
+                for (SimulatedAnnealing sa : algos) {
+                    if (sa.getThread().isAlive()) maybeDone = false;
+                }
+
+                done = maybeDone;
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+
+        System.out.println("done");
+
+        for (SimulatedAnnealing sa : algos) {
+            System.out.println(sa.getBestState());
         }
     }
 }

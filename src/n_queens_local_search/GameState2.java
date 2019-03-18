@@ -69,8 +69,8 @@ public class GameState2 extends GameState {
             if (!state2.getSolutionAttempts().contains(newState.toString()) && newState.isSubSolution()) {
                 newState.getSolutionAttempts().add(newState.toString());
 
-                System.out.println(newState);
-                System.out.println(state2.getSolutionAttempts().size() + " " + state2.getColumnIndex());
+//                System.out.println(newState);
+//                System.out.println(state2.getSolutionAttempts().size() + " " + state2.getColumnIndex());
                 return newState;
             }
 
