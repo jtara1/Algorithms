@@ -3,9 +3,13 @@
 
 #include <vector>
 
-public class State {
+#include "Action.h"
+
+class State {
 public:
-    bool IsSolution();
+    State();
+
+    bool IsTerminal();
     float GetValue();
     std::vector<Action> Actions();
 };

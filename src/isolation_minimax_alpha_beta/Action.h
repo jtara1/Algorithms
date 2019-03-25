@@ -3,8 +3,9 @@
 
 #include <vector>
 
-public class Action {
-
+class Action {
+public:
+    Action();
 };
 
 #endif //PROJECT_ACTION_H

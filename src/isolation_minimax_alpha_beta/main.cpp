@@ -2,9 +2,10 @@
 #include <limits>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
-#include "Action.h"
-#include "State.h"
+#include "Action.cpp"
+#include "State.cpp"
 
 // declarations
 Action AlphaBetaSearch(State);
@@ -26,7 +27,7 @@ Action AlphaBetaSearch(State state) {
             std::numeric_limits<float>::infinity()
     );
     // return the action in ACTIONS(state) whose float is value
-    return new Action();
+    return Action();
 }
 
 /*
@@ -40,13 +41,11 @@ Action AlphaBetaSearch(State state) {
         return v
  */
 float MaxValue(State state, float alpha, float beta) {
-    if (state.IsSolution()) return state.GetValue();
+    if (state.IsTerminal()) return state.GetValue();
     float value = -std::numeric_limits<float>::infinity();
 
     std::vector<Action> actions = state.Actions();
-//    for (int i = 0; i < actions.size(); ++i) {
-//        Action action = actions.at(i);
-    for (auto it = actions.cbegin(); it != actions.cend(); it++) {
+    for (auto it = actions.begin(); it != actions.end(); it++) {
         Action action = *it;
         value = std::max(value, MinValue(Results(state, action), alpha, beta)); // TODO: what's s, Results, Max ?
 
@@ -68,13 +67,11 @@ float MaxValue(State state, float alpha, float beta) {
         return v
  */
 float MinValue(State state, float alpha, float beta) {
-    if (state.IsSolution()) return state.GetValue();
+    if (state.IsTerminal()) return state.GetValue();
     float value = std::numeric_limits<float>::infinity();
 
     std::vector<Action> actions = state.Actions();
-//    for (int i = 0; i < actions.size(); ++i) {
-//        Action action = actions.at(i);
-    for (auto it = actions.cbegin(); it != actions.cend(); it++) {
+    for (auto it = actions.begin(); it != actions.end(); it++) {
         Action action = *it;
         value = std::min(value, MaxValue(Results(state, action), alpha, beta)); // TODO: what's s, Results, Min ?
 

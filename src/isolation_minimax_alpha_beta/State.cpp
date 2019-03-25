@@ -1,6 +1,8 @@
 #include "State.h"
 
-bool State::IsSolution() {
+State::State() = default;
+
+bool State::IsTerminal() {
     return false;
 }
 
@@ -9,5 +11,5 @@ float State::GetValue() {
 }
 
 std::vector <Action> State::Actions() {
-    return NULL;
+    return std::vector<Action>();
 }
