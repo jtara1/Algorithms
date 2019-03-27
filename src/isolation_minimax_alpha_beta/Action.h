@@ -7,8 +7,14 @@ class State;
 
 class Action {
 public:
-    Action();
+    // attrs
+    int start;
+    int end;
 
+    // constructor
+    Action(int start, int end);
+
+    // methods
     State Results();
 };
 

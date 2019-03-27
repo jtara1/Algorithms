@@ -2,6 +2,7 @@
 #define TEST_BUILD_BOARD_H
 
 #define BOARD_SIZE 8
+#define BOARD_AREA 64
 
 #include "State.h"
 
@@ -27,11 +28,13 @@ private:
     int ai_pos;
     int enemy_pos;
 
-    char board [BOARD_SIZE * BOARD_SIZE];
+    char board [BOARD_AREA];
 
     bool is_ai_turn;
 
     // methods
+    int GetPosition();
+    bool CanBeOccupied(int pos);
 };
 
 
