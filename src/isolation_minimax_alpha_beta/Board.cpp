@@ -9,11 +9,11 @@ Board::Board(bool ai_starts) {
         this->board[i] = empty_repr;
     }
 
-    char first_val = ai_starts ? ai_repr : enemy_repr;
-    char last_val = ai_starts ? enemy_repr : ai_repr;
+    ai_pos = ai_starts ? (char)0 : (char)(BOARD_SIZE * BOARD_SIZE - 1);
+    enemy_pos = ai_starts ? (char)(BOARD_SIZE * BOARD_SIZE - 1) : (char)0;
 
-    board[0] = first_val;
-    board[BOARD_SIZE * BOARD_SIZE - 1] = last_val;
+    board[ai_pos] = ai_repr;
+    board[enemy_pos] = enemy_repr;
 }
 
 bool Board::IsTerminal() {

@@ -24,6 +24,9 @@ private:
     char empty_repr = '-';
     char visited_repr = '#';
 
+    char ai_pos;
+    char enemy_pos;
+
     char board [BOARD_SIZE * BOARD_SIZE];
 
     bool is_ai_turn;

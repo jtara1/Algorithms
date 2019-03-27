@@ -48,7 +48,7 @@ float MaxValue(State state, float alpha, float beta) {
     std::vector<Action> actions = state.Actions();
     for (auto it = actions.begin(); it != actions.end(); it++) {
         Action action = *it;
-        value = std::max(value, MinValue(Results(state, action), alpha, beta)); // TODO: what's s, Results, Max ?
+        value = std::max(value, MinValue(action.Results(), alpha, beta)); // TODO: what's s, Results, Max ?
 
         if (value >= beta) return value;
         alpha = std::max(alpha, value);
@@ -74,7 +74,7 @@ float MinValue(State state, float alpha, float beta) {
     std::vector<Action> actions = state.Actions();
     for (auto it = actions.begin(); it != actions.end(); it++) {
         Action action = *it;
-        value = std::min(value, MaxValue(Results(state, action), alpha, beta)); // TODO: what's s, Results, Min ?
+        value = std::min(value, MaxValue(action.Results(), alpha, beta)); // TODO: what's s, Results, Min ?
 
         if (value <= alpha) return value;
         beta = std::min(beta, value);

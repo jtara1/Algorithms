@@ -11,6 +11,11 @@ public:
 
     virtual bool IsTerminal();
 
+    /**
+     * Higher the value, the better the state is for the AI
+     * Includes the estimated cost + cost to an AI's goal state
+     * @return
+     */
     virtual float GetValue();
 
     virtual std::vector<Action> Actions();
