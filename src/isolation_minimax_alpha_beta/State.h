@@ -9,9 +9,11 @@ class State {
 public:
     State();
 
-    bool IsTerminal();
-    float GetValue();
-    std::vector<Action> Actions();
+    virtual bool IsTerminal();
+
+    virtual float GetValue();
+
+    virtual std::vector<Action> Actions();
 };
 
 #endif //PROJECT_STATE_H

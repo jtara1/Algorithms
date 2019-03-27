@@ -6,6 +6,7 @@
 
 #include "Action.cpp"
 #include "State.cpp"
+#include "Board.cpp"
 
 // declarations
 Action AlphaBetaSearch(State);
@@ -91,8 +92,8 @@ State Results(State state, Action action) {
  * @return
  */
 int main() {
-//    Board initBoard = Board();
-//    Action action = AlphaBetaSearch(initBoard);
+    Board initBoard = Board();
+    Action action = AlphaBetaSearch(initBoard);
 //    std::cout << action << std::endl;
 
     char temp;
