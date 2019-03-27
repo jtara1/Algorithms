@@ -24,8 +24,8 @@ private:
     char empty_repr = '-';
     char visited_repr = '#';
 
-    char ai_pos;
-    char enemy_pos;
+    int ai_pos;
+    int enemy_pos;
 
     char board [BOARD_SIZE * BOARD_SIZE];
 
