@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "BoardAction.h"
 #include "Action.h"
 
 class State {
@@ -18,7 +19,8 @@ public:
      */
     virtual float GetValue();
 
-    virtual std::vector<Action> Actions();
+    template<class A>
+    virtual std::vector<A> Actions();
 };
 
 #endif //PROJECT_STATE_H

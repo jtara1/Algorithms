@@ -4,7 +4,11 @@
 #define BOARD_SIZE 8
 #define BOARD_AREA 64
 
+#include <array>
+
 #include "State.h"
+
+class BoardAction;
 
 class Board : public State {
 public:
@@ -16,7 +20,8 @@ public:
 
     float GetValue() override;
 
-    std::vector<Action> Actions() override;
+    template<class T = BoardAction>
+    std::vector<BoardAction> Actions() override;
 
 private:
     // attrs
@@ -28,7 +33,7 @@ private:
     int ai_pos;
     int enemy_pos;
 
-    char board [BOARD_AREA];
+    std::array<char, BOARD_AREA> board;
 
     bool is_ai_turn;
 

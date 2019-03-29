@@ -26,6 +26,7 @@ bool Board::CanBeOccupied(int pos) {
 }
 
 // core methods
+/* current player's piece can not move moved in any direction */
 bool Board::IsTerminal() {
     int pos = GetPosition();
 
@@ -54,10 +55,10 @@ float Board::GetValue() {
  * directions: North, NorthEast, East, SouthEast, etc.
  * increments: -8, -7, +1, +9, etc
  */
-std::vector<Action> Board::Actions() {
+std::vector<BoardAction> Board::Actions() {
     static int directions [8] = {-8, -7, 1, 9, 8, 7, -1, -9};
 
-    std::vector<Action> actions = std::vector<Action>();
+    std::vector<BoardAction> actions = std::vector<BoardAction>();
     int next_pos, pos;
 
     for (int i = 0; i < 8; ++i) {
@@ -68,7 +69,7 @@ std::vector<Action> Board::Actions() {
             next_pos += directions[i];
             if (!CanBeOccupied(next_pos)) break;
 
-            actions.emplace_back(Action(pos, next_pos));
+            actions.emplace_back(BoardAction(board, pos, next_pos, is_ai_turn ? ai_repr : enemy_repr));
         }
     }
 

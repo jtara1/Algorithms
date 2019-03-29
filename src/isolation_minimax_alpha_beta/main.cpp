@@ -4,15 +4,18 @@
 #include <algorithm>
 #include <iterator>
 
-#include "Action.cpp"
+#include "BoardAction.cpp"
 #include "State.cpp"
 #include "Board.cpp"
 
 // declarations
-Action AlphaBetaSearch(State);
+template<class A>
+BoardAction AlphaBetaSearch(State);
+template<class A>
 float MaxValue(State, float, float);
+template<class A>
 float MinValue(State, float, float);
-State Results(State, Action);
+State Results(State, BoardAction);
 int main();
 
 // implementations
@@ -21,14 +24,15 @@ int main();
         v ←MAX-VALUE(state,−∞,+∞)
         return the action in ACTIONS(state) with value v
  */
-Action AlphaBetaSearch(State state) {
-    float value = MaxValue(
+template<class A>
+BoardAction AlphaBetaSearch(State state) {
+    float value = MaxValue<A>(
             state,
             -std::numeric_limits<float>::infinity(),
             std::numeric_limits<float>::infinity()
     );
     // return the action in ACTIONS(state) whose float is value
-    return Action();
+    return NULL;
 }
 
 /*
@@ -41,13 +45,14 @@ Action AlphaBetaSearch(State state) {
             α←MAX(α, v)
         return v
  */
+template<class A>
 float MaxValue(State state, float alpha, float beta) {
     if (state.IsTerminal()) return state.GetValue();
     float value = -std::numeric_limits<float>::infinity();
 
-    std::vector<Action> actions = state.Actions();
+    std::vector<A> actions = state.Actions<A>();
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        Action action = *it;
+        A action = *it;
         value = std::max(value, MinValue(action.Results(), alpha, beta)); // TODO: what's s, Results, Max ?
 
         if (value >= beta) return value;
@@ -67,13 +72,14 @@ float MaxValue(State state, float alpha, float beta) {
             β ← MIN(β, v)
         return v
  */
+template<class A>
 float MinValue(State state, float alpha, float beta) {
     if (state.IsTerminal()) return state.GetValue();
     float value = std::numeric_limits<float>::infinity();
 
-    std::vector<Action> actions = state.Actions();
+    std::vector<A> actions = state.Actions<A>();
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        Action action = *it;
+        A action = *it;
         value = std::min(value, MaxValue(action.Results(), alpha, beta)); // TODO: what's s, Results, Min ?
 
         if (value <= alpha) return value;
@@ -83,17 +89,12 @@ float MinValue(State state, float alpha, float beta) {
     return value;
 }
 
-State Results(State state, Action action) {
-    return state;
-}
-
-
  /**
  * @return
  */
 int main() {
     Board initBoard = Board();
-    Action action = AlphaBetaSearch(initBoard);
+    BoardAction action = AlphaBetaSearch<BoardAction>(initBoard);
 //    std::cout << action << std::endl;
 
     char temp;

@@ -10,6 +10,6 @@ float State::GetValue() {
     return 0;
 }
 
-std::vector <Action> State::Actions() {
-    return std::vector<Action>();
+std::vector <BoardAction> State::Actions() {
+    return std::vector<BoardAction>();
 }
