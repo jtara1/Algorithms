@@ -124,11 +124,11 @@ public class UnitTest {
 		ge.printSolution(x);
 	}
 	
-	public void testRandomValues(int rows, int columns) {
+	public void testRandomValues(int rows, int rows) {
 		// random values
 		ScaledPartialPivotingGE ge = null;
 		try {
-			ge = new ScaledPartialPivotingGE(rows, columns, -100., 100.);
+			ge = new ScaledPartialPivotingGE(rows, rows, -100., 100.);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

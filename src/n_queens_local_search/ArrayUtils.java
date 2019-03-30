@@ -18,11 +18,11 @@ public class ArrayUtils {
 
 	public static Tile[] filter(GameState state, Function<Integer, Boolean> function) {
 		ArrayList<Tile> list = new ArrayList<>();
-		Tile[] columns = state.getColumns();
+		Tile[] rows = state.getColumns();
 
-		for (int i = 0; i < columns.length; ++i) {
-			int attackable = GameState.queensOnSameLines(columns, i);
-			if (function.apply(attackable)) list.add(columns[i]);
+		for (int i = 0; i < rows.length; ++i) {
+			int attackable = GameState.queensOnSameLines(rows, i);
+			if (function.apply(attackable)) list.add(rows[i]);
 		}
 
 		return listToArray(list);

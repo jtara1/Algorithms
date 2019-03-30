@@ -76,7 +76,7 @@ class Graph:
             edge_list = PriorityQueue()
             # iterate over rows
             for row in range(n + 1):
-                # iterate over (n - row) columns
+                # iterate over (n - row) rows
                 for col, edge_weight in enumerate(
                         self.adj_matrix[row][row:],
                         start=row):

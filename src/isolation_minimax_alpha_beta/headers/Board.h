@@ -6,22 +6,28 @@
 
 #include <array>
 
-#include "State.h"
+//#include "State.h"
+//class BoardAction {};
 
-class BoardAction;
-
-class Board : public State {
+class Board {
 public:
     // constructors
     Board(bool ai_starts = true);
 
     // methods
-    bool IsTerminal() override;
+    bool IsTerminal();
+    float GetValue();
 
-    float GetValue() override;
+    bool CanBeOccupied(int pos);
+    int GetPlayerPos();
+    char GetPlayerRepr();
 
-    template<class T = BoardAction>
-    std::vector<BoardAction> Actions() override;
+    std::string Repr() const;
+    std::ostringstream VisualRepr() const;
+    friend std::ostream& operator<<(std::ostream& os, const Board& board);
+
+    int ai_pos;
+    int enemy_pos;
 
 private:
     // attrs
@@ -30,16 +36,12 @@ private:
     char empty_repr = '-';
     char visited_repr = '#';
 
-    int ai_pos;
-    int enemy_pos;
-
     std::array<char, BOARD_AREA> board;
 
     bool is_ai_turn;
 
     // methods
     int GetPosition();
-    bool CanBeOccupied(int pos);
 };
 
 

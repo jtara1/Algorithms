@@ -16,19 +16,19 @@ public class ScaledPartialPivotingGE {
 	/**
 	 * Constructor that'll create a matrix with random values.
 	 * @param rows number of rows for the matrix
-	 * @param columns number of columns for the matrix
+	 * @param rows number of rows for the matrix
 	 * @param rangeStart inclusive beginning for generating random values
 	 * @param rangeEnd inclusive end for generating random values
 	 */
-	public ScaledPartialPivotingGE(int rows, int columns, Double rangeStart, Double rangeEnd) {
-		// create matrix of size rows x columns with random values
-		matrix = getRandomMatrix(rows, columns, rangeStart, rangeEnd);
+	public ScaledPartialPivotingGE(int rows, int rows, Double rangeStart, Double rangeEnd) {
+		// create matrix of size rows x rows with random values
+		matrix = getRandomMatrix(rows, rows, rangeStart, rangeEnd);
 	}
 	
 	/**
 	 * 
 	 * @param matrix
-	 * @throws Exception rows should not be > columns
+	 * @throws Exception rows should not be > rows
 	 */
 	public ScaledPartialPivotingGE(Double[][] matrix) throws Exception {
 		if (matrix.length >= matrix[0].length - 1)
@@ -40,19 +40,19 @@ public class ScaledPartialPivotingGE {
 	/**
 	 * Generate matrix with random values.
 	 * @param rows number of rows for the matrix
-	 * @param columns number of columns for the matrix
+	 * @param rows number of rows for the matrix
 	 * @param valueRangeBegin inclusive beginning for generating random values
 	 * @param valueRangeEnd inclusive end for generating random values
 	 * @return
 	 */
-	public static Double[][] getRandomMatrix(int rows, int columns, Double valueRangeBegin, Double valueRangeEnd) {
+	public static Double[][] getRandomMatrix(int rows, int rows, Double valueRangeBegin, Double valueRangeEnd) {
 		Random random = new Random();
 		
 		Double[][] matrix = new Double[rows][];
-		// iterate over the rows then the columns & insert a random value
+		// iterate over the rows then the rows & insert a random value
 		for (int i = 0; i < rows; i++) {
-			Double[] row = new Double[columns];
-			for (int j = 0; j < columns; j++) {
+			Double[] row = new Double[rows];
+			for (int j = 0; j < rows; j++) {
 				// get random value in the range [valueRangeBegin, valueRangeEnd]
 				Double randomValue = random.nextDouble();
 				randomValue *= valueRangeBegin - valueRangeEnd;
@@ -213,7 +213,7 @@ public class ScaledPartialPivotingGE {
 					}
 				}
 			}
-			// end of iterating over columns of the row
+			// end of iterating over rows of the row
 			if (divisor == null && !(rowSum > -9E-13 && rowSum < 9E-13)) {
 				// avoids attempting to divide by null
 				throw new Exception("The matrix has no solution as 0.0 != constant");

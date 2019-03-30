@@ -33,7 +33,7 @@ def _format_lines(times, average_time, max_time, min_time, input_values,
     """Generator to format each line that gets saved in comma separated value
     file given the input, output, and runtime data of some function.
     """
-    # headers for columns of values
+    # headers for rows of values
     if include_header:
         yield 'call number, {} runtime, input, output,' \
               ' min_time, max_time, average_time\n'.format(func_name)

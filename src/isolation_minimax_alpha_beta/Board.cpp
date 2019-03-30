@@ -1,11 +1,12 @@
-#include "Board.h"
+#include <sstream>
+#include "headers/Board.h"
 
 // constructors
 Board::Board(bool ai_starts) {
     is_ai_turn = ai_starts;
 
     // empty board
-    for (int i = 0; i < BOARD_SIZE; ++i) {
+    for (int i = 0; i < BOARD_AREA; ++i) {
         this->board[i] = empty_repr;
     }
 
@@ -46,32 +47,49 @@ bool Board::IsTerminal() {
 }
 
 float Board::GetValue() {
-    return State::GetValue();
+    return 0.0;
 }
 
-/*
- * move as a queen in as many as 8 directions
- * a move to each possible tile in its path is considered an action
- * directions: North, NorthEast, East, SouthEast, etc.
- * increments: -8, -7, +1, +9, etc
- */
-std::vector<BoardAction> Board::Actions() {
-    static int directions [8] = {-8, -7, 1, 9, 8, 7, -1, -9};
+std::ostringstream Board::VisualRepr() const {
+    std::ostringstream stream;
 
-    std::vector<BoardAction> actions = std::vector<BoardAction>();
-    int next_pos, pos;
+    // col names
+    for (int i = 0; i < BOARD_SIZE + 1; ++i) {
+        stream << " ";
+        if (i == 0) stream << " ";
+        else stream << i;
+    }
+    stream << '\n';
 
-    for (int i = 0; i < 8; ++i) {
-        pos = is_ai_turn ? ai_pos : enemy_pos;
-        next_pos = pos;
-
-        while (true) { // O(BOARD_SIZE = 8)
-            next_pos += directions[i];
-            if (!CanBeOccupied(next_pos)) break;
-
-            actions.emplace_back(BoardAction(board, pos, next_pos, is_ai_turn ? ai_repr : enemy_repr));
+    // each row in board with the row name
+    int row = 0;
+    for (int i = 0; i < BOARD_AREA; ++i) {
+        if (i % BOARD_SIZE == 0) {
+            row = i / BOARD_SIZE;
+            stream << char(65 + row) << " ";
         }
+
+        stream << board[i] << " ";
+
+        if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) stream << '\n';
     }
 
-    return actions;
+    return stream;
+}
+
+std::ostream& operator<<(std::ostream& os, const Board& board) {
+    os << board.VisualRepr().str();
+    return os;
+}
+
+int Board::GetPlayerPos() {
+    return is_ai_turn ? ai_pos : enemy_pos;
+}
+
+char Board::GetPlayerRepr() {
+    return is_ai_turn ? ai_repr : enemy_repr;
+}
+
+std::string Board::Repr() const {
+    return VisualRepr().str();
 }

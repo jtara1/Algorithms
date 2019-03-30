@@ -33,19 +33,19 @@ public class GameState2 extends GameState {
         columnIndex = 0;
     }
 
-    public GameState2(int size, Tile... columns) {
-        super(columns);
+    public GameState2(int size, Tile... rows) {
+        super(rows);
 
         columnIndex = 0;
         for (int i = 1; i < size; ++i) {
-            if (columns[i] == null) break;
+            if (rows[i] == null) break;
             ++columnIndex;
         }
         this.size = size;
     }
 
-    public GameState2(int size, HashSet<String> solutionAttempts, Tile... columns) {
-        this(size, columns);
+    public GameState2(int size, HashSet<String> solutionAttempts, Tile... rows) {
+        this(size, rows);
 //        this.solutionAttempts = solutionAttempts;
     }
 
@@ -107,7 +107,7 @@ public class GameState2 extends GameState {
     public int energy() {
         if (energy != null) return energy;
 
-        int queenAttacks = queensOnSameLines(columns, false);
+        int queenAttacks = queensOnSameLines(rows, false);
         if (isSolution()) energy = -Integer.MAX_VALUE;
         else energy = queenAttacks;
 //        else energy = queenAttacks + getReducedCostForQueensOnLOfAnotherQueen();

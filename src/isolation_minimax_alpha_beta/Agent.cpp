@@ -1,13 +1,17 @@
-#include "Agent.h"
+#include "headers/Agent.h"
 
-Agent::Agent(State state) {
-    SetState(state);
+Agent::Agent(Board &state) {
+    SetBoard(state);
 }
 
-State Agent::TakeTurn() {
-    return State();
-}
-
-void Agent::SetState(State &state) {
+void Agent::SetBoard(Board &state) {
     this->state = state;
+}
+
+Agent::Agent() {
+
+}
+
+void Agent::TakeTurn() {
+
 }
