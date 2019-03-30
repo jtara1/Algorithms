@@ -19,6 +19,8 @@ public:
     float GetValue();
 
     bool CanBeOccupied(int pos);
+    /* is current player is allowed to move from his current pos to this pos? */
+    bool IsLegalMove(int row, int col);
     int GetPlayerPos();
     char GetPlayerRepr();
 

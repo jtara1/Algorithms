@@ -93,3 +93,11 @@ char Board::GetPlayerRepr() {
 std::string Board::Repr() const {
     return VisualRepr().str();
 }
+
+bool Board::IsLegalMove(int row, int col) {
+    int pos = col * BOARD_SIZE + row;
+
+    if (!CanBeOccupied(pos)) return false;
+
+    // get the linear equation from current pos, to new pos
+}

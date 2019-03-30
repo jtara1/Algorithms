@@ -11,7 +11,3 @@ void Agent::SetBoard(Board &state) {
 Agent::Agent() {
 
 }
-
-void Agent::TakeTurn() {
-
-}

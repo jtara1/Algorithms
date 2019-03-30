@@ -2,6 +2,7 @@
 #include <map>
 
 #include "headers/HumanAgent.h"
+#include "headers/BoardAction.h"
 
 std::map<char, int> HumanAgent::rows;
 
@@ -19,8 +20,7 @@ HumanAgent::HumanAgent() : Agent() {
 
 }
 
-HumanAgent::HumanAgent(Board &state) : Agent(state) {
-    HumanAgent();
+HumanAgent::HumanAgent(Board &state) : HumanAgent() {
     SetBoard(state);
 }
 
@@ -29,10 +29,15 @@ void HumanAgent::TakeTurn() {
     std::cout << "enter action: ";
     std::cin >> input;
 
-    // take input eg: D4
-    char col = input[0];
-    char row = input[1];
+    // take input eg: D4 -> index for board array, i = 27
+    char col = char(tolower(input[0]));
+    char row = input[1] - '0';
 
     // move player piece from spot to D4 if legal
-
+    // if it's a legal move
+    if (state.IsLegalMove(row, col)) {
+        // create the aciton for this move
+        BoardAction action = BoardAction()
+        // do move with board
+    }
 }

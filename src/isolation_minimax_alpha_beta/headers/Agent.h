@@ -8,13 +8,13 @@ public:
     Agent();
     Agent(Board &state);
 
-    virtual void TakeTurn();
+    virtual void TakeTurn() = 0;
 
     void SetBoard(Board &state);
 
     bool is_player1;
 
-private:
+protected:
     Board state;
 };
 

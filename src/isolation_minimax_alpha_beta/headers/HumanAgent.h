@@ -15,5 +15,4 @@ public:
     void TakeTurn() override;
 };
 
-
 #endif //TEST_BUILD_HUMANAGENT_H
