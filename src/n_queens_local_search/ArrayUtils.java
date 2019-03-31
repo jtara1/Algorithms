@@ -16,9 +16,9 @@ public class ArrayUtils {
 		return objects.get(random.nextInt(objects.size()));
 	}
 
-	public static Tile[] filter(GameState state, Function<Integer, Boolean> function) {
+	public static Tile[] filter(GameState state_pointer, Function<Integer, Boolean> function) {
 		ArrayList<Tile> list = new ArrayList<>();
-		Tile[] rows = state.getColumns();
+		Tile[] rows = state_pointer.getColumns();
 
 		for (int i = 0; i < rows.length; ++i) {
 			int attackable = GameState.queensOnSameLines(rows, i);

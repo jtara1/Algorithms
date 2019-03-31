@@ -94,8 +94,8 @@ public class GameState2 extends GameState {
 
     @Override
     public State createNewState(int col, int newRow) {
-        GameState state = (GameState)super.createNewState(col, newRow);
-        return new GameState2(size, solutionAttempts, state.getColumns());
+        GameState state_pointer = (GameState)super.createNewState(col, newRow);
+        return new GameState2(size, solutionAttempts, state_pointer.getColumns());
     }
 
     @Override
@@ -122,7 +122,7 @@ public class GameState2 extends GameState {
     }
 
     @Override
-    public State reproduce(State state) {
+    public State reproduce(State state_pointer) {
         return null;
     }
 

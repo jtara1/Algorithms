@@ -73,15 +73,15 @@ public class TestGeneticAlgorithm {
         int boardSize = 8;
 
         for (int i = 0; i < 3; ++i) {
-            GameState2 state = new GameState2(boardSize);
+            GameState2 state_pointer = new GameState2(boardSize);
 
-            while (!state.isSolution()) {
-                state = (GameState2)state.getRandomNeighbor();
+            while (!state_pointer.isSolution()) {
+                state_pointer = (GameState2)state_pointer.getRandomNeighbor();
             }
 
             System.out.println("created one part of the population");
-            GeneticAlgorithm2.solutions.add(state);
-//            population.add(state);
+            GeneticAlgorithm2.solutions.add(state_pointer);
+//            population.add(state_pointer);
 //            population.add(GameState.trulyRandomState(boardSize));
         }
 

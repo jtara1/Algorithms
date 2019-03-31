@@ -19,15 +19,15 @@ public class GeneticAlgorithm2 extends GeneticAlgorithm {
 //        if (solutions.size() < 4) {
 //
 //        } else {
-        GameState2 state = new GameState2(boardSize);
+        GameState2 state_pointer = new GameState2(boardSize);
 
 //            if (solutions.size() < 8) {
-//                while (!state.isSolution()) {
-//                    state = (GameState2)state.getRandomNeighbor();
+//                while (!state_pointer.isSolution()) {
+//                    state_pointer = (GameState2)state_pointer.getRandomNeighbor();
 //                }
 //                System.out.println("create another solution for pop");
-//                population.add(state);
-//                solutions.add(state);
+//                population.add(state_pointer);
+//                solutions.add(state_pointer);
 //            }
 
         for (int i = 0; i < 7; ++i) {

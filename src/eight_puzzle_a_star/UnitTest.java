@@ -58,8 +58,8 @@ public class UnitTest {
 
 	private Path runTest(Heuristic heuristic, int... tileStates) {
 		ArrayList<Byte> board_pointer = new ArrayList<>(9);
-		for (int state : tileStates) {
-			board_pointer.add((byte)state);
+		for (int state_pointer : tileStates) {
+			board_pointer.add((byte)state_pointer);
 		}
 
 		Graph graph = new Graph(new GameState(board_pointer, heuristic));

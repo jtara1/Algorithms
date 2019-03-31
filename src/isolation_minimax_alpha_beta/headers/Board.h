@@ -5,6 +5,7 @@
 #define BOARD_AREA 64
 
 #include <array>
+#include <vector>
 
 //#include "State.h"
 //class BoardAction {};
@@ -22,6 +23,7 @@ public:
     /* is current player is allowed to move from his current pos to this pos? */
     bool IsLegalMove(int row, int col);
     int GetPlayerPos();
+    void SetPlayerPos(int pos);
     char GetPlayerRepr();
 
     void MovePlayer(int row, int col);
@@ -43,11 +45,16 @@ private:
 
     std::array<char, BOARD_AREA> board;
 
+    std::vector<std::string> action_history;
+
     bool is_ai_turn;
 
     // methods
     int CoordsToBoardIndex(int row, int col);
+
     std::tuple<int, int> BoardIndexToCoords(int index);
+
+    void UpdateActionHistory(int pos);
 };
 
 

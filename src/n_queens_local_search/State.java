@@ -10,7 +10,7 @@ interface State extends Comparable<State> {
 	int energy();
 
 	int fitness();
-	State reproduce(State state);
+	State reproduce(State state_pointer);
 	State mutate();
 
 	boolean isSolution();

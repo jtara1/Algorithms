@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iomanip>
 #include "headers/Board.h"
 #include "headers/LinearEquation.h"
 
@@ -43,8 +44,15 @@ float Board::GetValue() {
 }
 
 // print methods
+template<typename T> std::string Stringf(T t, const int& width) {
+    std::ostringstream stream;
+    stream << std::left << std::setw(width) << t;
+    return stream.str();
+}
+
 std::ostringstream Board::VisualRepr() const {
     std::ostringstream stream;
+    stream << std::left;
 
     // col names
     for (int i = 0; i < BOARD_SIZE + 1; ++i) {
@@ -52,9 +60,10 @@ std::ostringstream Board::VisualRepr() const {
         else stream << i;
         stream << " ";
     }
-    stream << '\n';
 
-    // each row in board_pointer with the row name
+    stream << '\t' << Stringf<std::string>("Player 1 (X)", 24) << Stringf<std::string>("Player 2 (O)", 24) << '\n';
+
+    // each row in board with the row name
     int row = 0;
     for (int i = 0; i < BOARD_AREA; ++i) {
         if (i % BOARD_SIZE == 0) {
@@ -64,7 +73,16 @@ std::ostringstream Board::VisualRepr() const {
 
         stream << board[i] << " ";
 
-        if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) stream << '\n';
+        if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) {
+            if (action_history.size() < row * 2 + 1) {
+                stream << '\n';
+            } else {
+                bool has_next = action_history.size() >= row * 2 + 2;
+
+                stream << '\t' << row + 1 << ". " << Stringf<std::string>(action_history.at((size_t)row * 2), 24);
+                stream << (has_next ? action_history.at((size_t)row * 2 + 1) : "") << '\n';
+            }
+        }
     }
 
     return stream;
@@ -119,7 +137,7 @@ int Board::CoordsToBoardIndex(int row, int col) {
 }
 
 std::tuple<int, int> Board::BoardIndexToCoords(int index) {
-    int row = index % BOARD_SIZE;
+    int row = index / BOARD_SIZE;
     int col = index - (BOARD_SIZE * row);
     return std::tuple<int, int>(row, col);
 }
@@ -132,5 +150,27 @@ void Board::MovePlayer(int pos) {
     board[pos] = GetPlayerRepr();
     board[GetPlayerPos()] = visited_repr;
 
+    UpdateActionHistory(pos);
+
+    SetPlayerPos(pos);
+
     is_ai_turn = !is_ai_turn;
+}
+
+void Board::UpdateActionHistory(int pos) {
+    std::tuple<int, int> coords = BoardIndexToCoords(pos);
+    int row = std::get<0>(coords);
+    int col = std::get<1>(coords);
+
+    char row_repr = char('A' + row);
+    int col_repr = col + 1;
+
+    std::ostringstream stream;
+    stream << row_repr << col_repr;
+
+    action_history.emplace_back(stream.str());
+}
+
+void Board::SetPlayerPos(int pos) {
+    is_ai_turn ? ai_pos = pos : enemy_pos = pos;
 }

@@ -6,7 +6,7 @@
 
 class AIAgent : public Agent {
 public:
-//    AIAgent(State state);
+//    AIAgent(State state_pointer);
 //
 //    void TakeTurn();
 //

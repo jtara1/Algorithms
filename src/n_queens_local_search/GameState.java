@@ -82,8 +82,8 @@ public class GameState implements State {
 
 	/**
 	 * Counts the pieces on the board_pointer that're on the same horizontal or diagonal lines from each piece
-	 * Can be used to measure the cost / distance / energy of the state (board_pointer).
-	 * Can be used to check if this state is solution
+	 * Can be used to measure the cost / distance / energy of the state_pointer (board_pointer).
+	 * Can be used to check if this state_pointer is solution
 	 * @param rows
 	 * @param onlyCheckIfSolution
 	 * @return
@@ -164,7 +164,7 @@ public class GameState implements State {
 		return getRandomNeighborWhoseCostIsNotZero();
 	}
 
-	/* TODO: just change state starting from right side going left, skipping those whose cost (energy) == 0 */
+	/* TODO: just change state_pointer starting from right side going left, skipping those whose cost (energy) == 0 */
 	private State getNeighborOfMostCostlyTile() {
 		int largestAmountOfAttacks = 0;
 		Tile worstQueen = rows[0];
@@ -360,8 +360,8 @@ public class GameState implements State {
 	}
 
 	@Override
-	public State reproduce(State state) {
-		GameState board_pointer = (GameState)state;
+	public State reproduce(State state_pointer) {
+		GameState board_pointer = (GameState)state_pointer;
 		assert(board_pointer.getColumns().length == size);
 
 		int dividingIndex = random.nextInt(size - 1) + 1;

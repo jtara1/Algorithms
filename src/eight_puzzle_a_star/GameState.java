@@ -174,7 +174,7 @@ public class GameState extends Vertex {
 
 		byte misplaced = 0;
 		for (byte i = 0; i < board_pointer.size(); ++i) {
-			// board_pointer tile state is different than the tile in the goal state, it's misplaced
+			// board_pointer tile state_pointer is different than the tile in the goal state_pointer, it's misplaced
 			if (!board_pointer.get(i).equals(goalGameState.board_pointer.get(i)))
 				++misplaced;
 		}
@@ -192,7 +192,7 @@ public class GameState extends Vertex {
 			byte distance = 0;
 			byte index = i;
 
-			// each action will have a step cost of 1; total steps to get any tile state to goal is [0, 4]
+			// each action will have a step cost of 1; total steps to get any tile state_pointer to goal is [0, 4]
 			while (tileState != index) {
 				byte difference = (byte)Math.abs(tileState - index);
 

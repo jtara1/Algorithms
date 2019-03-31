@@ -107,7 +107,7 @@ public class GeneticAlgorithm implements Runnable {
         return population;
     }
 
-    /* selects a state from the list at random with the weighted biases being based on fitness */
+    /* selects a state_pointer from the list at random with the weighted biases being based on fitness */
     private State randomSelection(ArrayList<State> population) {
         float randomFloat = random.nextFloat();
 //        Collections.shuffle(population);
@@ -116,15 +116,15 @@ public class GeneticAlgorithm implements Runnable {
         int fitnessSum = 0;
         float probability = 0f;
 
-        for (State state : population) {
-            fitnessSum += state.fitness(); // caches algo output to calculate fitness
+        for (State state_pointer : population) {
+            fitnessSum += state_pointer.fitness(); // caches algo output to calculate fitness
         }
 
-        for (State state : population) {
-            float probabilityToPick = (float)state.fitness() / fitnessSum;
+        for (State state_pointer : population) {
+            float probabilityToPick = (float)state_pointer.fitness() / fitnessSum;
             probability += probabilityToPick;
 
-            if (randomFloat <= probability) return state;
+            if (randomFloat <= probability) return state_pointer;
         }
 
 //        System.out.println("warning: randomSelection failed, picked last element in population " + probability);

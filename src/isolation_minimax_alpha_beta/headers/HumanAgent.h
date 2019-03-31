@@ -10,9 +10,11 @@ public:
     static std::map<char, int> rows;
 
     HumanAgent();
-    HumanAgent(Board &state);
+    HumanAgent(Board* state);
 
     void TakeTurn() override;
+
+    std::string name = "Human Agent";
 };
 
 #endif //TEST_BUILD_HUMANAGENT_H

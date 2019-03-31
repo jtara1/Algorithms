@@ -10,9 +10,9 @@
 
 // implementations
 /*
- * function ALPHA-BETA-SEARCH(state) returns an action
-        v ←MAX-VALUE(state,−∞,+∞)
-        return the action in ACTIONS(state) with value v
+ * function ALPHA-BETA-SEARCH(state_pointer) returns an action
+        v ←MAX-VALUE(state_pointer,−∞,+∞)
+        return the action in ACTIONS(state_pointer) with value v
  */
 Board MinMaxAlphaBeta::AlphaBetaSearch(Board state) {
     float value = MaxValue(
@@ -20,16 +20,16 @@ Board MinMaxAlphaBeta::AlphaBetaSearch(Board state) {
             -std::numeric_limits<float>::infinity(),
             std::numeric_limits<float>::infinity()
     );
-    // return the action in ACTIONS(state) whose float is value
+    // return the action in ACTIONS(state_pointer) whose float is value
 //    return BoardAction().Results();
     return Board();
 }
 
 /*
- * function MAX-VALUE(state, α, β) returns a utility value
-        if TERMINAL-TEST(state) then return UTILITY(state)
+ * function MAX-VALUE(state_pointer, α, β) returns a utility value
+        if TERMINAL-TEST(state_pointer) then return UTILITY(state_pointer)
         v ← −∞
-        for each a in ACTIONS(state) do
+        for each a in ACTIONS(state_pointer) do
             v ← MAX(v, MIN-VALUE(RESULT(s,a), α, β))
             if v ≥ β then return v
             α←MAX(α, v)
@@ -52,10 +52,10 @@ float MinMaxAlphaBeta::MaxValue(Board state, float alpha, float beta) {
 }
 
 /*
- * function MIN-VALUE(state, α, β) returns a utility value
-        if TERMINAL-TEST(state) then return UTILITY(state)
+ * function MIN-VALUE(state_pointer, α, β) returns a utility value
+        if TERMINAL-TEST(state_pointer) then return UTILITY(state_pointer)
         v ← +∞
-        for each a in ACTIONS(state) do
+        for each a in ACTIONS(state_pointer) do
             v ← MIN(v, MAX-VALUE(RESULT(s,a) , α, β))
             if v ≤ α then return v
             β ← MIN(β, v)

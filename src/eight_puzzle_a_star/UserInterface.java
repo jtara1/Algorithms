@@ -27,7 +27,7 @@ public class UserInterface {
 		System.out.println("Sliding 8-Puzzle Solver AI");
 
 		// 0: random board_pointer, 1: user enters board_pointer, 2: exit
-		String prompt = "Select an option:\n[0] generate random board_pointer with depth == 20 & solve using both heuristics\n[1] enter an initial game state\n[2] generate random board_pointer & solve\n[3] exit";
+		String prompt = "Select an option:\n[0] generate random board_pointer with depth == 20 & solve using both heuristics\n[1] enter an initial game state_pointer\n[2] generate random board_pointer & solve\n[3] exit";
 
 		while (!exit) {
 			System.out.println(prompt);
