@@ -86,6 +86,25 @@ std::ostringstream Board::VisualRepr() const {
         }
     }
 
+    if (action_history.size() > BOARD_SIZE * 2) {
+        auto first = action_history.begin() + BOARD_SIZE * 2;
+        auto last = action_history.end();
+        std::vector<std::string> history(first, last);
+
+        int row = BOARD_SIZE + 1;
+        int count = 0;
+
+        for (const std::string &move : history) {
+            if (count % 2 == 1) {
+                stream << std::right << std::setw(24) << move << '\n';
+                ++row;
+            }
+            else
+                stream << std::right << std::setw(25) << row << ". " << move;
+            ++count;
+        }
+    }
+
     return stream;
 }
 
