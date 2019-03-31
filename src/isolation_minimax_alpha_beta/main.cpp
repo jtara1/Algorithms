@@ -1,8 +1,4 @@
 #include <iostream>
-#include <limits>
-#include <vector>
-#include <algorithm>
-#include <iterator>
 
 #include "headers/UserInterface.h"
 #include "headers/HumanAgent.h"

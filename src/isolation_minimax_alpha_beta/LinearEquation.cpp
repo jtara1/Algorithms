@@ -4,7 +4,10 @@
 LinearEquation::LinearEquation(float x1, float y1, float x2, float y2) {
     float delta_x = x2 - x1;
 
-    if (delta_x == 0.0) slope = std::numeric_limits<float>::infinity();
+    if (delta_x == 0.0) {
+        this->is_vertical = true;
+        slope = std::numeric_limits<float>::infinity();
+    }
     else slope = (y2 - y1) / delta_x;
 
     this->x_intercept = x1;
@@ -12,9 +15,10 @@ LinearEquation::LinearEquation(float x1, float y1, float x2, float y2) {
 }
 
 bool LinearEquation::IsQueenAttackPath(float x, float y) {
-    bool valid_slope = slope == -1.0 || slope == 1.0 || slope == 0.0 || slope == std::numeric_limits<float>::infinity();
+    bool valid_slope = slope == -1 || slope == 1 || slope == 0 || (is_vertical && x == x_intercept);
+    if (!valid_slope) return false;
 
-    if (slope == std::numeric_limits<float>::infinity()) return x == x_intercept;
+    if (is_vertical) return x == x_intercept;
     return y == Output(x);
 }
 
@@ -24,16 +28,27 @@ std::vector<std::tuple<float, float>> LinearEquation::GetPointsBetween(float x, 
     float start = x < x_intercept ? x : x_intercept;
     float end = x <= x_intercept ? x_intercept : x;
 
-    for (float i = start + 1.0; i < end; ++i) {
-        points.emplace_back(std::tuple<float, float>(i, Output(i)));
-    }
+    if (is_vertical) {
+        start = y < y_intercept ? y : y_intercept;
+        end = y <= y_intercept ? y_intercept : y;
 
-    points.emplace_back(std::tuple<float, float>(x, Output(x)));
+        for (float i = start + 1.0; i < end; ++i) {
+            points.emplace_back(std::tuple<float, float>(Output(i), i));
+        }
+
+        points.emplace_back(std::tuple<float, float>(Output(y), y));
+    } else {
+        for (float i = start + 1.0; i < end; ++i) {
+            points.emplace_back(std::tuple<float, float>(i, Output(i)));
+        }
+
+        points.emplace_back(std::tuple<float, float>(x, Output(x)));
+    }
 
     return points;
 }
 
 float LinearEquation::Output(float x) {
-    if (slope == std::numeric_limits<float>::infinity()) return x;
+    if (is_vertical) return x_intercept;
     return slope * (x - x_intercept) + y_intercept;
 }

@@ -78,9 +78,10 @@ std::ostringstream Board::VisualRepr() const {
                 stream << '\n';
             } else {
                 bool has_next = action_history.size() >= row * 2 + 2;
+                std::string next_move = has_next ? action_history[row * 2 + 1] : "";
 
                 stream << '\t' << row + 1 << ". " << Stringf<std::string>(action_history.at((size_t)row * 2), 24);
-                stream << (has_next ? action_history.at((size_t)row * 2 + 1) : "") << '\n';
+                stream << Stringf<std::string>(next_move, 24) << '\n';
             }
         }
     }

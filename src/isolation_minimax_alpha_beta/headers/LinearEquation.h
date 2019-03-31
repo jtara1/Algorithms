@@ -18,6 +18,7 @@ protected:
     float slope;
     float x_intercept;
     float y_intercept;
+    bool is_vertical = false;
 };
 
 #endif //TEST_BUILD_LINEAREQUATION_H
