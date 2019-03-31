@@ -26,7 +26,7 @@ public class UnitTest {
 	}
 
 	public void unsolveableBoardCase2() {
-		// this board seems solveable, but it can only move 0 left, or down which both lead to unsolveable boards
+		// this board_pointer seems solveable, but it can only move 0 left, or down which both lead to unsolveable boards
 		Graph graph = new Graph(new GameState(misplacedTilesHeuristic, 2, 1, 0, 3, 4, 5, 6, 7, 8));
 		Path path = graph.aStarExpansion();
 
@@ -57,12 +57,12 @@ public class UnitTest {
 	}
 
 	private Path runTest(Heuristic heuristic, int... tileStates) {
-		ArrayList<Byte> board = new ArrayList<>(9);
+		ArrayList<Byte> board_pointer = new ArrayList<>(9);
 		for (int state : tileStates) {
-			board.add((byte)state);
+			board_pointer.add((byte)state);
 		}
 
-		Graph graph = new Graph(new GameState(board, heuristic));
+		Graph graph = new Graph(new GameState(board_pointer, heuristic));
 		Path path = graph.aStarExpansion();
 
 		System.out.println(path.toStringFullPath());

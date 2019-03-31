@@ -1,9 +1,9 @@
 #include "headers/BoardAction.h"
 //#include "headers/State.h"
 
-//BoardAction::BoardAction(std::array<char, BOARD_AREA> board, int start, int end, char board_repr) {
+//BoardAction::BoardAction(std::array<char, BOARD_AREA> board_pointer, int start, int end, char board_repr) {
 BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
-//    this->board = board;
+//    this->board_pointer = board_pointer;
     board_ptr = &board;
     this->start = start;
     this->end = end;
@@ -12,7 +12,7 @@ BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
 
 // methods
 Board BoardAction::Results() {
-//    std::array<char, BOARD_AREA> new_board = board; // copy
+//    std::array<char, BOARD_AREA> new_board = board_pointer; // copy
     return Board();
 }
 

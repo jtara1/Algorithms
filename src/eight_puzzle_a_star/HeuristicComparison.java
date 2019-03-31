@@ -25,7 +25,7 @@ public class HeuristicComparison {
 		for (int i = 0; i < testCount; ++i) {
 			GraphAndPathCollection collection = Graph.solveSolveable8Puzzle(misplacedTilesH);
 			System.out.println("solved for misplaced tiles heuristic");
-			GraphAndPathCollection collection2 = Graph.solveBoard(distanceH, collection.board);
+			GraphAndPathCollection collection2 = Graph.solveBoard(distanceH, collection.board_pointer);
 			System.out.println("solved for distance heuristic");
 
 			addToResults(

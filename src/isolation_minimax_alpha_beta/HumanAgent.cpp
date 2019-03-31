@@ -29,15 +29,19 @@ void HumanAgent::TakeTurn() {
     std::cout << "enter action: ";
     std::cin >> input;
 
-    // take input eg: D4 -> index for board array, i = 27
-    char col = char(tolower(input[0]));
-    char row = input[1] - '0';
+    // take input eg: D4 -> index for board_pointer array, i = 27
+    int row = rows.at(tolower(input[0]));
+    int col = input[1] - '0';
 
-    // move player piece from spot to D4 if legal
-    // if it's a legal move
-    if (state.IsLegalMove(row, col)) {
-        // create the aciton for this move
-        BoardAction action = BoardAction()
-        // do move with board
+    while (true) {
+        // move player piece from spot to D4 if legal
+        if (state.IsLegalMove(row, col)) {
+            // do move with board_pointer
+            state.MovePlayer(row, col);
+            break;
+        } else {
+            std::cout << "illegal move\n";
+            break;
+        }
     }
 }

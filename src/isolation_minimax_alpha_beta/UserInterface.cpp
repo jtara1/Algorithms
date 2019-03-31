@@ -4,7 +4,8 @@
 #include "headers/Agent.h"
 
 UserInterface::UserInterface(Agent *agent1, Agent *agent2, bool agent1_goes_first) {
-    board = Board();
+    Board board = Board();
+    this->board_pointer = &board;
 
     agent_pointers[0] = agent1;
     agent_pointers[1] = agent2;
@@ -18,9 +19,9 @@ UserInterface::UserInterface(Agent *agent1, Agent *agent2, bool agent1_goes_firs
 }
 
 void UserInterface::Start() {
-    while (!board.IsTerminal()) {
-        std::cout << board.Repr() << '\n';
-        agent_pointers[is_agent1_turn]->TakeTurn();
+    while (!board_pointer->IsTerminal()) {
+        std::cout << board_pointer->Repr() << '\n';
+        agent_pointers[!is_agent1_turn]->TakeTurn();
         is_agent1_turn = !is_agent1_turn;
     }
 }

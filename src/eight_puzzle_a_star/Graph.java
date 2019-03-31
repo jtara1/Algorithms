@@ -35,28 +35,28 @@ public class Graph {
 
 //		++randomBoardGeneratedCount;
 
-		ArrayList<Byte> board = randomBoard ? GameState.generateRandomBoard() : GameState.generateBoard();
+		ArrayList<Byte> board_pointer = randomBoard ? GameState.generateRandomBoard() : GameState.generateBoard();
 		Path path;
 
 		do {
-			if (!GameState.isSolveableBoard(board)) continue;
+			if (!GameState.isSolveableBoard(board_pointer)) continue;
 
-			Graph graph = new Graph(new GameState(board, heuristic));
+			Graph graph = new Graph(new GameState(board_pointer, heuristic));
 			path = graph.aStarExpansion();
 
 			if (path.getClass() == NullPath.class) {
 				continue;
 			}
 
-//			System.out.println("generated solveable random board, # " + randomBoardGeneratedCount);
-			return new GraphAndPathCollection(graph, path, board);
+//			System.out.println("generated solveable random board_pointer, # " + randomBoardGeneratedCount);
+			return new GraphAndPathCollection(graph, path, board_pointer);
 		} while (true);
 	}
 
-	public static GraphAndPathCollection solveBoard(Heuristic heuristic, ArrayList<Byte> board) {
-		Graph graph = new Graph(new GameState(board, heuristic));
+	public static GraphAndPathCollection solveBoard(Heuristic heuristic, ArrayList<Byte> board_pointer) {
+		Graph graph = new Graph(new GameState(board_pointer, heuristic));
 		Path path = graph.aStarExpansion();
-		return new GraphAndPathCollection(graph, path, board);
+		return new GraphAndPathCollection(graph, path, board_pointer);
 	}
 
 	// constructors

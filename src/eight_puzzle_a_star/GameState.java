@@ -4,12 +4,12 @@ import java.util.*;
 
 public class GameState extends Vertex {
 	// attrs
-	private ArrayList<Byte> board;
+	private ArrayList<Byte> board_pointer;
 	private Heuristic heuristic;
 
 	// getters & setters
 	public ArrayList<Byte> getBoard() {
-		return board;
+		return board_pointer;
 	}
 
 	public Heuristic getHeuristic() {
@@ -17,16 +17,16 @@ public class GameState extends Vertex {
 	}
 
 	// static
-	public static Boolean isSolveableBoard(ArrayList<Byte> board) {
-		assert(board.size() == 9);
+	public static Boolean isSolveableBoard(ArrayList<Byte> board_pointer) {
+		assert(board_pointer.size() == 9);
 
 		Set<Byte> tileStates = new HashSet<>(GameState.goalGameState.getBoard());
 		tileStates.remove(0);
 		int inversions = 0;
 
-		for (int i = 0; i < board.size() - 1; ++i) {
-			Byte tileState = board.get(i);
-			Byte nextTileValue = board.get(i + 1);
+		for (int i = 0; i < board_pointer.size() - 1; ++i) {
+			Byte tileState = board_pointer.get(i);
+			Byte nextTileValue = board_pointer.get(i + 1);
 
 			if (tileState > nextTileValue)
 				inversions += getInversions(tileState, tileStates);
@@ -50,9 +50,9 @@ public class GameState extends Vertex {
 	}
 
 	public static ArrayList<Byte> generateRandomBoard() {
-		ArrayList<Byte> board = new ArrayList<Byte>(GameState.goalGameState.board);
-		Collections.shuffle(board);
-		return board;
+		ArrayList<Byte> board_pointer = new ArrayList<Byte>(GameState.goalGameState.board_pointer);
+		Collections.shuffle(board_pointer);
+		return board_pointer;
 	}
 
 	public static GameState unsolveableGameState = new GameState(
@@ -72,47 +72,47 @@ public class GameState extends Vertex {
 		this(heuristic, 8, 7, 6, 5, 4, 3, 2, 1, 0);
 	}
 
-	public GameState(ArrayList<Byte> board) {
-		assert(board.size() == 9);
-		this.board = board;
+	public GameState(ArrayList<Byte> board_pointer) {
+		assert(board_pointer.size() == 9);
+		this.board_pointer = board_pointer;
 		neighbors = new ArrayList<Vertex>(Arrays.asList(null, null, null, null));
 	}
 
-	public GameState(ArrayList<Byte> board, Heuristic heuristic) {
-		this(board);
+	public GameState(ArrayList<Byte> board_pointer, Heuristic heuristic) {
+		this(board_pointer);
 		this.heuristic = heuristic;
 	}
 
 
-	public GameState(ArrayList<Byte> board, Heuristic heuristic, float pathCost) {
-		this(board, heuristic);
+	public GameState(ArrayList<Byte> board_pointer, Heuristic heuristic, float pathCost) {
+		this(board_pointer, heuristic);
 		this.pathCost = pathCost + getHeuristicCost();
 	}
 
-	public GameState(String board, Heuristic heuristic) {
+	public GameState(String board_pointer, Heuristic heuristic) {
 		ArrayList<Byte> realBoard = new ArrayList<>();
-		for (String numb: board.split(" ")) {
+		for (String numb: board_pointer.split(" ")) {
 			realBoard.add(Byte.parseByte(numb));
 		}
-		this.board = realBoard;
+		this.board_pointer = realBoard;
 		neighbors = new ArrayList<>(Arrays.asList(null, null, null, null));
 		this.heuristic = heuristic;
 	}
 
-	public GameState(Heuristic heuristic, int... board) {
-		this.board = new ArrayList<>(9);
-		for (int tileState: board) {
-			this.board.add((byte)tileState);
+	public GameState(Heuristic heuristic, int... board_pointer) {
+		this.board_pointer = new ArrayList<>(9);
+		for (int tileState: board_pointer) {
+			this.board_pointer.add((byte)tileState);
 		}
 
 		this.heuristic = heuristic;
-		assert(this.board.size() == 9);
+		assert(this.board_pointer.size() == 9);
 	}
 
 	// methods
 	/* for the 8 puzzle problem, this'll generate the 2-4 neighbors of the vertex & the neighbors */
 	public void generateNeighbors(HashMap<String, Vertex> vertices) {
-		int indexOfBlank = board.indexOf((byte)0);
+		int indexOfBlank = board_pointer.indexOf((byte)0);
 		GameState up = null;
 		GameState right = null;
 		GameState down = null;
@@ -162,7 +162,7 @@ public class GameState extends Vertex {
 	}
 
 	public boolean isSolution() {
-		return goalGameState.board.equals(board);
+		return goalGameState.board_pointer.equals(board_pointer);
 	}
 
 	public int getNeighborsSize() {
@@ -170,12 +170,12 @@ public class GameState extends Vertex {
 	}
 
 	public float getMisplacedTileCost() {
-//		if (!isSolveableBoard(board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(board_pointer)) return Float.POSITIVE_INFINITY;
 
 		byte misplaced = 0;
-		for (byte i = 0; i < board.size(); ++i) {
-			// board tile state is different than the tile in the goal state, it's misplaced
-			if (!board.get(i).equals(goalGameState.board.get(i)))
+		for (byte i = 0; i < board_pointer.size(); ++i) {
+			// board_pointer tile state is different than the tile in the goal state, it's misplaced
+			if (!board_pointer.get(i).equals(goalGameState.board_pointer.get(i)))
 				++misplaced;
 		}
 
@@ -183,12 +183,12 @@ public class GameState extends Vertex {
 	}
 
 	public float getDistanceCost() {
-//		if (!isSolveableBoard(this.board)) return Float.POSITIVE_INFINITY;
+//		if (!isSolveableBoard(this.board_pointer)) return Float.POSITIVE_INFINITY;
 
 		byte totalDistance = 0;
 
-		for (byte i = 0; i < board.size(); ++i) {
-			byte tileState = board.get(i);
+		for (byte i = 0; i < board_pointer.size(); ++i) {
+			byte tileState = board_pointer.get(i);
 			byte distance = 0;
 			byte index = i;
 
@@ -244,7 +244,7 @@ public class GameState extends Vertex {
 				)
 				return null;
 
-			ArrayList<Byte> newBoard = new ArrayList<>(board);
+			ArrayList<Byte> newBoard = new ArrayList<>(board_pointer);
 			Collections.swap(newBoard, index1, index2);
 			return newBoard;
 		} catch (IndexOutOfBoundsException exception) {
@@ -253,19 +253,19 @@ public class GameState extends Vertex {
 	}
 
 	public boolean isSolveable() {
-		return isSolveableBoard(board);
+		return isSolveableBoard(board_pointer);
 	}
 
 	public boolean isValidVertex() {
-		return GameState.isSolveableBoard(board);
+		return GameState.isSolveableBoard(board_pointer);
 	}
 
 	public boolean equals(Object object) {
-		return ((GameState)object).getBoard().equals(board);
+		return ((GameState)object).getBoard().equals(board_pointer);
 	}
 
 	public int hashCode() {
-		return board.hashCode();
+		return board_pointer.hashCode();
 	}
 
 	public String toString() {
@@ -275,8 +275,8 @@ public class GameState extends Vertex {
 	public String toGridString() {
 		StringBuilder str = new StringBuilder();
 
-		for (byte i = 1; i < board.size() + 1; ++i) {
-			String tile = board.get(i - 1) + " ";
+		for (byte i = 1; i < board_pointer.size() + 1; ++i) {
+			String tile = board_pointer.get(i - 1) + " ";
 			if (i % 3 == 0)
 				tile = tile.replace(" ", "\n");
 

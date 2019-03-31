@@ -1,11 +1,12 @@
 #include <sstream>
 #include "headers/Board.h"
+#include "headers/LinearEquation.h"
 
 // constructors
 Board::Board(bool ai_starts) {
     is_ai_turn = ai_starts;
 
-    // empty board
+    // empty board_pointer
     for (int i = 0; i < BOARD_AREA; ++i) {
         this->board[i] = empty_repr;
     }
@@ -17,19 +18,10 @@ Board::Board(bool ai_starts) {
     board[enemy_pos] = enemy_repr;
 }
 
-// helper methods
-int Board::GetPosition() {
-    return is_ai_turn ? ai_pos : enemy_pos;
-}
-
-bool Board::CanBeOccupied(int pos) {
-    return pos >= 0 && pos < BOARD_AREA && board[pos] == empty_repr;
-}
-
 // core methods
 /* current player's piece can not move moved in any direction */
 bool Board::IsTerminal() {
-    int pos = GetPosition();
+    int pos = GetPlayerPos();
 
     // check tile above
     bool upwards_movable = pos - BOARD_SIZE >= 0 && board[pos - BOARD_SIZE] == empty_repr;
@@ -50,18 +42,19 @@ float Board::GetValue() {
     return 0.0;
 }
 
+// print methods
 std::ostringstream Board::VisualRepr() const {
     std::ostringstream stream;
 
     // col names
     for (int i = 0; i < BOARD_SIZE + 1; ++i) {
-        stream << " ";
         if (i == 0) stream << " ";
         else stream << i;
+        stream << " ";
     }
     stream << '\n';
 
-    // each row in board with the row name
+    // each row in board_pointer with the row name
     int row = 0;
     for (int i = 0; i < BOARD_AREA; ++i) {
         if (i % BOARD_SIZE == 0) {
@@ -82,6 +75,11 @@ std::ostream& operator<<(std::ostream& os, const Board& board) {
     return os;
 }
 
+// helper methods
+bool Board::CanBeOccupied(int pos) {
+    return pos >= 0 && pos < BOARD_AREA && board[pos] == empty_repr;
+}
+
 int Board::GetPlayerPos() {
     return is_ai_turn ? ai_pos : enemy_pos;
 }
@@ -95,9 +93,44 @@ std::string Board::Repr() const {
 }
 
 bool Board::IsLegalMove(int row, int col) {
-    int pos = col * BOARD_SIZE + row;
-
+    int pos = CoordsToBoardIndex(row, col);
     if (!CanBeOccupied(pos)) return false;
 
     // get the linear equation from current pos, to new pos
+    std::tuple<int, int> coords = BoardIndexToCoords(GetPlayerPos());
+    float x = (float)std::get<1>(coords);
+    float y = (float)std::get<0>(coords);
+    float x2 = (float)col;
+    float y2 = (float)row;
+
+    LinearEquation eqn = LinearEquation(x, y, x2, y2);
+    if (!eqn.IsQueenAttackPath(x, y)) return false;
+
+    for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) {
+        int tile_index = CoordsToBoardIndex((int)std::get<1>(point), (int)std::get<0>(point));
+        if (board[tile_index] != empty_repr) return false;
+    }
+
+    return true;
+}
+
+int Board::CoordsToBoardIndex(int row, int col) {
+    return row * BOARD_SIZE + col;
+}
+
+std::tuple<int, int> Board::BoardIndexToCoords(int index) {
+    int row = index % BOARD_SIZE;
+    int col = index - (BOARD_SIZE * row);
+    return std::tuple<int, int>(row, col);
+}
+
+void Board::MovePlayer(int row, int col) {
+    return MovePlayer(CoordsToBoardIndex(row, col));
+}
+
+void Board::MovePlayer(int pos) {
+    board[pos] = GetPlayerRepr();
+    board[GetPlayerPos()] = visited_repr;
+
+    is_ai_turn = !is_ai_turn;
 }

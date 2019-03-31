@@ -11,7 +11,7 @@ public:
     // attrs
     int start;
     int end;
-//    std::array<char, BOARD_AREA> board;
+//    std::array<char, BOARD_AREA> board_pointer;
     Board* board_ptr;
     char tile_repr;
 

@@ -81,8 +81,8 @@ public class GameState implements State {
 	}
 
 	/**
-	 * Counts the pieces on the board that're on the same horizontal or diagonal lines from each piece
-	 * Can be used to measure the cost / distance / energy of the state (board).
+	 * Counts the pieces on the board_pointer that're on the same horizontal or diagonal lines from each piece
+	 * Can be used to measure the cost / distance / energy of the state (board_pointer).
 	 * Can be used to check if this state is solution
 	 * @param rows
 	 * @param onlyCheckIfSolution
@@ -225,7 +225,7 @@ public class GameState implements State {
 //		return neighbor;
 	}
 
-	/* select random Tile in board rows, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
+	/* select random Tile in board_pointer rows, move to a random spot in the same column TODO: be biased to pick a certain one to change ? */
 	private State getTrulyRandomNeighbor() {
 		int column = random.nextInt(this.size);
 		int newRow = random.nextInt(this.size);
@@ -361,8 +361,8 @@ public class GameState implements State {
 
 	@Override
 	public State reproduce(State state) {
-		GameState board = (GameState)state;
-		assert(board.getColumns().length == size);
+		GameState board_pointer = (GameState)state;
+		assert(board_pointer.getColumns().length == size);
 
 		int dividingIndex = random.nextInt(size - 1) + 1;
 		Tile[] newColumns = new Tile[size];
@@ -370,7 +370,7 @@ public class GameState implements State {
 		Tile tile;
 		for (int i = 0; i < size; ++i) {
 			if (i < dividingIndex) tile = rows[i];
-			else tile = board.getColumns()[i];
+			else tile = board_pointer.getColumns()[i];
 
 			newColumns[i] = tile;
 		}
