@@ -29,16 +29,28 @@ bool Board::IsTerminal() {
     // check tile above
     bool upwards_movable = pos - BOARD_SIZE >= 0 && board[pos - BOARD_SIZE] == empty_repr;
 
+    // check NorthEast
+    bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && board[pos - BOARD_SIZE + 1] == empty_repr;
+
     // check tile to right
     bool rightwards_movable = pos % BOARD_SIZE != 7 && board[pos + 1] == empty_repr;
+
+    // check SouthEast
+    bool se_movable = pos + BOARD_SIZE + 1 <= BOARD_AREA && board[pos + BOARD_SIZE + 1] == empty_repr;
 
     // check tile below
     bool downwards_movable = pos + BOARD_SIZE < BOARD_AREA && board[pos + BOARD_SIZE] == empty_repr;
 
+    // check SouthWest
+    bool sw_movable = pos + BOARD_SIZE - 1 <= BOARD_AREA - 1 && board[pos + BOARD_SIZE - 1] == empty_repr;
+
     // check tile to left
     bool leftwards_movable = pos % BOARD_SIZE != 0 && board[pos - 1] == empty_repr;
 
-    return !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable); // if it can't move, it's terminal
+    // check NorthWest
+    bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && board[pos - BOARD_SIZE - 1] == empty_repr;
+
+    return !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable || ne_movable || se_movable || sw_movable || nw_movable); // if it can't move, it's terminal
 }
 
 float Board::GetScore() {

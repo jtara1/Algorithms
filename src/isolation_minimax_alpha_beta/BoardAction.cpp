@@ -9,7 +9,8 @@ BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
 
 // methods
 Board BoardAction::Results() {
-    return Board();
+    board_ptr->MovePlayer(end);
+    return *board_ptr;
 }
 
 /*
@@ -40,3 +41,4 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
 
     return actions;
 }
+

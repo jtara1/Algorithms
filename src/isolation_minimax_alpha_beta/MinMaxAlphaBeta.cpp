@@ -14,7 +14,7 @@
         v ←MAX-VALUE(state_pointer,−∞,+∞)
         return the action in ACTIONS(state_pointer) with value v
  */
-Board MinMaxAlphaBeta::AlphaBetaSearch(Board state) {
+Board MinMaxAlphaBeta::AlphaBetaSearch(Board& state) {
     float value = MaxValue(
             state,
             -std::numeric_limits<float>::infinity(),

@@ -24,4 +24,8 @@ void UserInterface::Start() {
         agent_pointers[!is_agent1_turn]->TakeTurn();
         is_agent1_turn = !is_agent1_turn;
     }
+
+    char temp;
+    std::cout << "game over\n";
+    std::cin >> temp;
 }
