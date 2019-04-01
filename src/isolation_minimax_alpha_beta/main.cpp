@@ -5,7 +5,8 @@
 #include "headers/AIAgent.h"
 
 int main() {
-    HumanAgent a1 = HumanAgent();
+//    HumanAgent a1 = HumanAgent();
+    AIAgent a1 = AIAgent();
     HumanAgent a2 = HumanAgent();
 
     UserInterface ui = UserInterface(&a1, &a2, true);

@@ -1,7 +1,9 @@
 #include <sstream>
 #include <iomanip>
+
 #include "headers/Board.h"
 #include "headers/LinearEquation.h"
+#include "headers/BoardAction.h"
 
 // constructors
 Board::Board(bool ai_starts) {
@@ -39,8 +41,10 @@ bool Board::IsTerminal() {
     return !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable); // if it can't move, it's terminal
 }
 
-float Board::GetValue() {
-    return 0.0;
+float Board::GetScore() {
+    const int player_actions = BoardAction::Actions(*this, false).size();
+    const int other_player_actions = BoardAction::Actions(*this, true).size();
+    return player_actions - other_player_actions;
 }
 
 // print methods
@@ -193,4 +197,12 @@ void Board::UpdateActionHistory(int pos) {
 
 void Board::SetPlayerPos(int pos) {
     is_ai_turn ? ai_pos = pos : enemy_pos = pos;
+}
+
+int Board::GetOtherPlayerPos() {
+    return is_ai_turn ? enemy_pos : ai_pos;
+}
+
+char Board::GetOtherPlayerRepr() {
+    return is_ai_turn ? enemy_repr : ai_repr;
 }

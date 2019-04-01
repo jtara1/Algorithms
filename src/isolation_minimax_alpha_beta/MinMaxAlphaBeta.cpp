@@ -36,7 +36,7 @@ Board MinMaxAlphaBeta::AlphaBetaSearch(Board state) {
         return v
  */
 float MinMaxAlphaBeta::MaxValue(Board state, float alpha, float beta) {
-    if (state.IsTerminal()) return state.GetValue();
+    if (state.IsTerminal()) return state.GetScore();
     float value = -std::numeric_limits<float>::infinity();
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
@@ -62,7 +62,7 @@ float MinMaxAlphaBeta::MaxValue(Board state, float alpha, float beta) {
         return v
  */
 float MinMaxAlphaBeta::MinValue(Board state, float alpha, float beta) {
-    if (state.IsTerminal()) return state.GetValue();
+    if (state.IsTerminal()) return state.GetScore();
     float value = std::numeric_limits<float>::infinity();
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);

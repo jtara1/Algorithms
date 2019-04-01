@@ -6,11 +6,13 @@
 
 class AIAgent : public Agent {
 public:
-//    AIAgent(State state_pointer);
-//
-//    void TakeTurn();
-//
-//    MinMaxAlphaBeta min_max;
+    AIAgent();
+
+    void TakeTurn() override;
+
+    MinMaxAlphaBeta min_max;
+
+    std::string name = "AI Agent";
 };
 
 

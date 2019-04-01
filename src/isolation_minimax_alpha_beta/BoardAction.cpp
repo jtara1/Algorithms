@@ -1,9 +1,6 @@
 #include "headers/BoardAction.h"
-//#include "headers/State.h"
 
-//BoardAction::BoardAction(std::array<char, BOARD_AREA> board_pointer, int start, int end, char board_repr) {
 BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
-//    this->board_pointer = board_pointer;
     board_ptr = &board;
     this->start = start;
     this->end = end;
@@ -12,7 +9,6 @@ BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
 
 // methods
 Board BoardAction::Results() {
-//    std::array<char, BOARD_AREA> new_board = board_pointer; // copy
     return Board();
 }
 
@@ -22,21 +18,21 @@ Board BoardAction::Results() {
  * directions: North, NorthEast, East, SouthEast, etc.
  * increments: -8, -7, +1, +9, etc
  */
-std::vector<BoardAction> BoardAction::Actions(Board& board) {
+std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_player) {
     static int directions [8] = {-8, -7, 1, 9, 8, 7, -1, -9};
 
     std::vector<BoardAction> actions = std::vector<BoardAction>();
-    int next_pos, pos;
+    int next_pos;
+    int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
+    char tile_repr = for_other_player ? board.GetOtherPlayerRepr() : board.GetPlayerRepr();
 
     for (int i = 0; i < 8; ++i) {
-        pos = board.GetPlayerPos();
         next_pos = pos;
 
         while (true) { // O(BOARD_SIZE = 8)
             next_pos += directions[i];
             if (!board.CanBeOccupied(next_pos)) break;
 
-            char tile_repr = board.GetPlayerRepr();
             BoardAction action = BoardAction(board, pos, next_pos, tile_repr);
             actions.emplace_back(action);
         }

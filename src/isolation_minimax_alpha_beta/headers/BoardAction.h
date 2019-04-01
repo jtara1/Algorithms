@@ -20,7 +20,7 @@ public:
 
     // methods
     Board Results();
-    static std::vector<BoardAction> Actions(Board& board);
+    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false);
 
 };
 
