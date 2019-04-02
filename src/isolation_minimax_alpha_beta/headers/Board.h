@@ -34,6 +34,10 @@ public:
     void MovePlayer(int row, int col);
     void MovePlayer(int pos);
 
+    static int CoordsToBoardIndex(int row, int col);
+    static std::tuple<int, int> BoardIndexToCoords(int index);
+
+    // printing methods
     std::string Repr() const;
     std::ostringstream VisualRepr() const;
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
@@ -55,10 +59,6 @@ private:
     bool is_ai_turn;
 
     // methods
-    int CoordsToBoardIndex(int row, int col);
-
-    std::tuple<int, int> BoardIndexToCoords(int index);
-
     void UpdateActionHistory(int pos);
 };
 

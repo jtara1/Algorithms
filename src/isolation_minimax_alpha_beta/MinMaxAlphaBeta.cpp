@@ -11,33 +11,54 @@
 #include "headers/BoardAction.h"
 #include "headers/IndexScoreTuple.h"
 
+BoardAction MinMaxAlphaBeta::FindAction(Board& state) {
+    this->clock_start = std::clock();
+    this->started_search = true;
+
+    BoardAction action = AlphaBetaSearch(state);
+
+    // reset to defaults
+    best_action_ptr = nullptr;
+    // todo: reset best_action using a default constructor
+    max_depth = max_depth_default;
+    depth = 0;
+
+    root_actions_index = -1;
+    root_actions_ptr = nullptr;
+    root_actions = std::vector<BoardAction>();
+
+    started_search = false;
+
+    return action;
+}
+
 // implementations
 /*
  * function ALPHA-BETA-SEARCH(state_pointer) returns an action
         v ←MAX-VALUE(state_pointer,−∞,+∞)
         return the action in ACTIONS(state_pointer) with value v
  */
-Board MinMaxAlphaBeta::AlphaBetaSearch(Board& state) {
-    if (!started_search) this->clock_start = std::clock();
-    this->started_search = true;
+BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& state) {
 
     IndexScoreTuple neg_inf = IndexScoreTuple::NegInf();
     IndexScoreTuple inf = IndexScoreTuple::Inf();
 
-    IndexScoreTuple value = MaxValue(
+    IndexScoreTuple best_value = MaxValue(
         state,
         neg_inf,
         inf,
         true
     );
 
-    std::cout << value.index << value.score << "\n";
+    this->best_action = GetAction(best_value.index);
+    best_action_ptr = &best_action;
+
+//    std::cout << best_value.index << best_value.score << "\n";
 
     max_depth += max_depth_step;
     if (GetTime() <= max_time) return AlphaBetaSearch(state);
-    // return the action in ACTIONS(state_pointer) whose float is value
-//    return BoardAction().Results();
-    return Board();
+
+    return best_action;
 }
 
 Board MinMaxAlphaBeta::AlphaBetaSearchIterative(Board& state) {
@@ -66,10 +87,10 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         root_actions_ptr = &root_actions;
     }
 
-    int root_actions_index = -1;
+    int index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        root_actions_index += is_root_recursion;
-        if (is_root_recursion) this->root_actions_index = root_actions_index;
+        index += is_root_recursion;
+        if (is_root_recursion) this->root_actions_index = index;
 
         BoardAction action = *it;
 
@@ -82,7 +103,7 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Max(beta, value);
     }
 
-    return { root_actions_index, state.GetScore() };
+    return { index, state.GetScore() };
 }
 
 /*
@@ -107,10 +128,10 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         root_actions_ptr = &root_actions;
     }
 
-    int root_actions_index = -1;
+    int index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        root_actions_index += is_root_recursion;
-        if (is_root_recursion) this->root_actions_index = root_actions_index;
+        index += is_root_recursion;
+        if (is_root_recursion) this->root_actions_index = index;
 
         BoardAction action = *it;
 
@@ -123,7 +144,7 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Min(beta, value);
     }
 
-    return { root_actions_index, state.GetScore() };
+    return { index, state.GetScore() };
 }
 
 MinMaxAlphaBeta::MinMaxAlphaBeta() {
@@ -132,4 +153,9 @@ MinMaxAlphaBeta::MinMaxAlphaBeta() {
 
 double MinMaxAlphaBeta::GetTime() {
     return (std::clock() - this->clock_start) / (double)CLOCKS_PER_SEC;
+}
+
+BoardAction MinMaxAlphaBeta::GetAction(int index) {
+    if (index < 0) throw std::invalid_argument("index can not be negative for MinMaxAlphaBeta::GetAction method");
+    return root_actions[index];
 }

@@ -1,3 +1,5 @@
+#include <tuple>
+#include <iostream>
 #include "headers/BoardAction.h"
 
 BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
@@ -59,5 +61,11 @@ bool BoardAction::operator>=(const BoardAction &action) {
 
 float BoardAction::GetScore() const {
     return score;
+}
+
+std::ostream &operator<<(std::ostream &os, BoardAction &action) {
+    std::tuple<int, int> coords = Board::BoardIndexToCoords(action.end);
+    os << "row,col indices: " << std::get<1>(coords) << ", " << std::get<0>(coords) << '\n';
+    return os;
 }
 

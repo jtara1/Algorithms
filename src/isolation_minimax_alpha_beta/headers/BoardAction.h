@@ -13,7 +13,8 @@ public:
     int end;
     Board* board_ptr;
 
-    // constructor
+    // constructors
+    BoardAction() = default;
     BoardAction(Board& board, int start, int end, char board_repr);
 
     // methods
@@ -25,6 +26,7 @@ public:
 
     // ops
     bool operator>=(const BoardAction& action);
+    friend std::ostream& operator<<(std::ostream& os, BoardAction& action);
 
 private:
     float score;
