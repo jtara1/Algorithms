@@ -8,6 +8,7 @@
 
 #include "headers/Board.h"
 #include "headers/BoardAction.h"
+#include "headers/IndexScoreTuple.h"
 
 // implementations
 /*
@@ -19,7 +20,7 @@ Board MinMaxAlphaBeta::AlphaBetaSearch(Board& state) {
     if (!started_search) this->clock_start = std::clock();
     this->started_search = true;
 
-    float value = MaxValue(
+    IndexScoreTuple value = MaxValue(
             state,
             -std::numeric_limits<float>::infinity(),
             std::numeric_limits<float>::infinity(),
@@ -47,10 +48,10 @@ Board MinMaxAlphaBeta::AlphaBetaSearchIterative(Board& state) {
             α←MAX(α, v)
         return v
  */
-std::tuple<int, float> MinMaxAlphaBeta::MaxValue(Board& state, float alpha, float beta, bool is_root_recursion) {
-    if (depth >= max_depth || state.IsTerminal()) return std::tuple<int, float>(root_actions_index, state.GetScore());
+IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion) {
+    if (depth >= max_depth || state.IsTerminal()) return {root_actions_index, state.GetScore()};
 
-    float value = -std::numeric_limits<float>::infinity();
+    IndexScoreTuple value = IndexScoreTuple::NegInf();
     ++(this->depth);
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
@@ -67,11 +68,11 @@ std::tuple<int, float> MinMaxAlphaBeta::MaxValue(Board& state, float alpha, floa
         value = std::max(value, MinValue(next_board, alpha, beta)); // TODO: what's s, Results, Max ?
 
         if (value >= beta)
-            return std::make_tuple(root_actions_index, state.GetScore());
-        alpha = std::max(alpha, value);
+            return { root_actions_index, state.GetScore() };
+        beta = IndexScoreTuple::Max(beta, value);
     }
 
-    return std::make_tuple(root_actions_index, state.GetScore());
+    return IndexScoreTuple(root_actions_index, state.GetScore());
 }
 
 /*
@@ -84,10 +85,10 @@ std::tuple<int, float> MinMaxAlphaBeta::MaxValue(Board& state, float alpha, floa
             β ← MIN(β, v)
         return v
  */
-std::tuple<int, float> MinMaxAlphaBeta::MinValue(Board& state, float alpha, float beta, bool is_root_recursion) {
+IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion) {
     if (depth >= max_depth || state.IsTerminal()) std::make_tuple(root_actions_index, state.GetScore());
 
-    float value = std::numeric_limits<float>::infinity();
+    IndexScoreTuple value = IndexScoreTuple::Inf();
     ++(this->depth);
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
@@ -104,11 +105,11 @@ std::tuple<int, float> MinMaxAlphaBeta::MinValue(Board& state, float alpha, floa
         value = std::min(value, MaxValue(next_board, alpha, beta)); // TODO: what's s, Results, Min ?
 
         if (value <= alpha)
-            return std::make_tuple(root_actions_index, state.GetScore());
-        beta = std::min(beta, value);
+            return { root_actions_index, state.GetScore() };
+        beta = IndexScoreTuple::Min(beta, value);
     }
 
-    return std::make_tuple(root_actions_index, state.GetScore());
+    return { root_actions_index, state.GetScore() };
 }
 
 MinMaxAlphaBeta::MinMaxAlphaBeta() {
@@ -117,10 +118,4 @@ MinMaxAlphaBeta::MinMaxAlphaBeta() {
 
 double MinMaxAlphaBeta::GetTime() {
     return (std::clock() - this->clock_start) / (double)CLOCKS_PER_SEC;
-}
-
-// helper funcs
-bool GetMax(float value, std::tuple<int, float> tuple) {
-    float value2 = std::get<1>(tuple);
-    return value > value2 ? value : value2;
 }

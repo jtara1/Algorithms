@@ -20,3 +20,11 @@ IndexScoreTuple& IndexScoreTuple::Max(IndexScoreTuple &a, IndexScoreTuple &b) {
 IndexScoreTuple& IndexScoreTuple::Min(IndexScoreTuple &a, IndexScoreTuple &b) {
     return a <= b ? a : b;
 }
+
+IndexScoreTuple IndexScoreTuple::Inf() {
+    return inf_score;
+}
+
+IndexScoreTuple IndexScoreTuple::NegInf() {
+    return neg_inf_score;
+}
