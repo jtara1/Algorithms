@@ -11,17 +11,23 @@ public:
     // attrs
     int start;
     int end;
-//    std::array<char, BOARD_AREA> board_pointer;
     Board* board_ptr;
-    char tile_repr;
 
     // constructor
     BoardAction(Board& board, int start, int end, char board_repr);
 
     // methods
-    Board Results();
+    Board Results(bool mutate = false);
     static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false);
 
+    void SetScore(float score);
+    float GetScore() const;
+
+    // ops
+    bool operator>=(const BoardAction& action);
+
+private:
+    float score;
 };
 
 #endif //PROJECT_ACTION_H

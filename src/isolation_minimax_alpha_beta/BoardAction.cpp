@@ -4,14 +4,25 @@ BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
     board_ptr = &board;
     this->start = start;
     this->end = end;
-    this->tile_repr = board_repr;
 }
 
 // methods
-Board BoardAction::Results() {
+Board BoardAction::Results(bool mutate) {
+    if (!mutate) {
+        Board board = *board_ptr;
+        board.MovePlayer(end);
+        return board;
+    }
+
     board_ptr->MovePlayer(end);
     return *board_ptr;
 }
+
+void BoardAction::SetScore(float score) {
+    this->score = score;
+}
+
+
 
 /*
  * move as a queen in as many as 8 directions
@@ -40,5 +51,13 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
     }
 
     return actions;
+}
+
+bool BoardAction::operator>=(const BoardAction &action) {
+    return score >= action.GetScore();
+}
+
+float BoardAction::GetScore() const {
+    return score;
 }
 

@@ -18,4 +18,4 @@ add_executable(test_build main.cpp
         headers/HumanAgent.h HumanAgent.cpp
         headers/MinMaxAlphaBeta.h MinMaxAlphaBeta.cpp
         headers/UserInterface.h UserInterface.cpp
-        LinearEquation.cpp headers/LinearEquation.h Heuristic.cpp headers/Heuristic.h)
+        LinearEquation.cpp headers/LinearEquation.h Heuristic.cpp headers/Heuristic.h IndexScoreTuple.cpp headers/IndexScoreTuple.h)
