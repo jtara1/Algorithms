@@ -4,6 +4,7 @@
 #include <ctime>
 #include "Board.h"
 #include "BoardAction.h"
+#include "IndexScoreTuple.h"
 
 class MinMaxAlphaBeta {
 public:
@@ -26,13 +27,14 @@ public:
 
     BoardAction* best_action;
     bool started_search = false;
-    std::vector<BoardAction>* root_actions;
+    std::vector<BoardAction>* root_actions_ptr;
 
 private:
-    std::tuple<int, float> MinValue(Board& state, float alpha, float beta, bool is_root_recursion = false);
-    std::tuple<int, float> MaxValue(Board& state, float alpha, float beta);
+    IndexScoreTuple MinValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
+    IndexScoreTuple MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
 
     int root_actions_index;
+    std::vector<BoardAction> root_actions;
 };
 
 

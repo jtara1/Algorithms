@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iterator>
 #include <tuple>
+#include <iostream>
 
 #include "headers/Board.h"
 #include "headers/BoardAction.h"
@@ -20,12 +21,17 @@ Board MinMaxAlphaBeta::AlphaBetaSearch(Board& state) {
     if (!started_search) this->clock_start = std::clock();
     this->started_search = true;
 
+    IndexScoreTuple neg_inf = IndexScoreTuple::NegInf();
+    IndexScoreTuple inf = IndexScoreTuple::Inf();
+
     IndexScoreTuple value = MaxValue(
-            state,
-            -std::numeric_limits<float>::infinity(),
-            std::numeric_limits<float>::infinity(),
-            true
+        state,
+        neg_inf,
+        inf,
+        true
     );
+
+    std::cout << value.index << value.score << "\n";
 
     max_depth += max_depth_step;
     if (GetTime() <= max_time) return AlphaBetaSearch(state);
@@ -49,13 +55,16 @@ Board MinMaxAlphaBeta::AlphaBetaSearchIterative(Board& state) {
         return v
  */
 IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion) {
-    if (depth >= max_depth || state.IsTerminal()) return {root_actions_index, state.GetScore()};
+    if (depth >= max_depth || state.IsTerminal()) return { root_actions_index, state.GetScore() };
 
     IndexScoreTuple value = IndexScoreTuple::NegInf();
     ++(this->depth);
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
-    if (this->root_actions == nullptr) root_actions = &actions;
+    if (this->root_actions_ptr == nullptr) {
+        this->root_actions = actions;
+        root_actions_ptr = &root_actions;
+    }
 
     int root_actions_index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
@@ -65,14 +74,15 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         BoardAction action = *it;
 
         Board next_board = action.Results();
-        value = std::max(value, MinValue(next_board, alpha, beta)); // TODO: what's s, Results, Max ?
+        IndexScoreTuple min_value = MinValue(next_board, alpha, beta);
+        value = IndexScoreTuple::Max(value, min_value);
 
         if (value >= beta)
             return { root_actions_index, state.GetScore() };
         beta = IndexScoreTuple::Max(beta, value);
     }
 
-    return IndexScoreTuple(root_actions_index, state.GetScore());
+    return { root_actions_index, state.GetScore() };
 }
 
 /*
@@ -92,7 +102,10 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
     ++(this->depth);
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
-    if (this->root_actions == nullptr) root_actions = &actions;
+    if (this->root_actions_ptr == nullptr) {
+        this->root_actions = actions;
+        root_actions_ptr = &root_actions;
+    }
 
     int root_actions_index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
@@ -102,7 +115,8 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         BoardAction action = *it;
 
         Board next_board = action.Results();
-        value = std::min(value, MaxValue(next_board, alpha, beta)); // TODO: what's s, Results, Min ?
+        IndexScoreTuple max_value = MaxValue(next_board, alpha, beta);
+        value = IndexScoreTuple::Min(value, max_value);
 
         if (value <= alpha)
             return { root_actions_index, state.GetScore() };

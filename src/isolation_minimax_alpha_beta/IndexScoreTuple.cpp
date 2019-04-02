@@ -22,9 +22,21 @@ IndexScoreTuple& IndexScoreTuple::Min(IndexScoreTuple &a, IndexScoreTuple &b) {
 }
 
 IndexScoreTuple IndexScoreTuple::Inf() {
-    return inf_score;
+    return { -1, std::numeric_limits<float>::infinity() };
+//    if (IndexScoreTuple::inf_score_ptr == nullptr) {
+//        IndexScoreTuple::inf_score = IndexScoreTuple(-1, std::numeric_limits<float>::infinity());
+//        IndexScoreTuple::inf_score_ptr = &IndexScoreTuple::inf_score;
+//    }
+//
+//    return inf_score;
 }
 
 IndexScoreTuple IndexScoreTuple::NegInf() {
-    return neg_inf_score;
+    return { -1, -std::numeric_limits<float>::infinity() };
+//    if (IndexScoreTuple::neg_inf_score_ptr == nullptr) {
+//        IndexScoreTuple::neg_inf_score = IndexScoreTuple(-1, -std::numeric_limits<float>::infinity());
+//        IndexScoreTuple::neg_inf_score_ptr = &IndexScoreTuple::inf_score;
+//    }
+//
+//    return neg_inf_score;
 }
