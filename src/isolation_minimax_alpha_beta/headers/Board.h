@@ -22,7 +22,8 @@ public:
 
     bool CanBeOccupied(int pos);
     /* is current player is allowed to move from his current pos to this pos? */
-    bool IsLegalMove(int row, int col);
+    bool IsLegalMove(int row, int col, bool for_other_player = false);
+    bool IsLegalMove(int board_index, bool for_other_player = false);
 
     int GetPlayerPos();
     int GetOtherPlayerPos();

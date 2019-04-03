@@ -151,12 +151,17 @@ std::string Board::Repr() const {
     return VisualRepr().str();
 }
 
-bool Board::IsLegalMove(int row, int col) {
-    int pos = CoordsToBoardIndex(row, col);
+bool Board::IsLegalMove(int board_index, bool for_other_player) {
+    std::tuple<int, int> coords = BoardIndexToCoords(board_index);
+    return IsLegalMove(std::get<1>(coords), std::get<0>(coords), for_other_player);
+}
+
+bool Board::IsLegalMove(int row, int col, bool for_other_player) {
+    int pos = CoordsToBoardIndex(row, col); // where a player wants to move to
     if (!CanBeOccupied(pos)) return false;
 
     // get the linear equation from current pos, to new pos
-    std::tuple<int, int> coords = BoardIndexToCoords(GetPlayerPos());
+    std::tuple<int, int> coords = BoardIndexToCoords(for_other_player ? GetOtherPlayerPos() : GetPlayerPos()); // current pos on board
     float x = (float)std::get<1>(coords);
     float y = (float)std::get<0>(coords);
     float x2 = (float)col;
@@ -165,7 +170,7 @@ bool Board::IsLegalMove(int row, int col) {
     LinearEquation eqn = LinearEquation(x, y, x2, y2);
     if (!eqn.IsQueenAttackPath(x, y)) return false;
 
-    for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) {
+    for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
         int tile_index = CoordsToBoardIndex((int)std::get<1>(point), (int)std::get<0>(point));
         if (board[tile_index] != empty_repr) return false;
     }
@@ -189,7 +194,8 @@ void Board::MovePlayer(int row, int col) {
 
 void Board::MovePlayer(int pos) {
     board[pos] = GetPlayerRepr();
-    board[GetPlayerPos()] = visited_repr;
+    int player_pos = GetPlayerPos();
+    board[player_pos] = visited_repr;
 
     UpdateActionHistory(pos);
 

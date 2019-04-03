@@ -8,11 +8,6 @@
 
 class BoardAction {
 public:
-    // attrs
-    int start;
-    int end;
-    Board* board_ptr;
-
     // constructors
     BoardAction() = default;
     BoardAction(Board& board, int start, int end, char board_repr);
@@ -26,10 +21,15 @@ public:
 
     // ops
     bool operator>=(const BoardAction& action);
+    bool operator<(const BoardAction& action) const;
     friend std::ostream& operator<<(std::ostream& os, BoardAction& action);
 
 private:
-    float score;
+    // attrs
+    int start;
+    int end;
+    Board* board_ptr;
+    float score = 0;
 };
 
 #endif //PROJECT_ACTION_H

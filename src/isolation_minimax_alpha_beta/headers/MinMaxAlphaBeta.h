@@ -10,17 +10,19 @@ class MinMaxAlphaBeta {
 public:
     MinMaxAlphaBeta();
 
-    BoardAction FindAction(Board &state);
+    BoardAction FindAction(Board& state);
 
     double GetTime();
-    BoardAction GetAction(int index);
-
-    Board AlphaBetaSearchIterative(Board &state);
 
 private:
-    BoardAction AlphaBetaSearch(Board& state);
+    BoardAction AlphaBetaSearch(Board& board);
     IndexScoreTuple MinValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
     IndexScoreTuple MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
+
+    BoardAction GetAction(int index);
+
+    Board* boad_ptr = nullptr;
+    Board board;
 
     int depth = 0;
 
@@ -42,6 +44,11 @@ private:
     int root_actions_index;
     std::vector<BoardAction> root_actions;
     BoardAction best_action;
+
+    void Reset();
+
+    Board state;
+    Board *state_ptr;
 };
 
 

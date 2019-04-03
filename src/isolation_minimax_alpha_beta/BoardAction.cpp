@@ -1,5 +1,6 @@
 #include <tuple>
 #include <iostream>
+#include <set>
 #include "headers/BoardAction.h"
 
 BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
@@ -24,8 +25,6 @@ void BoardAction::SetScore(float score) {
     this->score = score;
 }
 
-
-
 /*
  * move as a queen in as many as 8 directions
  * a move to each possible tile in its path is considered an action
@@ -33,9 +32,9 @@ void BoardAction::SetScore(float score) {
  * increments: -8, -7, +1, +9, etc
  */
 std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_player) {
-    static int directions [8] = {-8, -7, 1, 9, 8, 7, -1, -9};
+    static int directions [8] = { -8, -7, 1, 9, 8, 7, -1, -9 };
 
-    std::vector<BoardAction> actions = std::vector<BoardAction>();
+    std::set<BoardAction> actions = std::set<BoardAction>();
     int next_pos;
     int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
     char tile_repr = for_other_player ? board.GetOtherPlayerRepr() : board.GetPlayerRepr();
@@ -43,16 +42,17 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
     for (int i = 0; i < 8; ++i) {
         next_pos = pos;
 
-        while (true) { // O(BOARD_SIZE = 8)
+        for (int j = 0; j < BOARD_SIZE; ++j) {
             next_pos += directions[i];
-            if (!board.CanBeOccupied(next_pos)) break;
+            if (!board.IsLegalMove(next_pos, for_other_player)) break;
 
             BoardAction action = BoardAction(board, pos, next_pos, tile_repr);
-            actions.emplace_back(action);
+            actions.insert(action);
         }
     }
 
-    return actions;
+    std::vector<BoardAction> actions_vector(actions.begin(), actions.end());
+    return actions_vector;
 }
 
 bool BoardAction::operator>=(const BoardAction &action) {
@@ -65,7 +65,11 @@ float BoardAction::GetScore() const {
 
 std::ostream &operator<<(std::ostream &os, BoardAction &action) {
     std::tuple<int, int> coords = Board::BoardIndexToCoords(action.end);
-    os << "row,col indices: " << std::get<1>(coords) << ", " << std::get<0>(coords) << '\n';
+    os << "row, col indices: " << std::get<1>(coords) << ", " << std::get<0>(coords) << '\n';
     return os;
+}
+
+bool BoardAction::operator<(const BoardAction &action) const {
+    return end < action.end;
 }
 
