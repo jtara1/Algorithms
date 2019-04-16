@@ -54,13 +54,13 @@ bool Board::IsTerminal() {
         bool rightwards_movable = pos % BOARD_SIZE != 7 && board.at((size_t)pos + 1) == empty_repr;
 
         // check SouthEast
-        bool se_movable = pos + BOARD_SIZE + 1 <= BOARD_AREA && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
+        bool se_movable = pos + BOARD_SIZE + 1 < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
 
         // check tile below
         bool downwards_movable = pos + BOARD_SIZE < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE) == empty_repr;
 
         // check SouthWest
-        bool sw_movable = pos + BOARD_SIZE - 1 <= BOARD_AREA - 1 && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
+        bool sw_movable = pos + BOARD_SIZE - 1 < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
 
         // check tile to left
         bool leftwards_movable = pos % BOARD_SIZE != 0 && board.at((size_t)pos - 1) == empty_repr;

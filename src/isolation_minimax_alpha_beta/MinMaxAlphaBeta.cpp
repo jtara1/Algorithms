@@ -24,6 +24,7 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->state_ptr = &(this->state);
 
     std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, true);
+    if (quick_actions.size() == 0) throw std::invalid_argument("could not find any quick actions");
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
@@ -100,7 +101,7 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Max(beta, value);
     }
 
-    return { index, state.GetScore() };
+    return { root_actions_index, state.GetScore() };
 }
 
 /*
@@ -142,7 +143,7 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Min(beta, value);
     }
 
-    return { index, state.GetScore() };
+    return { root_actions_index, state.GetScore() };
 }
 
 double MinMaxAlphaBeta::GetTime() {
