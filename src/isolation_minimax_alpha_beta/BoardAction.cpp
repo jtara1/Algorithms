@@ -23,9 +23,9 @@ Board BoardAction::Results(bool mutate) {
     return *board_ptr;
 }
 
-void BoardAction::SetScore(float score) {
-    this->score = score;
-}
+//void BoardAction::SetScore(float score) {
+//    this->score = score;
+//}
 
 /*
  * move as a queen in as many as 8 directions

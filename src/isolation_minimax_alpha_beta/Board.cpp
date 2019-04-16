@@ -22,14 +22,17 @@ Board::Board(bool ai_starts) {
 }
 
 Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts) : Board(ai_starts) {
-    board = init_board;
     ai_pos = ai_starts ? player1_pos : player2_pos;
     enemy_pos = ai_starts ? player2_pos : player1_pos;
 
-//    for (char tile : board) {
-//        if (tile != ai_repr || tile != enemy_repr || tile != empty_repr)
-//            throw std::invalid_argument("invalid character for tile in init board");
-//    }
+    for (int i = 0; i < init_board.size(); ++i) {
+        char tile = init_board[i];
+
+        if (tile != ai_repr && tile != enemy_repr && tile != empty_repr && tile != visited_repr)
+            throw std::invalid_argument("invalid character for tile in init board");
+    }
+
+    board = init_board;
 }
 
 bool Board::IsAITurn() const {
@@ -48,25 +51,25 @@ bool Board::IsTerminal() {
         bool upwards_movable = pos - BOARD_SIZE >= 0 && board.at((size_t)pos - BOARD_SIZE) == empty_repr;
 
         // check NorthEast
-        bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && board.at((size_t)pos - BOARD_SIZE + 1) == empty_repr;
+        bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && pos % BOARD_SIZE != 7 && board.at((size_t)pos - BOARD_SIZE + 1) == empty_repr;
 
         // check tile to right
         bool rightwards_movable = pos % BOARD_SIZE != 7 && board.at((size_t)pos + 1) == empty_repr;
 
         // check SouthEast
-        bool se_movable = pos + BOARD_SIZE + 1 < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
+        bool se_movable = pos + BOARD_SIZE + 1 < BOARD_AREA && pos % BOARD_SIZE != 7 && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
 
         // check tile below
         bool downwards_movable = pos + BOARD_SIZE < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE) == empty_repr;
 
         // check SouthWest
-        bool sw_movable = pos + BOARD_SIZE - 1 < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
+        bool sw_movable = pos + BOARD_SIZE - 1 < BOARD_AREA && pos % BOARD_SIZE != 0 && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
 
         // check tile to left
         bool leftwards_movable = pos % BOARD_SIZE != 0 && board.at((size_t)pos - 1) == empty_repr;
 
         // check NorthWest
-        bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && board.at((size_t)pos - BOARD_SIZE - 1) == empty_repr;
+        bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && pos % BOARD_SIZE != 0 && board.at((size_t)pos - BOARD_SIZE - 1) == empty_repr;
 
         bool terminal = !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable || ne_movable || se_movable || sw_movable || nw_movable); // if it can't move, it's terminal
         if (terminal) {
@@ -82,8 +85,8 @@ bool Board::IsTerminal() {
 }
 
 float Board::GetScore() {
-    const int player_actions = BoardAction::Actions(*this, false).size();
-    const int other_player_actions = BoardAction::Actions(*this, true).size();
+    const int player_actions = static_cast<const int>(BoardAction::Actions(*this, false).size());
+    const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, true).size());
     return player_actions - other_player_actions;
 }
 

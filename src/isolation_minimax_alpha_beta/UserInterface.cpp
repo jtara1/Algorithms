@@ -28,7 +28,23 @@ UserInterface::UserInterface(Agent *agent1, Agent *agent2, bool agent1_goes_firs
 //
 //    this->board = Board(board_repr, 21, 35);
 
-    this->board = Board();
+//    this->board = Board();
+
+    // #: 35, -: 45, O: 79, X: 88
+    std::array<char, BOARD_AREA> board_repr = {
+            35, 35, 35, 35, 35, 35, 35, 79,
+            45, 45, 45, 45, 45, 45, 45, 88,
+            45, 45, 35, 45, 35, 45, 35, 35,
+            45, 45, 45, 35, 35, 45, 35, 35,
+            45, 45, 45, 45, 35, 35, 35, 35,
+            45, 45, 45, 45, 45, 35, 45, 35,
+            45, 45, 45, 45, 45, 45, 45, 35,
+            45, 45, 45, 45, 45, 45, 45, 35
+    };
+
+    this->board = Board(board_repr, 15, 7, true);
+
+
     board_pointer = &board;
 
     agent_pointers[0] = agent1;

@@ -24,7 +24,7 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->state_ptr = &(this->state);
 
     std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, true);
-    if (quick_actions.size() == 0) throw std::invalid_argument("could not find any quick actions");
+    if (quick_actions.empty()) throw std::invalid_argument("could not find any quick actions");
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
@@ -97,7 +97,7 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         value = IndexScoreTuple::Max(value, min_value);
 
         if (value >= beta)
-            return { root_actions_index, state.GetScore() };
+            return { root_actions_index, value.score };
         beta = IndexScoreTuple::Max(beta, value);
     }
 
@@ -139,7 +139,7 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         value = IndexScoreTuple::Min(value, max_value);
 
         if (value <= alpha)
-            return { root_actions_index, state.GetScore() };
+            return { root_actions_index, value.score };
         beta = IndexScoreTuple::Min(beta, value);
     }
 
@@ -152,14 +152,14 @@ double MinMaxAlphaBeta::GetTime() {
 
 BoardAction MinMaxAlphaBeta::GetBestAction(int index, bool previous_call_failed) {
     try {
-        if (previous_call_failed) index = std::rand() / ((RAND_MAX + 1u) / (root_actions.size() - 1)); // random index in range of root_actions size
+        if (previous_call_failed) index = GetRandomIndex((int)root_actions.size()); // random index in range of root_actions size
 
-        bool in_range = index < 0 || index >= (*root_actions_ptr).size();
+        bool in_range = index >= 0 && index < (*root_actions_ptr).size();
 
         if (!in_range && !previous_call_failed) {
 //        std::cout << "warning: attempt choosing random action; index = " << index << std::endl;
             return GetBestAction(index, true); // attempt to pick a random root action
-        } else if (!in_range && previous_call_failed) {
+        } else if (!in_range) { // not in range and previous method call failed
 //        std::cout << "warning: quickest action chosen; index = " << index << std::endl;
             return first_available_action; // could not create root actions
         }
@@ -186,4 +186,8 @@ void MinMaxAlphaBeta::Reset() {
     root_actions = std::vector<BoardAction>();
 
     started_search = false;
+}
+
+int MinMaxAlphaBeta::GetRandomIndex(int upper_limit) {
+    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
 }

@@ -24,14 +24,15 @@ private:
 
     void Reset();
 
+    int GetRandomIndex(int upper_limit);
     int depth = 0;
 
     /* the depth of the "tree" the algo will search before storing the best solution */
-    int max_depth = 3;
+    int max_depth = 1;
     int max_depth_default = max_depth;
 
     /* increment max_depth by this amount for iterative deepening */
-    int max_depth_step = 3;
+    int max_depth_step = 1;
 
     std::clock_t clock_start;
     double max_time = 2;
