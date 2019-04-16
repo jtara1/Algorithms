@@ -14,8 +14,8 @@ Board::Board(bool ai_starts) {
         this->board[i] = empty_repr;
     }
 
-    ai_pos = ai_starts ? 0 : BOARD_SIZE * BOARD_SIZE - 1;
-    enemy_pos = ai_starts ? BOARD_SIZE * BOARD_SIZE - 1 : 0;
+    ai_pos = ai_starts ? 0 : BOARD_AREA - 1;
+    enemy_pos = ai_starts ? BOARD_AREA - 1 : 0;
 
     board[ai_pos] = ai_repr;
     board[enemy_pos] = enemy_repr;
@@ -37,28 +37,28 @@ bool Board::IsTerminal() {
 
     for (int pos : positions) {
         // check tile above
-        bool upwards_movable = pos - BOARD_SIZE >= 0 && board[pos - BOARD_SIZE] == empty_repr;
+        bool upwards_movable = pos - BOARD_SIZE >= 0 && board.at((size_t)pos - BOARD_SIZE) == empty_repr;
 
         // check NorthEast
-        bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && board[pos - BOARD_SIZE + 1] == empty_repr;
+        bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && board.at((size_t)pos - BOARD_SIZE + 1) == empty_repr;
 
         // check tile to right
-        bool rightwards_movable = pos % BOARD_SIZE != 7 && board[pos + 1] == empty_repr;
+        bool rightwards_movable = pos % BOARD_SIZE != 7 && board.at((size_t)pos + 1) == empty_repr;
 
         // check SouthEast
-        bool se_movable = pos + BOARD_SIZE + 1 <= BOARD_AREA && board[pos + BOARD_SIZE + 1] == empty_repr;
+        bool se_movable = pos + BOARD_SIZE + 1 <= BOARD_AREA && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
 
         // check tile below
-        bool downwards_movable = pos + BOARD_SIZE < BOARD_AREA && board[pos + BOARD_SIZE] == empty_repr;
+        bool downwards_movable = pos + BOARD_SIZE < BOARD_AREA && board.at((size_t)pos + BOARD_SIZE) == empty_repr;
 
         // check SouthWest
-        bool sw_movable = pos + BOARD_SIZE - 1 <= BOARD_AREA - 1 && board[pos + BOARD_SIZE - 1] == empty_repr;
+        bool sw_movable = pos + BOARD_SIZE - 1 <= BOARD_AREA - 1 && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
 
         // check tile to left
-        bool leftwards_movable = pos % BOARD_SIZE != 0 && board[pos - 1] == empty_repr;
+        bool leftwards_movable = pos % BOARD_SIZE != 0 && board.at((size_t)pos - 1) == empty_repr;
 
         // check NorthWest
-        bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && board[pos - BOARD_SIZE - 1] == empty_repr;
+        bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && board.at((size_t)pos - BOARD_SIZE - 1) == empty_repr;
 
         bool terminal = !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable || ne_movable || se_movable || sw_movable || nw_movable); // if it can't move, it's terminal
         if (terminal) return true;
@@ -97,18 +97,19 @@ std::ostringstream Board::VisualRepr() const {
     int row = 0;
     for (int i = 0; i < BOARD_AREA; ++i) {
         if (i % BOARD_SIZE == 0) {
-            row = i / BOARD_SIZE;
+            row = i / BOARD_SIZE; // 0-indexed
             stream << char(65 + row) << " ";
         }
 
         stream << board[i] << " ";
 
-        if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) {
+        if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) { // if entire row was printed
             if (action_history.size() < row * 2 + 1) {
                 stream << '\n';
-            } else {
-                bool has_next = action_history.size() >= row * 2 + 2;
-                std::string next_move = has_next ? action_history[row * 2 + 1] : "";
+            } else { // action history has at least 1 action to print for this row
+                bool has_next = action_history.size() > row * 2 + 1; // has a 2nd action to print for this row
+                std::string next_move;
+                if (has_next) next_move = action_history.at((size_t)row * 2 + 1);
 
                 stream << '\t' << row + 1 << ". " << Stringf<std::string>(action_history.at((size_t)row * 2), 24);
                 stream << Stringf<std::string>(next_move, 24) << '\n';
@@ -121,7 +122,7 @@ std::ostringstream Board::VisualRepr() const {
         auto last = action_history.end();
         std::vector<std::string> history(first, last);
 
-        int row = BOARD_SIZE + 1;
+        int row = BOARD_SIZE + 1; // 1-indexed since it's used to print here
         int count = 0;
 
         for (const std::string &move : history) {
@@ -145,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, const Board& board) {
 
 // helper methods
 bool Board::CanBeOccupied(int pos) {
-    return pos >= 0 && pos < BOARD_AREA && board[pos] == empty_repr;
+    return pos >= 0 && pos < BOARD_AREA && board.at((size_t)pos) == empty_repr;
 }
 
 int Board::GetPlayerPos() {
@@ -168,6 +169,7 @@ bool Board::IsLegalMove(int board_index, bool for_other_player) {
 bool Board::IsLegalMove(int row, int col, bool for_other_player) {
     int pos = CoordsToBoardIndex(row, col); // where a player wants to move to
     if (!CanBeOccupied(pos)) return false;
+    if (row < 0 || col < 0 || row >= BOARD_SIZE || col >= BOARD_SIZE) return false;
 
     // get the linear equation from current pos, to new pos
     std::tuple<int, int> coords = BoardIndexToCoords(for_other_player ? GetOtherPlayerPos() : GetPlayerPos()); // current pos on board
@@ -181,7 +183,7 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
 
     for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
         int tile_index = CoordsToBoardIndex((int)std::get<1>(point), (int)std::get<0>(point));
-        if (board[tile_index] != empty_repr) return false;
+        if (board.at((size_t)tile_index) != empty_repr) return false;
     }
 
     return true;
@@ -202,9 +204,9 @@ void Board::MovePlayer(int row, int col) {
 }
 
 void Board::MovePlayer(int pos) {
-    board[pos] = GetPlayerRepr();
+    board.at((size_t)pos) = GetPlayerRepr();
     int player_pos = GetPlayerPos();
-    board[player_pos] = visited_repr;
+    board.at((size_t)player_pos) = visited_repr;
 
     UpdateActionHistory(pos);
 

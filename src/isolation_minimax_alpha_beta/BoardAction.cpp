@@ -7,6 +7,8 @@ BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
     board_ptr = &board;
     this->start = start;
     this->end = end;
+    if (end <= 0 || end >= 64)
+        char temp;
 }
 
 // methods
@@ -46,7 +48,7 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
             next_pos += directions[i];
             if (!board.IsLegalMove(next_pos, for_other_player)) break;
 
-            BoardAction action = BoardAction(board, pos, next_pos, tile_repr);
+            BoardAction action = BoardAction(board, pos, next_pos, tile_repr); // when you call Results(), is the turn count switched in returned Board obj
             actions.insert(action);
         }
     }

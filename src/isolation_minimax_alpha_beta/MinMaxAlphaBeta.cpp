@@ -28,15 +28,20 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->state_ptr = state_ptr;
 
     BoardAction action;
+    action = AlphaBetaSearch(*(this->state_ptr));
+
     try {
 //        action = AlphaBetaSearch(state);
 //        action = AlphaBetaSearch(this->state);
-        action = AlphaBetaSearch(*(this->state_ptr));
+//        action = AlphaBetaSearch(*(this->state_ptr));
 //        action = AlphaBetaSearch(*state_ptr);
 
-    } catch (...) {
+//    } catch (...) {
+    } catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
         int index = std::rand() / ((RAND_MAX + 1u) / (root_actions.size() - 1)); // random index in range of root_actions size
-        action = root_actions[index];
+        std::cout << index;
+        action = GetBestAction(index);
     }
 
     // reset to defaults
@@ -170,7 +175,7 @@ double MinMaxAlphaBeta::GetTime() {
 
 BoardAction MinMaxAlphaBeta::GetBestAction(int index) {
     if (index < 0) throw std::invalid_argument("index can not be negative for MinMaxAlphaBeta::GetAction method");
-    return (*root_actions_ptr)[index];
+    return (*root_actions_ptr).at((size_t)index);
 }
 
 void MinMaxAlphaBeta::Reset() {
