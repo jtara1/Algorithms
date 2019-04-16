@@ -4,6 +4,30 @@
 #include "headers/Agent.h"
 
 UserInterface::UserInterface(Agent *agent1, Agent *agent2, bool agent1_goes_first) {
+//    this->board = Board();
+/*
+     *      A # # # # # # # #
+            B - - - # # - # #
+            C - - # - # X # #
+            D - - - # # - # #
+            E - - - O # # # #
+            F - - - - - # - -
+            G - - - - - - - -
+            H - - - - - - - #
+     */
+//    std::array<char, BOARD_AREA> board_repr = {
+//            '#', '#', '#', '#', '#', '#', '#', '#',
+//            '-', '-', '-', '#', '#', '-', '#', '#',
+//            '-', '-', '#', '-', '#', 'X', '#', '#',
+//            '-', '-', '-', '#', '#', '-', '#', '#',
+//            '-', '-', '-', 'O', '#', '#', '#', '#',
+//            '-', '-', '-', '-', '-', '#', '-', '-',
+//            '-', '-', '-', '-', '-', '-', '-', '-',
+//            '-', '-', '-', '-', '-', '-', '-', '#'
+//    };
+//
+//    this->board = Board(board_repr, 21, 35);
+
     this->board = Board();
     board_pointer = &board;
 
@@ -26,6 +50,10 @@ void UserInterface::Start() {
     }
 
     char temp;
+
+    std::cout << board_pointer->Repr() << '\n';
     std::cout << "game over\n";
+    std::cout << "winner is Player " << board_pointer->GetWinnerRepr() << '\n';
+
     std::cin >> temp;
 }

@@ -7,7 +7,8 @@
 int main() {
 //    HumanAgent a1 = HumanAgent();
     AIAgent a1 = AIAgent();
-    HumanAgent a2 = HumanAgent();
+//    HumanAgent a2 = HumanAgent();
+    AIAgent a2 = AIAgent();
 
     UserInterface ui = UserInterface(&a1, &a2, true);
     ui.Start();

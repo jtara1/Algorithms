@@ -21,10 +21,16 @@ Board::Board(bool ai_starts) {
     board[enemy_pos] = enemy_repr;
 }
 
-//Board::Board(Board &board) {
-//    is_ai_turn = board.IsAITurn();
-//    this->board = board.GetBoard();
-//}
+Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts) : Board(ai_starts) {
+    board = init_board;
+    ai_pos = ai_starts ? player1_pos : player2_pos;
+    enemy_pos = ai_starts ? player2_pos : player1_pos;
+
+//    for (char tile : board) {
+//        if (tile != ai_repr || tile != enemy_repr || tile != empty_repr)
+//            throw std::invalid_argument("invalid character for tile in init board");
+//    }
+}
 
 bool Board::IsAITurn() const {
     return is_ai_turn;
@@ -34,6 +40,8 @@ bool Board::IsAITurn() const {
 /* if either players piece can not move moved in any direction */
 bool Board::IsTerminal() {
     std::array<int, 2> positions = { GetPlayerPos(), GetOtherPlayerPos() };
+
+    bool current_player_lost = true;
 
     for (int pos : positions) {
         // check tile above
@@ -61,7 +69,13 @@ bool Board::IsTerminal() {
         bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && board.at((size_t)pos - BOARD_SIZE - 1) == empty_repr;
 
         bool terminal = !(upwards_movable || rightwards_movable || downwards_movable || leftwards_movable || ne_movable || se_movable || sw_movable || nw_movable); // if it can't move, it's terminal
-        if (terminal) return true;
+        if (terminal) {
+            if (current_player_lost) winner_repr = GetOtherPlayerRepr();
+            else winner_repr = GetPlayerRepr();
+            return true;
+        }
+
+        current_player_lost = false;
     }
 
     return false;
@@ -244,6 +258,10 @@ char Board::GetOtherPlayerRepr() {
 
 std::array<char, BOARD_AREA> Board::GetBoard() const {
     return board;
+}
+
+char Board::GetWinnerRepr() {
+    return winner_repr;
 }
 
 //void Board::operator=(const Board &board) {

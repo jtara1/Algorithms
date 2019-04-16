@@ -14,7 +14,7 @@ class Board {
 public:
     // constructors
     Board(bool ai_starts = true);
-//    Board(Board &board); // copy constructor
+    Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts = true);
 
     // methods
     bool IsTerminal();
@@ -32,6 +32,7 @@ public:
 
     char GetPlayerRepr();
     char GetOtherPlayerRepr();
+    char GetWinnerRepr();
 
     std::array<char, BOARD_AREA> GetBoard() const;
     bool IsAITurn() const;
@@ -58,6 +59,8 @@ private:
     char enemy_repr = 'O';
     char empty_repr = '-';
     char visited_repr = '#';
+
+    char winner_repr = '-';
 
     std::array<char, BOARD_AREA> board;
 

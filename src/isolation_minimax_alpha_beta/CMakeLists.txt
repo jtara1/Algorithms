@@ -20,3 +20,14 @@ add_executable(test_build main.cpp
         headers/UserInterface.h UserInterface.cpp
         LinearEquation.cpp headers/LinearEquation.h
         IndexScoreTuple.cpp headers/IndexScoreTuple.h)
+
+add_executable(unit_test unit-tests/test-board.cpp
+        headers/Agent.h Agent.cpp
+        headers/AIAgent.h AIAgent.cpp
+        headers/BoardAction.h BoardAction.cpp
+        headers/Board.h Board.cpp
+        headers/HumanAgent.h HumanAgent.cpp
+        headers/MinMaxAlphaBeta.h MinMaxAlphaBeta.cpp
+        headers/UserInterface.h UserInterface.cpp
+        LinearEquation.cpp headers/LinearEquation.h
+        IndexScoreTuple.cpp headers/IndexScoreTuple.h)
