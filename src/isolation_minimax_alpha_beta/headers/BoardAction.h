@@ -14,10 +14,15 @@ public:
 
     // methods
     Board Results(bool mutate = false);
-    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false);
 
+    // static
+    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false);
+    static Board Results(Board &board, BoardAction &action, bool mutate = false);
+
+    // get and set
     void SetScore(float score);
     float GetScore() const;
+    int GetEnd() const;
 
     // ops
     bool operator>=(const BoardAction& action);

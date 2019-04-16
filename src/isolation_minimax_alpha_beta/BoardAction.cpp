@@ -73,3 +73,18 @@ bool BoardAction::operator<(const BoardAction &action) const {
     return end < action.end;
 }
 
+int BoardAction::GetEnd() const {
+    return end;
+}
+
+Board BoardAction::Results(Board &board, BoardAction &action, bool mutate) {
+    if (!mutate) {
+        Board board_copy = board;
+        board.MovePlayer(action.GetEnd());
+        return board_copy;
+    }
+
+    board.MovePlayer(action.GetEnd());
+    return board;
+}
+

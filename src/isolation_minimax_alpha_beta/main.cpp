@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "headers/UserInterface.h"
-#include "headers/HumanAgent.h"
 #include "headers/AIAgent.h"
+#include "headers/HumanAgent.h"
 
 int main() {
 //    HumanAgent a1 = HumanAgent();

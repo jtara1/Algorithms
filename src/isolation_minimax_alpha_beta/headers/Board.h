@@ -14,6 +14,7 @@ class Board {
 public:
     // constructors
     Board(bool ai_starts = true);
+//    Board(Board &board); // copy constructor
 
     // methods
     bool IsTerminal();
@@ -32,6 +33,9 @@ public:
     char GetPlayerRepr();
     char GetOtherPlayerRepr();
 
+    std::array<char, BOARD_AREA> GetBoard() const;
+    bool IsAITurn() const;
+
     void MovePlayer(int row, int col);
     void MovePlayer(int pos);
 
@@ -41,7 +45,9 @@ public:
     // printing methods
     std::string Repr() const;
     std::ostringstream VisualRepr() const;
+
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
+//    void operator=(const Board &board);
 
     int ai_pos;
     int enemy_pos;

@@ -11,9 +11,12 @@ void AIAgent::TakeTurn() {
     std::string input;
     char temp;
 
-    BoardAction action = min_max.FindAction(*state_pointer);
+//    BoardAction action = min_max.FindAction(*state_pointer);
+    BoardAction action = min_max.FindAction(state_pointer);
+
     std::cout << min_max.GetTime() << " s\n";
 
     std::cout << action << '\n';
-    action.Results(true);
+//    action.Results(true);
+    BoardAction::Results(*state_pointer, action, true);
 }

@@ -21,6 +21,15 @@ Board::Board(bool ai_starts) {
     board[enemy_pos] = enemy_repr;
 }
 
+//Board::Board(Board &board) {
+//    is_ai_turn = board.IsAITurn();
+//    this->board = board.GetBoard();
+//}
+
+bool Board::IsAITurn() const {
+    return is_ai_turn;
+}
+
 // core methods
 /* if either players piece can not move moved in any direction */
 bool Board::IsTerminal() {
@@ -229,3 +238,12 @@ int Board::GetOtherPlayerPos() {
 char Board::GetOtherPlayerRepr() {
     return is_ai_turn ? enemy_repr : ai_repr;
 }
+
+std::array<char, BOARD_AREA> Board::GetBoard() const {
+    return board;
+}
+
+//void Board::operator=(const Board &board) {
+//    is_ai_turn = board.IsAITurn();
+//    this->board = board.GetBoard();
+//}

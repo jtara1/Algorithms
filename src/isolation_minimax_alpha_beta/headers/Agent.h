@@ -1,11 +1,13 @@
 #ifndef TEST_BUILD_AGENT_H
 #define TEST_BUILD_AGENT_H
 
+#include <string>
+
 #include "Board.h"
 
 class Agent {
 public:
-    Agent();
+    Agent() = default;
     Agent(Board* state);
 
     virtual void TakeTurn() = 0;
