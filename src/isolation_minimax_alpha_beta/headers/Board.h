@@ -64,6 +64,7 @@ private:
     std::vector<std::string> action_history;
 
     bool is_ai_turn;
+    int turn_count = 1;
 
     // methods
     void UpdateActionHistory(int pos);

@@ -163,7 +163,7 @@ std::string Board::Repr() const {
 
 bool Board::IsLegalMove(int board_index, bool for_other_player) {
     std::tuple<int, int> coords = BoardIndexToCoords(board_index);
-    return IsLegalMove(std::get<1>(coords), std::get<0>(coords), for_other_player);
+    return IsLegalMove(std::get<0>(coords), std::get<1>(coords), for_other_player);
 }
 
 bool Board::IsLegalMove(int row, int col, bool for_other_player) {
@@ -173,10 +173,10 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
 
     // get the linear equation from current pos, to new pos
     std::tuple<int, int> coords = BoardIndexToCoords(for_other_player ? GetOtherPlayerPos() : GetPlayerPos()); // current pos on board
-    float x = (float)std::get<1>(coords);
-    float y = (float)std::get<0>(coords);
-    float x2 = (float)col;
-    float y2 = (float)row;
+    float x = (float)std::get<1>(coords); // x for this player
+    float y = (float)std::get<0>(coords); // y for this player
+    float x2 = (float)col; // destination x
+    float y2 = (float)row; // destination y
 
     LinearEquation eqn = LinearEquation(x, y, x2, y2);
     if (!eqn.IsQueenAttackPath(x, y)) return false;
@@ -212,6 +212,7 @@ void Board::MovePlayer(int pos) {
 
     SetPlayerPos(pos);
 
+    turn_count++;
     is_ai_turn = !is_ai_turn;
 }
 

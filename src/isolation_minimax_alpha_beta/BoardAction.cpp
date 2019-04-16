@@ -33,28 +33,30 @@ void BoardAction::SetScore(float score) {
  * directions: North, NorthEast, East, SouthEast, etc.
  * increments: -8, -7, +1, +9, etc
  */
-std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_player) {
+std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_player, bool get_first_action_available) {
     static int directions [8] = { -8, -7, 1, 9, 8, 7, -1, -9 };
 
     std::set<BoardAction> actions = std::set<BoardAction>();
     int next_pos;
-    int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
+    const int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
     char tile_repr = for_other_player ? board.GetOtherPlayerRepr() : board.GetPlayerRepr();
 
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i) { // iter over ea direction
         next_pos = pos;
 
-        for (int j = 0; j < BOARD_SIZE; ++j) {
+        for (int j = 0; j < BOARD_SIZE - 1; ++j) { // max number of moves in one direction
             next_pos += directions[i];
             if (!board.IsLegalMove(next_pos, for_other_player)) break;
 
-            BoardAction action = BoardAction(board, pos, next_pos, tile_repr); // when you call Results(), is the turn count switched in returned Board obj
+            BoardAction action = BoardAction(board, pos, next_pos, tile_repr);
             actions.insert(action);
+            if (get_first_action_available) return std::vector<BoardAction> (actions.begin(), actions.end());
         }
     }
 
-    std::vector<BoardAction> actions_vector(actions.begin(), actions.end());
-    return actions_vector;
+    return std::vector<BoardAction> (actions.begin(), actions.end());
+//    std::vector<BoardAction> actions_vector(actions.begin(), actions.end());
+//    return actions_vector;
 }
 
 bool BoardAction::operator>=(const BoardAction &action) {

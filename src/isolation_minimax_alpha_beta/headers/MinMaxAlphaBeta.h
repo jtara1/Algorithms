@@ -20,7 +20,7 @@ private:
     IndexScoreTuple MinValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
     IndexScoreTuple MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
 
-    BoardAction GetBestAction(int index);
+    BoardAction GetBestAction(int index, bool previous_call_failed = false);
 
     void Reset();
 
@@ -48,6 +48,7 @@ private:
 
     Board state;
     Board* state_ptr = nullptr;
+    BoardAction first_available_action;
 };
 
 

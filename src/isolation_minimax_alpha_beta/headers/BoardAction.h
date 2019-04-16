@@ -16,7 +16,7 @@ public:
     Board Results(bool mutate = false);
 
     // static
-    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false);
+    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false, bool get_first_action_available = false);
     static Board Results(Board &board, BoardAction &action, bool mutate = false);
 
     // get and set

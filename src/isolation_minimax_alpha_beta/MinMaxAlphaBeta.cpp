@@ -20,29 +20,13 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->clock_start = std::clock();
     this->started_search = true;
 
-//    Board state_copy = state;
-//    this->state = state;
-//    this->state_ptr = &(this->state);
-
     this->state = *state_ptr;
-    this->state_ptr = state_ptr;
+    this->state_ptr = &(this->state);
 
-    BoardAction action;
-    action = AlphaBetaSearch(*(this->state_ptr));
+    std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, true);
+    this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
-    try {
-//        action = AlphaBetaSearch(state);
-//        action = AlphaBetaSearch(this->state);
-//        action = AlphaBetaSearch(*(this->state_ptr));
-//        action = AlphaBetaSearch(*state_ptr);
-
-//    } catch (...) {
-    } catch (const std::exception &e) {
-        std::cout << e.what() << std::endl;
-        int index = std::rand() / ((RAND_MAX + 1u) / (root_actions.size() - 1)); // random index in range of root_actions size
-        std::cout << index;
-        action = GetBestAction(index);
-    }
+    BoardAction action = AlphaBetaSearch(*(this->state_ptr));
 
     // reset to defaults
     Reset();
@@ -57,8 +41,6 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
         return the action in ACTIONS(state_pointer) with value v
  */
 BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
-//    Board state = this->state;
-
     IndexScoreTuple neg_inf = IndexScoreTuple::NegInf();
     IndexScoreTuple inf = IndexScoreTuple::Inf();
 
@@ -69,8 +51,6 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
         true
     );
 
-//    std::cout << best_action << '\n';
-
     this->best_action = GetBestAction(best_value.index);
     best_action_ptr = &best_action;
 
@@ -79,7 +59,6 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
 
     std::cout << best_value.index << " " << best_value.score << "\n";
 
-//    return best_action;
     return *best_action_ptr;
 }
 
@@ -101,15 +80,13 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
 
     std::vector<BoardAction> actions = BoardAction::Actions(state);
     if (this->root_actions_ptr == nullptr) {
-//        *this->root_actions_ptr = actions;
         this->root_actions = actions;
         root_actions_ptr = &root_actions;
-//        root_actions_ptr = new std::vector<BoardAction> (actions);
     }
 
     int index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        index += is_root_recursion;
+        ++index;
         if (is_root_recursion) this->root_actions_index = index;
 
         BoardAction action = *it;
@@ -144,15 +121,14 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
 
     std::vector<BoardAction> actions = BoardAction::Actions(state, true);
     if (this->root_actions_ptr == nullptr) {
-//        *this->root_actions_ptr = actions;
         this->root_actions = actions;
         root_actions_ptr = &root_actions;
-//        root_actions_ptr = new std::vector<BoardAction> (actions);
+        std::cout << "root actions size = " << root_actions.size() << '\n';
     }
 
     int index = -1;
     for (auto it = actions.begin(); it != actions.end(); it++) {
-        index += is_root_recursion;
+        ++index;
         if (is_root_recursion) this->root_actions_index = index;
 
         BoardAction action = *it;
@@ -173,9 +149,24 @@ double MinMaxAlphaBeta::GetTime() {
     return (std::clock() - this->clock_start) / (double)CLOCKS_PER_SEC;
 }
 
-BoardAction MinMaxAlphaBeta::GetBestAction(int index) {
-    if (index < 0) throw std::invalid_argument("index can not be negative for MinMaxAlphaBeta::GetAction method");
-    return (*root_actions_ptr).at((size_t)index);
+BoardAction MinMaxAlphaBeta::GetBestAction(int index, bool previous_call_failed) {
+    try {
+        if (previous_call_failed) index = std::rand() / ((RAND_MAX + 1u) / (root_actions.size() - 1)); // random index in range of root_actions size
+
+        bool in_range = index < 0 || index >= (*root_actions_ptr).size();
+
+        if (!in_range && !previous_call_failed) {
+//        std::cout << "warning: attempt choosing random action; index = " << index << std::endl;
+            return GetBestAction(index, true); // attempt to pick a random root action
+        } else if (!in_range && previous_call_failed) {
+//        std::cout << "warning: quickest action chosen; index = " << index << std::endl;
+            return first_available_action; // could not create root actions
+        }
+
+        return (*root_actions_ptr).at((size_t)index);
+    } catch (const std::out_of_range &e) {
+        return first_available_action;
+    }
 }
 
 void MinMaxAlphaBeta::Reset() {
