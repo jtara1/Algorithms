@@ -167,8 +167,8 @@ bool Board::IsLegalMove(int board_index, bool for_other_player) {
 }
 
 bool Board::IsLegalMove(int row, int col, bool for_other_player) {
-    int pos = CoordsToBoardIndex(row, col); // where a player wants to move to
-    if (!CanBeOccupied(pos)) return false;
+//    int pos = CoordsToBoardIndex(row, col); // where a player wants to move to
+//    if (!CanBeOccupied(pos)) return false;
     if (row < 0 || col < 0 || row >= BOARD_SIZE || col >= BOARD_SIZE) return false;
 
     // get the linear equation from current pos, to new pos

@@ -82,7 +82,7 @@ int BoardAction::GetEnd() const {
 Board BoardAction::Results(Board &board, BoardAction &action, bool mutate) {
     if (!mutate) {
         Board board_copy = board;
-        board.MovePlayer(action.GetEnd());
+        board_copy.MovePlayer(action.GetEnd());
         return board_copy;
     }
 
