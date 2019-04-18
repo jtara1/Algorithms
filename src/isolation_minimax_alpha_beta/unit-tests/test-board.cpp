@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../headers/Board.h"
 #include "../headers/UserInterface.h"
+#include "../headers/AIAgent.h"
 
 void TestIsTerminal() {
     /*
@@ -52,11 +53,17 @@ H # - - - - X O #
             '#', '-', '-', '-', '-', 'O', 'X', '#'
     };
     Board board = Board(board_repr, 62, 61);
+
+    AIAgent agent1 = AIAgent();
+    AIAgent agent2 = AIAgent(true);
+    UserInterface ui = UserInterface(&agent1, &agent2, true, board);
+    ui.Start();
 }
 
 int main() {
     std::cout << "begin tests\n";
-    TestIsTerminal();
+//    TestIsTerminal();
+    TestAIOnBoard1();
     return 0;
 }
 

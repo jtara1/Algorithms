@@ -93,9 +93,9 @@ bool Board::IsTerminal() {
     return false;
 }
 
-float Board::GetScore() { // TODO: make it always score(player 1) - score(player 2)
-    const int player_actions = static_cast<const int>(BoardAction::Actions(*this, false).size());
-    const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, true).size());
+float Board::GetScore() {
+    const int player_actions = static_cast<const int>(BoardAction::Actions(*this, !is_ai_turn).size());
+    const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, is_ai_turn).size());
     return player_actions - other_player_actions;
 }
 

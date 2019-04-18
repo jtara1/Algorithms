@@ -26,13 +26,15 @@ UserInterface::UserInterface(Agent *agent1, Agent *agent2, bool agent1_goes_firs
 }
 
 void UserInterface::Start() {
+    char temp;
+
     while (!(board_pointer->IsTerminal())) {
         std::cout << board_pointer->Repr() << '\n';
+//        std::cin >> temp;
+
         agent_pointers[!is_agent1_turn]->TakeTurn();
         is_agent1_turn = !is_agent1_turn;
     }
-
-    char temp;
 
     std::cout << board_pointer->Repr() << '\n';
     std::cout << "game over\n";

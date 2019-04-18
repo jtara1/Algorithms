@@ -26,10 +26,12 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
 
     std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, true);
     if (quick_actions.empty()) throw std::invalid_argument("could not find any quick actions");
+
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
-    std::cout << "depth: " << depth << "score: " << action.Results().GetScore() << '\n';
+    std::cout << "is player 1: " << (is_ai_player1 ? "yes" : "no") << " depth: " << depth << " score: " << action.Results().GetScore() << '\n';
+    std::cout << "best value index: " << root_actions_index << " root actions size: " << (*root_actions_ptr).size() << "\n";
 
     // reset to defaults
     Reset();
@@ -62,13 +64,11 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
         );
 
 
-    this->best_action = GetBestAction(best_value.index);
+    this->best_action = GetRootAction(best_value.index);
     best_action_ptr = &best_action;
 
     max_depth += max_depth_step;
     if (GetTime() <= max_time) return AlphaBetaSearch(board);
-
-    std::cout << best_value.index << " " << best_value.score << "\n";
 
     return *best_action_ptr;
 }
@@ -111,7 +111,8 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Max(beta, value);
     }
 
-    return { root_actions_index, state.GetScore() };
+//    return { root_actions_index, state.GetScore() };
+    return value;
 }
 
 /*
@@ -130,11 +131,10 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
     IndexScoreTuple value = IndexScoreTuple::Inf();
     ++(this->depth);
 
-    std::vector<BoardAction> actions = BoardAction::Actions(state, true);
+    std::vector<BoardAction> actions = BoardAction::Actions(state);
     if (this->root_actions_ptr == nullptr) {
         this->root_actions = actions;
         root_actions_ptr = &root_actions;
-        std::cout << "root actions size = " << root_actions.size() << '\n';
     }
 
     int index = -1;
@@ -153,24 +153,25 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Min(beta, value);
     }
 
-    return { root_actions_index, state.GetScore() };
+//    return { root_actions_index, state.GetScore() };
+    return value;
 }
 
 double MinMaxAlphaBeta::GetTime() {
     return (std::clock() - this->clock_start) / (double)CLOCKS_PER_SEC;
 }
 
-BoardAction MinMaxAlphaBeta::GetBestAction(int index, bool previous_call_failed) {
+BoardAction MinMaxAlphaBeta::GetRootAction(int index, bool previous_call_failed) {
     try {
         if (previous_call_failed) index = GetRandomIndex((int)root_actions.size()); // random index in range of root_actions size
 
         bool in_range = index >= 0 && index < (*root_actions_ptr).size();
 
         if (!in_range && !previous_call_failed) {
-//        std::cout << "warning: attempt choosing random action; index = " << index << std::endl;
-            return GetBestAction(index, true); // attempt to pick a random root action
+        std::cout << "warning: attempt choosing random action; index = " << index << " root actions size: " << (*root_actions_ptr).size() << std::endl;
+            return GetRootAction(index, true); // attempt to pick a random root action
         } else if (!in_range) { // not in range and previous method call failed
-//        std::cout << "warning: quickest action chosen; index = " << index << std::endl;
+        std::cout << "warning: quickest action chosen; index = " << index << " root actions size: " << (*root_actions_ptr).size() <<std::endl;
             return first_available_action; // could not create root actions
         }
 
@@ -191,7 +192,6 @@ void MinMaxAlphaBeta::Reset() {
     depth = 0;
 
     root_actions_index = -1;
-//    delete root_actions_ptr;
     root_actions_ptr = nullptr;
     root_actions = std::vector<BoardAction>();
 
