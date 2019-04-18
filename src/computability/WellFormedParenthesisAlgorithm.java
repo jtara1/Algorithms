@@ -2,6 +2,8 @@ package computability;
 
 public class WellFormedParenthesisAlgorithm {
     /**
+     * todo: invalid algo for input = input: [[(()])]
+     * todo: fix by recursively validating inner string whenever there's a closed parenthesis or bracket
      * language = (, ), [, ]
      * @param string
      * @return
