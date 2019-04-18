@@ -11,7 +11,8 @@
 #include "headers/BoardAction.h"
 #include "headers/IndexScoreTuple.h"
 
-MinMaxAlphaBeta::MinMaxAlphaBeta() {
+MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1) {
+    this->is_ai_player1 = is_ai_player1;
     Reset();
 }
 
@@ -28,6 +29,7 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
+    std::cout << "depth: " << depth << "score: " << action.Results().GetScore() << '\n';
 
     // reset to defaults
     Reset();
@@ -45,12 +47,20 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
     IndexScoreTuple neg_inf = IndexScoreTuple::NegInf();
     IndexScoreTuple inf = IndexScoreTuple::Inf();
 
-    IndexScoreTuple best_value = MaxValue(
-        board,
-        neg_inf,
-        inf,
-        true
-    );
+    IndexScoreTuple best_value;
+    if (is_ai_player1) best_value = MaxValue(
+            board,
+            neg_inf,
+            inf,
+            true
+        );
+    else best_value = MinValue(
+            board,
+            neg_inf,
+            inf,
+            true
+        );
+
 
     this->best_action = GetBestAction(best_value.index);
     best_action_ptr = &best_action;

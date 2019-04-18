@@ -5,6 +5,7 @@
 
 class IndexScoreTuple {
 public:
+    IndexScoreTuple() = default;
     IndexScoreTuple(int index, float score);
 
     static IndexScoreTuple* inf_score_ptr;

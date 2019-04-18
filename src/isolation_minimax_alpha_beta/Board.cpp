@@ -22,11 +22,20 @@ Board::Board(bool ai_starts) {
 }
 
 Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts) : Board(ai_starts) {
-    ai_pos = ai_starts ? player1_pos : player2_pos;
-    enemy_pos = ai_starts ? player2_pos : player1_pos;
+//    ai_pos = ai_starts ? player1_pos : player2_pos;
+//    enemy_pos = ai_starts ? player2_pos : player1_pos;
+    is_ai_turn = ai_starts;
 
     for (int i = 0; i < init_board.size(); ++i) {
         char tile = init_board[i];
+
+        if (tile == ai_repr) { // set current players pos
+            if (ai_starts) ai_pos = i;
+            else enemy_pos = i;
+        } else if (tile == enemy_repr) {
+            if (ai_starts) enemy_pos = i; // set other players pos
+            else ai_pos = i;
+        }
 
         if (tile != ai_repr && tile != enemy_repr && tile != empty_repr && tile != visited_repr)
             throw std::invalid_argument("invalid character for tile in init board");
@@ -84,7 +93,7 @@ bool Board::IsTerminal() {
     return false;
 }
 
-float Board::GetScore() {
+float Board::GetScore() { // TODO: make it always score(player 1) - score(player 2)
     const int player_actions = static_cast<const int>(BoardAction::Actions(*this, false).size());
     const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, true).size());
     return player_actions - other_player_actions;

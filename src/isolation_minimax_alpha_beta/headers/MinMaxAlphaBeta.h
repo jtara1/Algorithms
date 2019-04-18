@@ -8,7 +8,7 @@
 
 class MinMaxAlphaBeta {
 public:
-    MinMaxAlphaBeta();
+    MinMaxAlphaBeta(bool is_ai_player1 = true);
 
 //    BoardAction FindAction(Board& state);
     BoardAction FindAction(Board* state_ptr);
@@ -38,6 +38,7 @@ private:
     double max_time = 2;
 
     bool started_search = false;
+    bool is_ai_player1;
 
     int root_actions_index = -1;
 

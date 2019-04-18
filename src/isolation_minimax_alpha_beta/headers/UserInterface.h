@@ -8,6 +8,7 @@ class UserInterface {
 public:
 //    UserInterface(Agent &agent1, Agent &agent2, bool agent1_goes_first);
     UserInterface(Agent* agent1, Agent* agent2, bool agent1_goes_first);
+    UserInterface(Agent* agent1, Agent* agent2, bool agent1_goes_first, Board board);
 
     void Start();
 
