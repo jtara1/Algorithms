@@ -25,8 +25,15 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->state = *state_ptr;
     this->state_ptr = &(this->state);
 
-    std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, true);
+    bool pick_randomly = (*state_ptr).GetTurnCount() <= 4;
+
+    std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, !pick_randomly);
     if (quick_actions.empty()) throw std::invalid_argument("could not find any quick actions");
+
+    if (pick_randomly) {
+        Reset();
+        return quick_actions.at(GetRandomIndex(quick_actions.size()));
+    }
 
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 

@@ -7,8 +7,6 @@
 #include <array>
 #include <vector>
 
-//#include "State.h"
-//class BoardAction {};
 
 class Board {
 public:
@@ -33,6 +31,8 @@ public:
     char GetPlayerRepr();
     char GetOtherPlayerRepr();
     char GetWinnerRepr();
+
+    int GetTurnCount();
 
     std::array<char, BOARD_AREA> GetBoard() const;
     bool IsAITurn() const;

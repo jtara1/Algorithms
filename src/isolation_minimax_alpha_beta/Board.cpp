@@ -238,7 +238,7 @@ void Board::MovePlayer(int pos) {
 
     SetPlayerPos(pos);
 
-    turn_count++;
+    ++turn_count;
     is_ai_turn = !is_ai_turn;
 }
 
@@ -274,6 +274,10 @@ std::array<char, BOARD_AREA> Board::GetBoard() const {
 
 char Board::GetWinnerRepr() {
     return winner_repr;
+}
+
+int Board::GetTurnCount() {
+    return turn_count;
 }
 
 //void Board::operator=(const Board &board) {
