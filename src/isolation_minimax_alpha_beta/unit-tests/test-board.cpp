@@ -55,7 +55,7 @@ H # - - - - X O #
     Board board = Board(board_repr, 62, 61);
 
     AIAgent agent1 = AIAgent();
-    AIAgent agent2 = AIAgent(true);
+    AIAgent agent2 = AIAgent(false);
     UserInterface ui = UserInterface(&agent1, &agent2, true, board);
     ui.Start();
 }

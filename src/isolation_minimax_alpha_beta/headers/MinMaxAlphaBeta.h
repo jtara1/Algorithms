@@ -8,7 +8,7 @@
 
 class MinMaxAlphaBeta {
 public:
-    MinMaxAlphaBeta(bool is_ai_player1 = true);
+    MinMaxAlphaBeta(bool is_ai_player1 = true, float time_limit_sec = 2);
 
 //    BoardAction FindAction(Board& state);
     BoardAction FindAction(Board* state_ptr);

@@ -6,7 +6,7 @@
 
 class AIAgent : public Agent {
 public:
-    AIAgent(bool is_ai_player1 = true);
+    AIAgent(bool is_ai_player1 = true, float time_limit_sec = 2);
 
     void TakeTurn() override;
 

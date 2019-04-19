@@ -11,7 +11,8 @@
 #include "headers/BoardAction.h"
 #include "headers/IndexScoreTuple.h"
 
-MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1) {
+MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1, float time_limit_sec) {
+    max_time = time_limit_sec;
     this->is_ai_player1 = is_ai_player1;
     Reset();
 }

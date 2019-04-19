@@ -3,6 +3,9 @@
 #include "headers/AIAgent.h"
 #include "headers/MinMaxAlphaBeta.h"
 
+AIAgent::AIAgent(bool is_ai_player1, float time_limit_sec) : Agent() {
+    min_max = MinMaxAlphaBeta(is_ai_player1, time_limit_sec);
+}
 
 void AIAgent::TakeTurn() {
     BoardAction action = min_max.FindAction(state_pointer);
@@ -11,8 +14,4 @@ void AIAgent::TakeTurn() {
     std::cout << action << '\n';
 
     BoardAction::Results(*state_pointer, action, true); // mutate shared ref to board
-}
-
-AIAgent::AIAgent(bool is_ai_player1) {
-    min_max = MinMaxAlphaBeta(is_ai_player1);
 }
