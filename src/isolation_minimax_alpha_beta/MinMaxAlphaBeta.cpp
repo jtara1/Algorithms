@@ -1,5 +1,3 @@
-#include "headers/MinMaxAlphaBeta.h"
-
 #include <limits>
 #include <vector>
 #include <algorithm>
@@ -7,6 +5,7 @@
 #include <tuple>
 #include <iostream>
 
+#include "headers/MinMaxAlphaBeta.h"
 #include "headers/Board.h"
 #include "headers/BoardAction.h"
 #include "headers/IndexScoreTuple.h"
@@ -17,7 +16,6 @@ MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1, float time_limit_sec) {
     Reset();
 }
 
-//BoardAction MinMaxAlphaBeta::FindAction(Board& state) {
 BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->clock_start = std::clock();
     this->started_search = true;
@@ -31,15 +29,16 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     if (quick_actions.empty()) throw std::invalid_argument("could not find any quick actions");
 
     if (pick_randomly) {
+        BoardAction action = quick_actions.at(GetRandomIndex(quick_actions.size()));
         Reset();
-        return quick_actions.at(GetRandomIndex(quick_actions.size()));
+        return action;
     }
 
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
     std::cout << "is player 1: " << (is_ai_player1 ? "yes" : "no") << " depth: " << depth << " score: " << action.Results().GetScore() << '\n';
-    std::cout << "best value index: " << root_actions_index << " root actions size: " << (*root_actions_ptr).size() << "\n";
+    std::cout << "actions index: " << root_actions_index << " root actions size: " << (*root_actions_ptr).size() << "\n";
 
     // reset to defaults
     Reset();
@@ -76,7 +75,7 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board& board) {
     best_action_ptr = &best_action;
 
     max_depth += max_depth_step;
-    if (GetTime() <= max_time) return AlphaBetaSearch(board);
+    if (GetTime() - this->time_limit_padding <= max_time) return AlphaBetaSearch(board);
 
     return *best_action_ptr;
 }
@@ -119,7 +118,6 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Max(beta, value);
     }
 
-//    return { root_actions_index, state.GetScore() };
     return value;
 }
 
@@ -161,7 +159,6 @@ IndexScoreTuple MinMaxAlphaBeta::MinValue(Board& state, IndexScoreTuple& alpha, 
         beta = IndexScoreTuple::Min(beta, value);
     }
 
-//    return { root_actions_index, state.GetScore() };
     return value;
 }
 

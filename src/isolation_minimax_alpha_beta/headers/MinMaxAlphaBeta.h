@@ -51,6 +51,8 @@ private:
     Board state;
     Board* state_ptr = nullptr;
     BoardAction first_available_action;
+
+    float time_limit_padding = 0.01;
 };
 
 
