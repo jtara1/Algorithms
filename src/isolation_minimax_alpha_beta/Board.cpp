@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 #include "headers/Board.h"
 #include "headers/LinearEquation.h"
@@ -17,8 +18,8 @@ Board::Board(bool ai_starts) {
     ai_pos = ai_starts ? 0 : BOARD_AREA - 1;
     enemy_pos = ai_starts ? BOARD_AREA - 1 : 0;
 
-    board[ai_pos] = ai_repr;
-    board[enemy_pos] = enemy_repr;
+    board.at((size_t)ai_pos) = ai_repr;
+    board.at((size_t)enemy_pos) = enemy_repr;
 }
 
 Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts) : Board(ai_starts) {
@@ -63,7 +64,7 @@ bool Board::IsTerminal() {
         bool ne_movable = pos - BOARD_SIZE + 1 >= 1 && pos % BOARD_SIZE != 7 && board.at((size_t)pos - BOARD_SIZE + 1) == empty_repr;
 
         // check tile to right
-        bool rightwards_movable = pos % BOARD_SIZE != 7 && board.at((size_t)pos + 1) == empty_repr;
+        bool rightwards_movable = pos + 1 < BOARD_AREA && pos % BOARD_SIZE != 7 && board.at((size_t)pos + 1) == empty_repr;
 
         // check SouthEast
         bool se_movable = pos + BOARD_SIZE + 1 < BOARD_AREA && pos % BOARD_SIZE != 7 && board.at((size_t)pos + BOARD_SIZE + 1) == empty_repr;
@@ -75,7 +76,7 @@ bool Board::IsTerminal() {
         bool sw_movable = pos + BOARD_SIZE - 1 < BOARD_AREA && pos % BOARD_SIZE != 0 && board.at((size_t)pos + BOARD_SIZE - 1) == empty_repr;
 
         // check tile to left
-        bool leftwards_movable = pos % BOARD_SIZE != 0 && board.at((size_t)pos - 1) == empty_repr;
+        bool leftwards_movable = pos - 1 >= 0 && pos % BOARD_SIZE != 0 && board.at((size_t)pos - 1) == empty_repr;
 
         // check NorthWest
         bool nw_movable = pos - BOARD_SIZE - 1 >= 0 && pos % BOARD_SIZE != 0 && board.at((size_t)pos - BOARD_SIZE - 1) == empty_repr;
@@ -84,6 +85,7 @@ bool Board::IsTerminal() {
         if (terminal) {
             if (current_player_lost) winner_repr = GetOtherPlayerRepr();
             else winner_repr = GetPlayerRepr();
+            std::cout << "reached terminal state\n";
             return true;
         }
 
@@ -127,7 +129,7 @@ std::ostringstream Board::VisualRepr() const {
             stream << char(65 + row) << " ";
         }
 
-        stream << board[i] << " ";
+        stream << board.at((size_t)i) << " ";
 
         if ((i % ((row + 1) * BOARD_SIZE - 1)) == 0 && i != 0) { // if entire row was printed
             if (action_history.size() < row * 2 + 1) {
@@ -193,8 +195,6 @@ bool Board::IsLegalMove(int board_index, bool for_other_player) {
 }
 
 bool Board::IsLegalMove(int row, int col, bool for_other_player) {
-//    int pos = CoordsToBoardIndex(row, col); // where a player wants to move to
-//    if (!CanBeOccupied(pos)) return false;
     if (row < 0 || col < 0 || row >= BOARD_SIZE || col >= BOARD_SIZE) return false;
 
     // get the linear equation from current pos, to new pos
