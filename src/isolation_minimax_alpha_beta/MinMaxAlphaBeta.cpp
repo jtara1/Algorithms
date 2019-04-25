@@ -11,6 +11,9 @@
 #include "headers/IndexScoreTuple.h"
 
 MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1, float time_limit_sec) {
+    std::random_device rd;
+    mt = std::mt19937(rd());
+
     max_time = time_limit_sec;
     this->is_ai_player1 = is_ai_player1;
     Reset();
@@ -204,5 +207,7 @@ void MinMaxAlphaBeta::Reset() {
 }
 
 int MinMaxAlphaBeta::GetRandomIndex(int upper_limit) {
-    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
+    std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
+
+    return (int)dist(mt);
 }

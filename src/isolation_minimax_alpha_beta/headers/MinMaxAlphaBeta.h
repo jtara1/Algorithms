@@ -2,6 +2,8 @@
 #define TEST_BUILD_MINMAXALPHABETA_H
 
 #include <ctime>
+#include <random>
+
 #include "Board.h"
 #include "BoardAction.h"
 #include "IndexScoreTuple.h"
@@ -53,6 +55,8 @@ private:
     BoardAction first_available_action;
 
     float time_limit_padding = 0.01;
+
+    std::mt19937 mt; // used to get random number
 };
 
 
