@@ -176,10 +176,10 @@ BoardAction MinMaxAlphaBeta::GetRootAction(int index, bool previous_call_failed)
         bool in_range = index >= 0 && index < (*root_actions_ptr).size();
 
         if (!in_range && !previous_call_failed) {
-        std::cout << "warning: attempt choosing random action; index = " << index << " root actions size: " << (*root_actions_ptr).size() << std::endl;
+//            std::cout << "warning: attempt choosing random action; index = " << index << " root actions size: " << (*root_actions_ptr).size() << std::endl;
             return GetRootAction(index, true); // attempt to pick a random root action
         } else if (!in_range) { // not in range and previous method call failed
-        std::cout << "warning: quickest action chosen; index = " << index << " root actions size: " << (*root_actions_ptr).size() <<std::endl;
+//            std::cout << "warning: quickest action chosen; index = " << index << " root actions size: " << (*root_actions_ptr).size() <<std::endl;
             return first_available_action; // could not create root actions
         }
 
@@ -207,7 +207,8 @@ void MinMaxAlphaBeta::Reset() {
 }
 
 int MinMaxAlphaBeta::GetRandomIndex(int upper_limit) {
-    std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
-
-    return (int)dist(mt);
+    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
+//    std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
+//
+//    return (int)dist(mt);
 }

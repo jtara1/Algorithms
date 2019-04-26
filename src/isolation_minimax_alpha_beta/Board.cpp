@@ -98,6 +98,10 @@ bool Board::IsTerminal() {
 float Board::GetScore() {
     const int player_actions = static_cast<const int>(BoardAction::Actions(*this, !is_ai_turn).size());
     const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, is_ai_turn).size());
+
+    if (player_actions == 0) return -std::numeric_limits<float>::infinity();
+    if (other_player_actions == 0) return std::numeric_limits<float>::infinity();
+
     return player_actions - other_player_actions;
 }
 
@@ -234,7 +238,7 @@ void Board::MovePlayer(int pos) {
     int player_pos = GetPlayerPos();
     board.at((size_t)player_pos) = visited_repr;
 
-    UpdateActionHistory(pos);
+//    UpdateActionHistory(pos);
 
     SetPlayerPos(pos);
 
