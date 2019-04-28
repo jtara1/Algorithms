@@ -10,7 +10,7 @@ class BoardAction {
 public:
     // constructors
     BoardAction() = default;
-    BoardAction(Board& board, int start, int end, char board_repr);
+    BoardAction(Board board, int start, int end, char board_repr);
 
     // methods
     Board Results(bool mutate = false);
@@ -33,6 +33,7 @@ private:
     // attrs
     int start;
     int end;
+    Board board;
     Board* board_ptr;
     float score = 0;
 };

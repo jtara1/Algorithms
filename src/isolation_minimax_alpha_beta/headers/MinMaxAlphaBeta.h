@@ -18,9 +18,9 @@ public:
     double GetTime();
 
 private:
-    BoardAction AlphaBetaSearch(Board& board);
-    IndexScoreTuple MinValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
-    IndexScoreTuple MaxValue(Board& state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
+    BoardAction AlphaBetaSearch(Board board);
+    IndexScoreTuple MinValue(Board state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
+    IndexScoreTuple MaxValue(Board state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion = false);
 
     BoardAction GetRootAction(int index, bool previous_call_failed = false);
 

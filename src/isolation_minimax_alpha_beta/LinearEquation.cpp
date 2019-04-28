@@ -33,16 +33,16 @@ std::vector<std::tuple<float, float>> LinearEquation::GetPointsBetween(float x, 
         end = y <= y_intercept ? y_intercept : y;
 
         for (float i = start + 1.0; i < end; ++i) {
-            points.emplace_back(std::tuple<float, float>(Output(i), i));
+            points.push_back(std::tuple<float, float>(Output(i), i));
         }
 
-        points.emplace_back(std::tuple<float, float>(Output(y), y));
+        points.push_back(std::tuple<float, float>(Output(y), y));
     } else {
         for (float i = start + 1.0; i < end; ++i) {
-            points.emplace_back(std::tuple<float, float>(i, Output(i)));
+            points.push_back(std::tuple<float, float>(i, Output(i)));
         }
 
-        points.emplace_back(std::tuple<float, float>(x, Output(x)));
+        points.push_back(std::tuple<float, float>(x, Output(x)));
     }
 
     return points;

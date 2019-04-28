@@ -3,18 +3,19 @@
 #include <set>
 #include "headers/BoardAction.h"
 
-BoardAction::BoardAction(Board& board, int start, int end, char board_repr) {
-    board_ptr = &board;
+BoardAction::BoardAction(Board board, int start, int end, char board_repr) {
+    this->board = board;
+    board_ptr = &(this->board);
     this->start = start;
     this->end = end;
-    if (end <= 0 || end >= 64)
-        char temp;
+//    if (end <= 0 || end >= 64)
+//        char temp;
 }
 
 // methods
 Board BoardAction::Results(bool mutate) {
     if (!mutate) {
-        Board board = *board_ptr;
+        Board board = this->board;
         board.MovePlayer(end);
         return board;
     }
@@ -55,9 +56,9 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
         }
     }
 
-    return std::vector<BoardAction> (actions.begin(), actions.end());
-//    std::vector<BoardAction> actions_vector(actions.begin(), actions.end());
-//    return actions_vector;
+//    return std::vector<BoardAction> (actions.begin(), actions.end());
+    std::vector<BoardAction> actions_vector(actions.begin(), actions.end());
+    return actions_vector;
 }
 
 bool BoardAction::operator>=(const BoardAction &action) {

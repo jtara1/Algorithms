@@ -219,9 +219,10 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
         int x = (int)std::get<1>(point);
         int y = (int)std::get<0>(point);
 
-        // move caused player to wrap around from right to left or left to right
-        if (prev_x == BOARD_SIZE - 1 && x == 0) return false;
-        if (prev_x == 0 && x == BOARD_SIZE - 1) return false;
+        // move caused player to wrap around from right to leftt
+        if (prev_x % BOARD_SIZE - 1 == 0 && x % BOARD_SIZE == 0) return false;
+        // move caused player to wrap around from left to right
+        if (prev_x % BOARD_SIZE == 0 && x % BOARD_SIZE - 1 == 0) return false;
 
         int tile_index = CoordsToBoardIndex(x, y);
         if (board.at((size_t)tile_index) != empty_repr) return false;
@@ -252,7 +253,7 @@ void Board::MovePlayer(int pos) {
     int player_pos = GetPlayerPos();
     board.at((size_t)player_pos) = visited_repr;
 
-//    UpdateActionHistory(pos);
+    UpdateActionHistory(pos);
 
     SetPlayerPos(pos);
 
@@ -271,7 +272,7 @@ void Board::UpdateActionHistory(int pos) {
     std::ostringstream stream;
     stream << row_repr << col_repr;
 
-    action_history.emplace_back(stream.str());
+    action_history.push_back(stream.str());
 }
 
 void Board::SetPlayerPos(int pos) {
