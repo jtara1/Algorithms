@@ -1,6 +1,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 
 #include "headers/Board.h"
 #include "headers/LinearEquation.h"
@@ -211,9 +212,22 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
     LinearEquation eqn = LinearEquation(x, y, x2, y2);
     if (!eqn.IsQueenAttackPath(x, y)) return false;
 
+    int prev_x = x;
+    int prev_y = y;
+
     for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
-        int tile_index = CoordsToBoardIndex((int)std::get<1>(point), (int)std::get<0>(point));
+        int x = (int)std::get<1>(point);
+        int y = (int)std::get<0>(point);
+
+        // move caused player to wrap around from right to left or left to right
+        if (prev_x == BOARD_SIZE - 1 && x == 0) return false;
+        if (prev_x == 0 && x == BOARD_SIZE - 1) return false;
+
+        int tile_index = CoordsToBoardIndex(x, y);
         if (board.at((size_t)tile_index) != empty_repr) return false;
+
+        prev_x = x;
+        prev_y = y;
     }
 
     return true;
