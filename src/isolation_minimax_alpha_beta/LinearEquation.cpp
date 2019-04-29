@@ -1,21 +1,22 @@
 #include <limits>
 #include "headers/LinearEquation.h"
 
-LinearEquation::LinearEquation(float x1, float y1, float x2, float y2) {
-    float delta_x = x2 - x1;
+LinearEquation::LinearEquation(int x1, int y1, int x2, int y2) {
+    int delta_x = x2 - x1;
 
-    if (delta_x == 0.0) {
+    if (delta_x == 0) {
         this->is_vertical = true;
         slope = std::numeric_limits<float>::infinity();
     }
-    else slope = (y2 - y1) / delta_x;
+    else slope = (y2 - y1) / (float)delta_x;
 
     this->x_intercept = x1;
     this->y_intercept = y1;
 }
 
-bool LinearEquation::IsQueenAttackPath(float x, float y) {
-    bool valid_slope = slope == -1 || slope == 1 || slope == 0 || (is_vertical && x == x_intercept);
+/* is this eqn a queen attack path, and is it on this particular path */
+bool LinearEquation::IsQueenAttackPath(int x, int y) {
+    bool valid_slope = slope == -1.0 || slope == 1.0 || slope == 0.0 || (is_vertical && x == x_intercept);
     if (!valid_slope) return false;
 
     if (is_vertical) return x == x_intercept;
@@ -23,32 +24,34 @@ bool LinearEquation::IsQueenAttackPath(float x, float y) {
 }
 
 /* gets points in range (f(x_intercept), f(x)] */
-std::vector<std::tuple<float, float>> LinearEquation::GetPointsBetween(float x, float y) {
-    std::vector<std::tuple<float, float>> points = std::vector<std::tuple<float, float>>();
-    float start = x < x_intercept ? x : x_intercept;
-    float end = x <= x_intercept ? x_intercept : x;
+std::vector<std::tuple<int, int>> LinearEquation::GetPointsBetween(int x, int y) {
+    std::vector<std::tuple<int, int>> points = std::vector<std::tuple<int, int>>();
+    int start = x < x_intercept ? x : x_intercept;
+    int end = x <= x_intercept ? x_intercept : x;
 
     if (is_vertical) {
         start = y < y_intercept ? y : y_intercept;
         end = y <= y_intercept ? y_intercept : y;
 
-        for (float i = start + 1.0; i < end; ++i) {
-            points.push_back(std::tuple<float, float>(Output(i), i));
+        for (int i = start + 1; i < end; ++i) {
+            points.emplace_back(std::tuple<int, int>(Output(i), i));
+//            points.emplace_back(std::tuple<int, int>(i, Output(i)));
         }
 
-        points.push_back(std::tuple<float, float>(Output(y), y));
+        points.emplace_back(std::tuple<int, int>(Output(y), y));
+//        points.emplace_back(std::tuple<int, int>(y, Output(y)));
     } else {
-        for (float i = start + 1.0; i < end; ++i) {
-            points.push_back(std::tuple<float, float>(i, Output(i)));
+        for (int i = start + 1; i < end; ++i) {
+            points.emplace_back(std::tuple<int, int>(i, Output(i)));
         }
 
-        points.push_back(std::tuple<float, float>(x, Output(x)));
+        points.emplace_back(std::tuple<int, int>(x, Output(x)));
     }
 
     return points;
 }
 
-float LinearEquation::Output(float x) {
+int LinearEquation::Output(int x) {
     if (is_vertical) return x_intercept;
-    return slope * (x - x_intercept) + y_intercept;
+    return (int)slope * (x - x_intercept) + y_intercept;
 }

@@ -6,18 +6,18 @@
 
 class LinearEquation {
 public:
-    LinearEquation(float x1, float y1, float x2, float y2);
+    LinearEquation(int x1, int y1, int x2, int y2);
 
-    float Output(float x);
+    int Output(int x);
 
-    bool IsQueenAttackPath(float x, float y);
+    bool IsQueenAttackPath(int x, int y);
 
-    std::vector<std::tuple<float, float>> GetPointsBetween(float x, float y);
+    std::vector<std::tuple<int, int>> GetPointsBetween(int x, int y);
 
 protected:
     float slope;
-    float x_intercept;
-    float y_intercept;
+    int x_intercept;
+    int y_intercept;
     bool is_vertical = false;
 };
 

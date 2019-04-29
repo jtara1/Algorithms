@@ -150,6 +150,7 @@ std::ostringstream Board::VisualRepr() const {
         }
     }
 
+    // additional rows if there's more action history
     if (action_history.size() > BOARD_SIZE * 2) {
         auto first = action_history.begin() + BOARD_SIZE * 2;
         auto last = action_history.end();
@@ -164,7 +165,7 @@ std::ostringstream Board::VisualRepr() const {
                 ++row;
             }
             else
-                stream << std::right << std::setw(25) << row << ". " << move;
+                stream << std::right << std::setw(21) << row << ". " << move;
             ++count;
         }
     }
@@ -204,31 +205,29 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
 
     // get the linear equation from current pos, to new pos
     std::tuple<int, int> coords = BoardIndexToCoords(for_other_player ? GetOtherPlayerPos() : GetPlayerPos()); // current pos on board
-    float x = (float)std::get<1>(coords); // x for this player
-    float y = (float)std::get<0>(coords); // y for this player
-    float x2 = (float)col; // destination x
-    float y2 = (float)row; // destination y
+    int x = std::get<1>(coords); // x for this player
+    int y = std::get<0>(coords); // y for this player
+    int x2 = col; // destination x
+    int y2 = row; // destination y
 
     LinearEquation eqn = LinearEquation(x, y, x2, y2);
     if (!eqn.IsQueenAttackPath(x, y)) return false;
 
     int prev_x = x;
-    int prev_y = y;
 
-    for (std::tuple<float, float> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
-        int x = (int)std::get<1>(point);
-        int y = (int)std::get<0>(point);
+    for (std::tuple<int, int> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
+        int next_x = std::get<1>(point);
+        int next_y = std::get<0>(point);
 
         // move caused player to wrap around from right to leftt
-        if (prev_x % BOARD_SIZE - 1 == 0 && x % BOARD_SIZE == 0) return false;
+        if (prev_x % BOARD_SIZE - 1 == 0 && next_x % BOARD_SIZE == 0) return false;
         // move caused player to wrap around from left to right
-        if (prev_x % BOARD_SIZE == 0 && x % BOARD_SIZE - 1 == 0) return false;
+        if (prev_x % BOARD_SIZE == 0 && next_x % BOARD_SIZE - 1 == 0) return false;
 
-        int tile_index = CoordsToBoardIndex(x, y);
+        int tile_index = CoordsToBoardIndex(next_x, next_y);
         if (board.at((size_t)tile_index) != empty_repr) return false;
 
-        prev_x = x;
-        prev_y = y;
+        prev_x = next_x;
     }
 
     return true;
@@ -241,7 +240,7 @@ int Board::CoordsToBoardIndex(int row, int col) {
 std::tuple<int, int> Board::BoardIndexToCoords(int index) {
     int row = index / BOARD_SIZE;
     int col = index - (BOARD_SIZE * row);
-    return std::tuple<int, int>(row, col);
+    return { row, col };
 }
 
 void Board::MovePlayer(int row, int col) {
@@ -269,10 +268,14 @@ void Board::UpdateActionHistory(int pos) {
     char row_repr = char('A' + row);
     int col_repr = col + 1;
 
-    std::ostringstream stream;
-    stream << row_repr << col_repr;
+    std::string repr = std::string(&row_repr) + std::to_string(col_repr);
+    action_history.push_back(repr);
 
-    action_history.push_back(stream.str());
+//    std::ostringstream stream;
+//    stream << row_repr << col_repr;
+
+
+//    action_history.push_back(stream.str());
 }
 
 void Board::SetPlayerPos(int pos) {
@@ -298,8 +301,3 @@ char Board::GetWinnerRepr() {
 int Board::GetTurnCount() {
     return turn_count;
 }
-
-//void Board::operator=(const Board &board) {
-//    is_ai_turn = board.IsAITurn();
-//    this->board = board.GetBoard();
-//}

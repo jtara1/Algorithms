@@ -1,15 +1,17 @@
+#include <utility>
+
 #include <tuple>
 #include <iostream>
 #include <set>
 #include "headers/BoardAction.h"
 
 BoardAction::BoardAction(Board board, int start, int end, char board_repr) {
-    this->board = board;
+    this->board = std::move(board);
     board_ptr = &(this->board);
     this->start = start;
     this->end = end;
-//    if (end <= 0 || end >= 64)
-//        char temp;
+    if (end < 0 || end >= BOARD_AREA)
+        throw std::invalid_argument("BoardAction::BoardAction board player pos, end index out of range");
 }
 
 // methods
@@ -34,17 +36,16 @@ Board BoardAction::Results(bool mutate) {
  * directions: North, NorthEast, East, SouthEast, etc.
  * increments: -8, -7, +1, +9, etc
  */
-std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_player, bool get_first_action_available) {
+std::vector<BoardAction> BoardAction::Actions(Board board, bool for_other_player, bool get_first_action_available) {
     static int directions [8] = { -8, -7, 1, 9, 8, 7, -1, -9 };
 
     std::set<BoardAction> actions = std::set<BoardAction>();
-    int next_pos, prev_pos;
+    int next_pos;
     const int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
     char tile_repr = for_other_player ? board.GetOtherPlayerRepr() : board.GetPlayerRepr();
 
     for (int i = 0; i < 8; ++i) { // iter over ea direction
         next_pos = pos;
-        prev_pos = pos;
 
         for (int j = 0; j < BOARD_SIZE - 1; ++j) { // max number of moves in one direction
             next_pos += directions[i];
@@ -61,13 +62,9 @@ std::vector<BoardAction> BoardAction::Actions(Board& board, bool for_other_playe
     return actions_vector;
 }
 
-bool BoardAction::operator>=(const BoardAction &action) {
-    return score >= action.GetScore();
-}
-
-float BoardAction::GetScore() const {
-    return score;
-}
+//bool BoardAction::operator>=(const BoardAction &action) const {
+//    return score >= action.GetScore();
+//}
 
 std::ostream &operator<<(std::ostream &os, BoardAction &action) {
     std::tuple<int, int> coords = Board::BoardIndexToCoords(action.end);

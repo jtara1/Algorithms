@@ -8,6 +8,7 @@ AIAgent::AIAgent(bool is_ai_player1, float time_limit_sec) : Agent() {
 }
 
 void AIAgent::TakeTurn() {
+    std::cout << "begin AIAgent turn\n";
     BoardAction action = min_max.FindAction(state_pointer);
 
     std::cout << min_max.GetTime() << " s\n";

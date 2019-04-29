@@ -78,7 +78,10 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board board) {
     best_action_ptr = &best_action;
 
     max_depth += max_depth_step;
-    if (GetTime() - this->time_limit_padding < max_time) return AlphaBetaSearch(board);
+    if (GetTime() + this->time_limit_padding < max_time) {
+        root_actions_index = -1;
+        return AlphaBetaSearch(board);
+    }
 
     return *best_action_ptr;
 }
@@ -115,7 +118,7 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board state, IndexScoreTuple& alpha, I
         value = IndexScoreTuple::Max(value, min_value);
 
         if (value >= beta) return value;
-        beta = IndexScoreTuple::Max(alpha, value);
+        alpha = IndexScoreTuple::Max(alpha, value);
     }
 
     return value;

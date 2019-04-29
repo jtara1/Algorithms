@@ -16,16 +16,14 @@ public:
     Board Results(bool mutate = false);
 
     // static
-    static std::vector<BoardAction> Actions(Board& board, bool for_other_player = false, bool get_first_action_available = false);
+    static std::vector<BoardAction> Actions(Board board, bool for_other_player = false, bool get_first_action_available = false);
     static Board Results(Board &board, BoardAction &action, bool mutate = false);
 
     // get and set
-    void SetScore(float score);
-    float GetScore() const;
     int GetEnd() const;
 
     // ops
-    bool operator>=(const BoardAction& action);
+    bool operator>=(const BoardAction& action) const;
     bool operator<(const BoardAction& action) const;
     friend std::ostream& operator<<(std::ostream& os, BoardAction& action);
 
@@ -35,7 +33,6 @@ private:
     int end;
     Board board;
     Board* board_ptr;
-    float score = 0;
 };
 
 #endif //PROJECT_ACTION_H
