@@ -37,14 +37,15 @@ Board BoardAction::Results(bool mutate) {
  * increments: -8, -7, +1, +9, etc
  */
 std::vector<BoardAction> BoardAction::Actions(Board board, bool for_other_player, bool get_first_action_available) {
-    static int directions [8] = { -8, -7, 1, 9, 8, 7, -1, -9 };
+    static const int directions_count = 8;
+    static int directions [directions_count] = { -8, -7, 1, 9, 8, 7, -1, -9 };
 
     std::set<BoardAction> actions = std::set<BoardAction>();
     int next_pos;
     const int pos = for_other_player ? board.GetOtherPlayerPos() : board.GetPlayerPos();
     char tile_repr = for_other_player ? board.GetOtherPlayerRepr() : board.GetPlayerRepr();
 
-    for (int i = 0; i < 8; ++i) { // iter over ea direction
+    for (int i = 0; i < directions_count; ++i) { // iter over ea direction
         next_pos = pos;
 
         for (int j = 0; j < BOARD_SIZE - 1; ++j) { // max number of moves in one direction

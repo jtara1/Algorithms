@@ -26,17 +26,23 @@ Board::Board(bool ai_starts) {
 Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts) : Board(ai_starts) {
 //    ai_pos = ai_starts ? player1_pos : player2_pos;
 //    enemy_pos = ai_starts ? player2_pos : player1_pos;
+
+}
+
+Board::Board(std::array<char, BOARD_AREA> init_board, int turn_count, bool ai_starts) : Board(ai_starts) {
     is_ai_turn = ai_starts;
 
     for (int i = 0; i < init_board.size(); ++i) {
         char tile = init_board[i];
 
         if (tile == ai_repr) { // set current players pos
-            if (ai_starts) ai_pos = i;
-            else enemy_pos = i;
+            ai_pos = i;
+//            if (ai_starts) ai_pos = i;
+//            else enemy_pos = i;
         } else if (tile == enemy_repr) {
-            if (ai_starts) enemy_pos = i; // set other players pos
-            else ai_pos = i;
+            enemy_pos = i;
+//            if (ai_starts) enemy_pos = i; // set other players pos
+//            else ai_pos = i;
         }
 
         if (tile != ai_repr && tile != enemy_repr && tile != empty_repr && tile != visited_repr)
@@ -44,6 +50,7 @@ Board::Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int playe
     }
 
     board = init_board;
+    this->turn_count = turn_count;
 }
 
 bool Board::IsAITurn() const {
@@ -97,13 +104,15 @@ bool Board::IsTerminal() {
 }
 
 float Board::GetScore() {
-    const int player_actions = static_cast<const int>(BoardAction::Actions(*this, !is_ai_turn).size());
-    const int other_player_actions = static_cast<const int>(BoardAction::Actions(*this, is_ai_turn).size());
+    // if ai_turn then get current player's score
+    // if not ai_turn then get other player's score
+    const int player1_actions = static_cast<const int>(BoardAction::Actions(*this, !is_ai_turn).size());
+    const int player2_actions = static_cast<const int>(BoardAction::Actions(*this, is_ai_turn).size());
 
-    if (player_actions == 0) return -std::numeric_limits<float>::infinity();
-    if (other_player_actions == 0) return std::numeric_limits<float>::infinity();
+    if (player1_actions == 0) return -std::numeric_limits<float>::infinity();
+    if (player2_actions == 0) return std::numeric_limits<float>::infinity();
 
-    return player_actions - other_player_actions;
+    return player1_actions - player2_actions;
 }
 
 // print methods
@@ -301,3 +310,4 @@ char Board::GetWinnerRepr() {
 int Board::GetTurnCount() {
     return turn_count;
 }
+

@@ -36,6 +36,9 @@ private:
     /* increment max_depth by this amount for iterative deepening */
     int max_depth_step = 1;
 
+    /* when max depth reaches this value, exit and return the best action */
+    int exit_when_max_depth = 10000;
+
     std::clock_t clock_start;
     double max_time = 2;
 

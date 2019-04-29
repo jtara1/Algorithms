@@ -34,11 +34,13 @@ std::vector<std::tuple<int, int>> LinearEquation::GetPointsBetween(int x, int y)
         end = y <= y_intercept ? y_intercept : y;
 
         for (int i = start + 1; i < end; ++i) {
-            points.emplace_back(std::tuple<int, int>(Output(i), i));
+            auto coords = std::tuple<int, int>(Output(i), i);
+            points.emplace_back(coords);
 //            points.emplace_back(std::tuple<int, int>(i, Output(i)));
         }
 
-        points.emplace_back(std::tuple<int, int>(Output(y), y));
+        auto coords = std::tuple<int, int>(Output(y), y);
+        points.emplace_back(coords);
 //        points.emplace_back(std::tuple<int, int>(y, Output(y)));
     } else {
         for (int i = start + 1; i < end; ++i) {

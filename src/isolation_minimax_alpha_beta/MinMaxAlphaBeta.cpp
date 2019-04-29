@@ -78,7 +78,7 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board board) {
     best_action_ptr = &best_action;
 
     max_depth += max_depth_step;
-    if (GetTime() + this->time_limit_padding < max_time) {
+    if (GetTime() + this->time_limit_padding < max_time && max_depth < exit_when_max_depth) {
         root_actions_index = -1;
         return AlphaBetaSearch(board);
     }
@@ -97,7 +97,7 @@ BoardAction MinMaxAlphaBeta::AlphaBetaSearch(Board board) {
         return v
  */
 IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion) {
-    if (depth >= max_depth || state.IsTerminal()) return { root_actions_index, state.GetScore() };
+    if (depth >= max_depth || state.IsTerminal() || max_depth >= exit_when_max_depth) return { root_actions_index, state.GetScore() };
 
     IndexScoreTuple value = IndexScoreTuple::NegInf();
     ++(this->depth);
@@ -135,7 +135,7 @@ IndexScoreTuple MinMaxAlphaBeta::MaxValue(Board state, IndexScoreTuple& alpha, I
         return v
  */
 IndexScoreTuple MinMaxAlphaBeta::MinValue(Board state, IndexScoreTuple& alpha, IndexScoreTuple& beta, bool is_root_recursion) {
-    if (depth >= max_depth || state.IsTerminal()) return { root_actions_index, state.GetScore() };
+    if (depth >= max_depth || state.IsTerminal() || max_depth >= exit_when_max_depth) return { root_actions_index, state.GetScore() };
 
     IndexScoreTuple value = IndexScoreTuple::Inf();
     ++(this->depth);

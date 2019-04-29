@@ -13,6 +13,7 @@ public:
     // constructors
     Board(bool ai_starts = true);
     Board(std::array<char, BOARD_AREA> init_board, int player1_pos, int player2_pos, bool ai_starts = true);
+    Board(std::array<char, BOARD_AREA> init_board, int turn_count = 1, bool ai_starts = true);
 
     // methods
     bool IsTerminal();
