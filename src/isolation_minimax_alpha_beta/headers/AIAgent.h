@@ -13,6 +13,10 @@ public:
     MinMaxAlphaBeta min_max;
 
     std::string name = "AI Agent";
+
+private:
+    float time_limit_sec;
+    bool is_ai_player1;
 };
 
 
