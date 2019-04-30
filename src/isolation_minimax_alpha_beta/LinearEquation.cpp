@@ -1,15 +1,16 @@
 #include <limits>
+#include <math.h>
 #include "headers/LinearEquation.h"
 
 LinearEquation::LinearEquation(int x1, int y1, int x2, int y2) {
     int delta_x = x2 - x1;
 
-    if (delta_x == 0) {
-        this->is_vertical = true;
-        slope = std::numeric_limits<float>::infinity();
-    }
+    float slope = 1;
+
+    if (delta_x == 0) this->is_vertical = true;
     else slope = (y2 - y1) / (float)delta_x;
 
+    this->slope = truncf(slope);
     this->x_intercept = x1;
     this->y_intercept = y1;
 }

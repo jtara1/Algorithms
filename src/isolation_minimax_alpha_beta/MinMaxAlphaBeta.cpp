@@ -26,7 +26,7 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->state = *state_ptr;
     this->state_ptr = &(this->state);
 
-    bool pick_randomly = (*state_ptr).GetTurnCount() <= 4;
+    bool pick_randomly = (*state_ptr).GetTurnCount() <= 2;
 
     std::vector<BoardAction> quick_actions = BoardAction::Actions(state, false, !pick_randomly);
     if (quick_actions.empty()) throw std::invalid_argument("could not find any quick actions");
@@ -40,8 +40,8 @@ BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->first_available_action = quick_actions.at(0); // get first action that's found that's legal
 
     BoardAction action = AlphaBetaSearch(*(this->state_ptr));
-    std::cout << "is player 1: " << (is_ai_player1 ? "yes" : "no") << " depth: " << depth << " score: " << action.Results().GetScore() << '\n';
-    std::cout << "actions index: " << root_actions_index << " root actions size: " << (*root_actions_ptr).size() << "\n";
+    std::cout << "is player 1: " << (is_ai_player1 ? "yes" : "no") << "; depth: " << depth << "; score: " << action.Results().GetScore() << '\n';
+    std::cout << "root actions size: " << (*root_actions_ptr).size() << "; root actions index: " << root_actions_index << '\n';
 
     // reset to defaults
     Reset();
@@ -204,8 +204,8 @@ void MinMaxAlphaBeta::Reset() {
 }
 
 int MinMaxAlphaBeta::GetRandomIndex(int upper_limit) {
-    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
-//    std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
-//
-//    return (int)dist(mt);
+//    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
+    std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
+
+    return (int)dist(mt);
 }

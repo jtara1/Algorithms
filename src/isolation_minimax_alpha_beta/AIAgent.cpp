@@ -12,7 +12,7 @@ void AIAgent::TakeTurn() {
     BoardAction action = min_max.FindAction(state_pointer);
 
     std::cout << min_max.GetTime() << " s\n";
-    std::cout << action << '\n';
+    std::cout << action << '\n'; // print out where we are moving to
 
     BoardAction::Results(*state_pointer, action, true); // mutate shared ref to board
 }

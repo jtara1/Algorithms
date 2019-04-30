@@ -57,7 +57,7 @@ private:
     Board* state_ptr = nullptr;
     BoardAction first_available_action;
 
-    float time_limit_padding = 0.01;
+    float time_limit_padding = 0.1;
 
     std::mt19937 mt; // used to get random number
 };

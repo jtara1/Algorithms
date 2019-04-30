@@ -69,7 +69,7 @@ std::vector<BoardAction> BoardAction::Actions(Board board, bool for_other_player
 
 std::ostream &operator<<(std::ostream &os, BoardAction &action) {
     std::tuple<int, int> coords = Board::BoardIndexToCoords(action.end);
-    os << "row, col indices: " << std::get<1>(coords) << ", " << std::get<0>(coords) << '\n';
+    os << "moving to row, col indices: " << std::get<1>(coords) << ", " << std::get<0>(coords) << '\n';
     return os;
 }
 
