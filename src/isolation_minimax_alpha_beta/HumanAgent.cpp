@@ -29,13 +29,20 @@ void HumanAgent::TakeTurn() {
     while (true) {
         std::cout << "enter action player " << (is_player1 ? 1 : 2) << ": ";
         std::cin >> input;
+
+        if (input.size() != 2) {
+            std::cout << "invalid input, enter a letter for the row and number for the column\n";
+            continue;
+        }
+
         // take input eg: D4 -> index for board_pointer array, i = 27
         int row = rows.at(char(tolower(input[0])));
         int col = input[1] - '0' - 1;
 
+        int next_pos = state_pointer->CoordsToBoardIndex(row, col);
+
         std::cout << "player is at position: " << state_pointer->GetPlayerPos() << '\n';
-        std::cout << "attempting to move to row, col: " << row << ", " << col << '\n';
-        std::cout << state_pointer->CoordsToBoardIndex(1, 1) << '\n';
+        std::cout << "attempting to move to row, col: " << row << ", " << col << "; next pos: " << next_pos << '\n';
 
         // move player piece from spot to D4 if legal
         if (state_pointer->IsLegalMove(row, col)) {

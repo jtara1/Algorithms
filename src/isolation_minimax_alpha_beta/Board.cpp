@@ -219,21 +219,25 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
     int x2 = col; // destination x
     int y2 = row; // destination y
 
+    if (x == x2 && y == y2) return false; // not allowed to not move
+
     LinearEquation eqn = LinearEquation(x, y, x2, y2);
     if (!eqn.IsQueenAttackPath(x2, y2)) return false;
 
     int prev_x = x;
 
     for (std::tuple<int, int> point : eqn.GetPointsBetween(x2, y2)) { // includes destination pos, but excludes current pos
-        int next_x = std::get<1>(point);
-        int next_y = std::get<0>(point);
+        int next_x = std::get<0>(point);
+        int next_y = std::get<1>(point);
 
         // move caused player to wrap around from right to left
-        if (prev_x % (BOARD_SIZE - 1) == 0 && prev_x != 0 && next_x % BOARD_SIZE == 0) return false;
+        bool prev_x_is_on_right_col = prev_x == BOARD_SIZE - 1;
+        bool next_x_is_on_left_col = next_x == 0;
+        if (prev_x_is_on_right_col && next_x_is_on_left_col) return false;
 
         // move caused player to wrap around from left to right
-        bool next_x_is_on_right_col = next_x % (BOARD_SIZE - 1) == 0 && next_x != 0;
-        bool prev_x_is_on_left_col = prev_x % BOARD_SIZE == 0;
+        bool prev_x_is_on_left_col = prev_x == 0;
+        bool next_x_is_on_right_col = next_x == BOARD_SIZE - 1;
         if (prev_x_is_on_left_col && next_x_is_on_right_col) return false;
 
         int tile_index = CoordsToBoardIndex(next_x, next_y);
