@@ -1,5 +1,8 @@
+# MY IGNORES #
+
 *.csv
 src/calc_roots/bin
+bin/
 
 *.o
 *.bin
@@ -148,6 +151,8 @@ venv.bak/
 
 # CMake
 cmake-build-debug/
+CMakeFiles/
+build/
 
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
@@ -174,3 +179,37 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# C++ #
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
