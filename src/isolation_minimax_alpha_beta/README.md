@@ -1,5 +1,8 @@
 # Isolation Min-Max with Alpha-Beta Pruning
 
+isolation is a board game in which the goal is to trap your 
+opponent such that he can not move
+
 ## Requirements
 
 `cmake` via sh

@@ -37,7 +37,7 @@ private:
     int max_depth_step = 1;
 
     /* when max depth reaches this value, exit and return the best action */
-    int exit_when_max_depth = 90000;
+    int exit_when_max_depth = 10000; // needs to be 10,000 if running on macOS since size of stack is so small
 
     std::clock_t clock_start;
     double max_time = 2;
