@@ -240,7 +240,7 @@ bool Board::IsLegalMove(int row, int col, bool for_other_player) {
         bool next_x_is_on_right_col = next_x == BOARD_SIZE - 1;
         if (prev_x_is_on_left_col && next_x_is_on_right_col) return false;
 
-        int tile_index = CoordsToBoardIndex(next_x, next_y);
+        int tile_index = CoordsToBoardIndex(next_y, next_x);
         if (board.at((size_t)tile_index) != empty_repr) return false;
 
         prev_x = next_x;
