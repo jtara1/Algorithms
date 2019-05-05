@@ -12,7 +12,7 @@ public:
     UserInterface(Agent* agent1, Agent* agent2, bool agent1_goes_first);
     UserInterface(Agent* agent1, Agent* agent2, bool agent1_goes_first, Board board);
 
-    bool shouldAIGoFirst();
+    int shouldAIGoFirst();
     float askForTimeLimitForAITurn();
 
     void Start();
@@ -24,6 +24,7 @@ public:
 
 private:
     AIAgent agent1;
+    AIAgent ai_agent2;
     HumanAgent agent2;
 };
 
