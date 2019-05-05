@@ -31,13 +31,13 @@ void HumanAgent::TakeTurn() {
         std::cin >> input;
 
         if (input.size() != 2) {
-            std::cout << "invalid input, enter a letter for the row and number for the column\n";
+            std::cout << "invalid input. was given: " << input << "\nenter a letter for the row and number for the column\n";
             continue;
         }
 
         // take input eg: D4 -> index for board_pointer array, i = 27
-        int row = rows.at(char(tolower(input[0])));
-        int col = input[1] - '0' - 1;
+        int row = char(tolower(input.at(0))) - 'a';
+        int col = input.at(1) - '0' - 1;
 
         int next_pos = state_pointer->CoordsToBoardIndex(row, col);
 

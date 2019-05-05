@@ -93,7 +93,6 @@ bool Board::IsTerminal() {
         if (terminal) {
             if (current_player_lost) winner_repr = GetOtherPlayerRepr();
             else winner_repr = GetPlayerRepr();
-            std::cout << "reached terminal state\n";
             return true;
         }
 

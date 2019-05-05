@@ -12,7 +12,6 @@ class MinMaxAlphaBeta {
 public:
     MinMaxAlphaBeta(bool is_ai_player1 = true, float time_limit_sec = 2);
 
-//    BoardAction FindAction(Board& state);
     BoardAction FindAction(Board* state_ptr);
 
     double GetTime();
@@ -37,12 +36,11 @@ private:
     int max_depth_step = 1;
 
     /* when max depth reaches this value, exit and return the best action */
-    int exit_when_max_depth = 10000; // needs to be 10,000 if running on macOS since size of stack is so small
+    int exit_when_max_depth = 10000; // needs to be 10,000 if running on macOS since size of stack is forced to be so small (16 MB)
 
     std::clock_t clock_start;
     double max_time = 2;
 
-    bool started_search = false;
     bool is_ai_player1;
 
     int root_actions_index = -1;
@@ -57,7 +55,7 @@ private:
     Board* state_ptr = nullptr;
     BoardAction first_available_action;
 
-    float time_limit_padding = 0.1;
+    float time_limit_padding = 0.05;
 
     std::mt19937 mt; // used to get random number
 };

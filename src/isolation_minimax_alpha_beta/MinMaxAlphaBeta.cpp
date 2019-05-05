@@ -21,7 +21,6 @@ MinMaxAlphaBeta::MinMaxAlphaBeta(bool is_ai_player1, float time_limit_sec) {
 
 BoardAction MinMaxAlphaBeta::FindAction(Board* state_ptr) {
     this->clock_start = std::clock();
-    this->started_search = true;
 
     this->state = *state_ptr;
     this->state_ptr = &(this->state);
@@ -173,10 +172,8 @@ BoardAction MinMaxAlphaBeta::GetRootAction(int index, bool previous_call_failed)
         bool in_range = index >= 0 && index < (*root_actions_ptr).size();
 
         if (!in_range && !previous_call_failed) {
-//            std::cout << "warning: attempt choosing random action; index = " << index << " root actions size: " << (*root_actions_ptr).size() << std::endl;
             return GetRootAction(index, true); // attempt to pick a random root action
         } else if (!in_range) { // not in range and previous method call failed
-//            std::cout << "warning: quickest action chosen; index = " << index << " root actions size: " << (*root_actions_ptr).size() <<std::endl;
             return first_available_action; // could not create root actions
         }
 
@@ -199,12 +196,9 @@ void MinMaxAlphaBeta::Reset() {
     root_actions_index = -1;
     root_actions_ptr = nullptr;
     root_actions = std::vector<BoardAction>();
-
-    started_search = false;
 }
 
 int MinMaxAlphaBeta::GetRandomIndex(int upper_limit) {
-//    return std::rand() / ((RAND_MAX + 1u) / upper_limit);
     std::uniform_real_distribution<double> dist(0.0, (float)upper_limit);
 
     return (int)dist(mt);

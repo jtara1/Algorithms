@@ -11,12 +11,12 @@ int main() {
 //    HumanAgent a1 = HumanAgent();
 
 //    HumanAgent a2 = HumanAgent();
-//    AIAgent a1 = AIAgent(); // player 1
-//    AIAgent a2 = AIAgent(false); // player 2
+    AIAgent a1 = AIAgent(); // player 1
+    AIAgent a2 = AIAgent(false); // player 2
 //
-//    UserInterface ui = UserInterface(&a1, &a2, true);
+    UserInterface ui = UserInterface(&a1, &a2, true);
 
-    UserInterface ui = UserInterface();
+//    UserInterface ui = UserInterface();
     ui.Start();
 
     return 0;
